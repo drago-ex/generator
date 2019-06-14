@@ -1,6 +1,6 @@
 ## Drago Generator
 
-Generate entity form database.
+Generating entity from database.
 
 ## Requirements
 
