@@ -39,7 +39,7 @@ class GeneratorCommand extends Command
 	{
 		$this
 			->setName('generate:entity')
-			->setDescription('Entity Generator from Database.')
+			->setDescription('Generating entity from database.')
 			->addArgument('table', InputArgument::OPTIONAL);
 	}
 
