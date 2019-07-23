@@ -11,7 +11,7 @@
 	],
 	"require": {
 		"php": ">=7.1",
-		"contributte/console": "^3.0",
+		"contributte/console": "^0.7",
 		"doctrine/inflector": "^3.0",
 		"nette/utils": "^3.0",
 		"drago-ex/database": "^2.0"
