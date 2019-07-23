@@ -30,7 +30,7 @@ More options can be found in: Drago\Generator\Options
 
 ## CLI
 
-```
+```php
 #!/usr/bin/env php
 <?php
 
