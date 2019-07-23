@@ -49,11 +49,13 @@ exit($app->run());
 
 ## Commands
 
+Generate all tables.
+
 ```
 generate:entity
 ```
 
-or
+Generate a specific table.
 
 ```
 generate:entity table
