@@ -19,11 +19,6 @@ composer require drago-ex/generator
 extensions:
     console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
     generator: Drago\Generator\DI\GeneratorExtension
-
-# generating entity from database
-generator:
-    path: %appDir%/Model/Entity
-    namespace: App\Model\Entity
 ```
 
 We can determine the database from which we will generate entities.
@@ -33,8 +28,13 @@ extensions:
     generator: Drago\Generator\DI\GeneratorExtension(@database)
 ```
 
+Settings for generating entities. All settings can be found in the class: **Drago\Generator\Options**
 
-More options can be found in: Drago\Generator\Options
+```
+generator:
+    path: %appDir%/Model/Entity
+    namespace: App\Model\Entity
+```
 
 ## CLI
 
