@@ -12,3 +12,17 @@ Generating entity from database.
 ```
 composer require drago-ex/generator
 ```
+
+## Configuration
+
+```
+extensions:
+    generator: Drago\Generator\DI\GeneratorExtension
+
+# entity generator
+generator:
+    path: %appDir%/Model/Entity
+    namespace: App\Model\Entity
+```
+
+More options can be found in: Drago\Generator\Options
