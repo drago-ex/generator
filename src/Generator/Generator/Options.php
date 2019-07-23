@@ -30,7 +30,7 @@ class Options
 	public $constant = 	true;
 
 	/** @var bool add attributes to the entity */
-	public $attribute = true;
+	public $attribute = 	true;
 
 	/** @var bool add the getter method */
 	public $getter = 	true;
