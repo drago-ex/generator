@@ -21,7 +21,7 @@ class Options
 	public $suffix = 'Entity';
 
 	/** @var string parent for entity */
-	public $extends = Drago\Database\Entity::class;
+	public $extends = \Drago\Database\Entity::class;
 
 	/** @var string namespace for entity */
 	public $namespace = 'App\\Model\\Entity';
