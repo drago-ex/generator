@@ -17,6 +17,7 @@ composer require drago-ex/generator
 
 ```
 extensions:
+    console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
     generator: Drago\Generator\DI\GeneratorExtension
 
 # entity generator
