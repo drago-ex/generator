@@ -26,6 +26,14 @@ generator:
     namespace: App\Model\Entity
 ```
 
+We can determine the database from which we will generate entities.
+
+```
+extensions:
+    generator: Drago\Generator\DI\GeneratorExtension(@database)
+```
+
+
 More options can be found in: Drago\Generator\Options
 
 ## CLI
