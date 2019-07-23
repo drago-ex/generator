@@ -42,17 +42,14 @@ generator:
 #!/usr/bin/env php
 <?php
 
+declare(strict_types = 1);
+
 require __DIR__ . '/vendor/autoload.php';
 
-$bootstrap = App\Bootstrap::boot();
-
-// Run symfony application.
-$app = $bootstrap
+exit(App\Bootstrap::boot()
     ->createContainer()
-    ->getByType(Contributte\Console\Application::class);
-
-// Ensure exit codes
-exit($app->run());
+    ->getByType(Contributte\Console\Application::class)
+    ->run());
 ```
 
 ## Commands
