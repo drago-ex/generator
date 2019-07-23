@@ -46,3 +46,15 @@ $app = $bootstrap
 // Ensure exit codes
 exit($app->run());
 ```
+
+## Commands
+
+```
+generate:entity
+```
+
+or
+
+```
+generate:entity table
+```
