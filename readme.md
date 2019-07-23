@@ -20,7 +20,7 @@ extensions:
     console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
     generator: Drago\Generator\DI\GeneratorExtension
 
-# entity generator
+# generating entity from database
 generator:
     path: %appDir%/Model/Entity
     namespace: App\Model\Entity
