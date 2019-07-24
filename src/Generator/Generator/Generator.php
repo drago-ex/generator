@@ -155,7 +155,7 @@ class Generator
 			if ($options->setter) {
 				$entity
 					->addMethod('set' . Inflector::classify($column))
-					->addBody($this->addField($column, '$this[\'__FIELD__'\] = $var;'))
+					->addBody($this->addField($column, '$this[\'__FIELD__\'] = $var;'))
 					->setVisibility('public')
 					->addParameter('var')
 					->setTypeHint($columnType)
