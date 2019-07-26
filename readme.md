@@ -18,14 +18,7 @@ composer require drago-ex/generator
 ```
 extensions:
     console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
-    generator: Drago\Generator\DI\GeneratorExtension
-```
-
-We can determine the database from which we will generate entities.
-
-```
-extensions:
-    generator: Drago\Generator\DI\GeneratorExtension(@database)
+    generator: Drago\Generator\DI\GeneratorExtension(@dibi.connection)
 ```
 
 Settings for generating entities. All settings can be found in the class: **Drago\Generator\Options**
