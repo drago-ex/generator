@@ -24,6 +24,12 @@ extensions:
 Settings for generating entities. All settings can be found in the class: **Drago\Generator\Options**
 
 ```
+console:
+    name: Symfony Console
+    catchExceptions: false
+    autoExit: false
+    lazy: false
+
 generator:
     path: %appDir%/Model/Entity
     namespace: App\Model\Entity
