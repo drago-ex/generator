@@ -27,7 +27,7 @@ class GeneratorExtension extends CompilerExtension
 	private $service;
 
 
-	public function __construct($service = null)
+	public function __construct($service)
 	{
 		$this->service = $service;
 	}
