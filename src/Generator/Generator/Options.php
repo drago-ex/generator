@@ -27,17 +27,20 @@ class Options
 	public $namespace = 'App\\Model\\Entity';
 
 	/** @var bool add property */
-	public $property = true;
+	public $property =	true;
 
 	/** @var bool add constant to the entity */
-	public $constant = true;
+	public $constant =	true;
 
 	/** @var bool add attributes to the entity */
-	public $attribute = true;
+	public $attribute =	true;
 
 	/** @var bool add the getter method */
-	public $getter = true;
+	public $getter =	true;
 
 	/** @var bool add the setter method */
-	public $setter = true;
+	public $setter =	true;
+
+	/** @var bool enable capitalization of table name  */
+	public $upper =		false
 }
