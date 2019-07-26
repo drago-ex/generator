@@ -42,5 +42,5 @@ class Options
 	public $setter =	true;
 
 	/** @var bool enable capitalization of table name  */
-	public $upper =		false
+	public $upper =		false;
 }
