@@ -15,7 +15,7 @@ composer require drago-ex/generator
 
 ## Configuration
 
-```
+```yaml
 extensions:
     console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
     generator: Drago\Generator\DI\GeneratorExtension(@dibi.connection)
