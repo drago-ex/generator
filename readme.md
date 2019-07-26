@@ -23,7 +23,7 @@ extensions:
 
 Settings for generating entities. All settings can be found in the class: **Drago\Generator\Options**
 
-```
+```yaml
 console:
     name: Symfony Console
     catchExceptions: false
