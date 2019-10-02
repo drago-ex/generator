@@ -19,7 +19,6 @@ use Nette\Utils\Strings;
 
 /**
  * Generator entity.
- * @package Drago\Generator
  */
 class Generator
 {
