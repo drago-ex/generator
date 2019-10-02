@@ -17,7 +17,6 @@ use Drago\Database\Connection;
 
 /**
  * Get table names ant types from database.
- * @package Drago\Generator\Entity
  */
 class Repository extends Connection
 {
