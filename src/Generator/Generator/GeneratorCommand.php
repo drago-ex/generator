@@ -17,7 +17,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Command for generate entity.
- * @package Drago\Generator
  */
 class GeneratorCommand extends Command
 {
