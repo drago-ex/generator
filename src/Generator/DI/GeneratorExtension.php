@@ -18,7 +18,6 @@ use Nette\Schema\Expect;
 
 /**
  * Register services for generator.
- * @package Drago\Generator
  */
 class GeneratorExtension extends CompilerExtension
 {
