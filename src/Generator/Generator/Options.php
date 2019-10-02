@@ -10,7 +10,6 @@ namespace Drago\Generator;
 
 /**
  * Options for generate entity.
- * @package Drago\Generator
  */
 class Options
 {
