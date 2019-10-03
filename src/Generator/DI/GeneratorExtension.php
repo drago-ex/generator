@@ -6,6 +6,7 @@ declare(strict_types = 1);
  * Drago Extension
  * Package built on Nette Framework
  */
+
 namespace Drago\Generator\DI;
 
 use Drago\Generator\Generator;
@@ -13,8 +14,8 @@ use Drago\Generator\GeneratorCommand;
 use Drago\Generator\Options;
 use Drago\Generator\Repository;
 use Nette\DI\CompilerExtension;
-use Nette\Schema\Processor;
 use Nette\Schema\Expect;
+use Nette\Schema\Processor;
 
 /**
  * Register services for generator.
@@ -35,20 +36,17 @@ class GeneratorExtension extends CompilerExtension
 	public function loadConfiguration(): void
 	{
 		$options = new Options();
-		$processor  = new Processor();
+		$processor = new Processor();
 		$normalized = $processor->process(Expect::from($options), $this->config);
 
 		$builder = $this->getContainerBuilder();
-		$builder
-			->addDefinition($this->prefix('Generator'))
+		$builder->addDefinition($this->prefix('Generator'))
 			->setFactory(Generator::class, ['options' => $normalized]);
 
-		$builder
-			->addDefinition($this->prefix('Repository'))
+		$builder->addDefinition($this->prefix('Repository'))
 			->setFactory(Repository::class, [$this->service]);
 
-		$builder
-			->addDefinition($this->prefix('GeneratorCommand'))
+		$builder->addDefinition($this->prefix('GeneratorCommand'))
 			->setFactory(GeneratorCommand::class);
 	}
 }

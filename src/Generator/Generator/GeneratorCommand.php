@@ -6,9 +6,9 @@ declare(strict_types = 1);
  * Drago Extension
  * Package built on Nette Framework
  */
+
 namespace Drago\Generator;
 
-use Dibi;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -36,8 +36,7 @@ class GeneratorCommand extends Command
 	 */
 	protected function configure(): void
 	{
-		$this
-			->setName('generate:entity')
+		$this->setName('generate:entity')
 			->setDescription('Generating entity from database.')
 			->addArgument('table', InputArgument::OPTIONAL);
 	}
@@ -45,12 +44,10 @@ class GeneratorCommand extends Command
 
 	/**
 	 * Executes the current command.
-	 * @throws Dibi\Exception
+	 * @throws \Dibi\Exception
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output): void
 	{
-		$this
-			->generator
-			->runGenerate($input->getArgument('table'));
+		$this->generator->runGenerate($input->getArgument('table'));
 	}
 }

@@ -6,9 +6,9 @@ declare(strict_types = 1);
  * Drago Extension
  * Package built on Nette Framework
  */
+
 namespace Drago\Generator;
 
-use Dibi;
 use Dibi\Reflection\Column;
 use Dibi\Reflection\Database;
 use Dibi\Reflection\Table;
@@ -25,19 +25,20 @@ class Repository extends Connection
 	 */
 	private function getDatabaseInfo(): Database
 	{
-		$database = $this->db->getDatabaseInfo();
+		$database = $this->db
+			->getDatabaseInfo();
+
 		return $database;
 	}
 
 
 	/**
 	 * Get table information.
-	 * @throws Dibi\Exception
+	 * @throws \Dibi\Exception
 	 */
 	private function getTable(string $name): Table
 	{
-		$table = $this
-			->getDatabaseInfo()
+		$table = $this->getDatabaseInfo()
 			->getTable($name);
 
 		return $table;
@@ -49,8 +50,7 @@ class Repository extends Connection
 	 */
 	public function getTableNames(): array
 	{
-		$tables = $this
-			->getDatabaseInfo()
+		$tables = $this->getDatabaseInfo()
 			->getTableNames();
 
 		return $tables;
@@ -59,12 +59,11 @@ class Repository extends Connection
 
 	/**
 	 * Get all columns names from table.
-	 * @throws Dibi\Exception
+	 * @throws \Dibi\Exception
 	 */
 	public function getColumns(string $table): array
 	{
-		$columns = $this
-			->getTable($table)
+		$columns = $this->getTable($table)
 			->getColumnNames();
 
 		return $columns;
@@ -73,12 +72,11 @@ class Repository extends Connection
 
 	/**
 	 * Get all column information.
-	 * @throws Dibi\Exception
+	 * @throws \Dibi\Exception
 	 */
 	public function getColumnInfo(string $table, string $column): Column
 	{
-		$column = $this
-			->getTable($table)
+		$column = $this->getTable($table)
 			->getColumn($column);
 
 		return $column;

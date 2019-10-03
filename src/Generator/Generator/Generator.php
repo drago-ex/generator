@@ -6,10 +6,9 @@ declare(strict_types = 1);
  * Drago Extension
  * Package built on Nette Framework
  */
+
 namespace Drago\Generator;
 
-use Dibi;
-use Exception;
 use Doctrine\Common\Inflector\Inflector;
 use Nette\PhpGenerator\PhpFile;
 use Nette\SmartObject;
@@ -40,7 +39,7 @@ class Generator
 
 	/**
 	 * Run entity generate.
-	 * @throws Dibi\Exception
+	 * @throws \Dibi\Exception
 	 */
 	public function runGenerate(?string $table = null): void
 	{
@@ -67,7 +66,6 @@ class Generator
 	private function getColumnType(): array
 	{
 		$arr = [
-
 			'int' => 'int', 'smallint' => 'int', 'mediumint' => 'int', 'bigint' => 'int', 'number' => 'int',
 			'float' => 'float', 'decimal' => 'float',
 			'bit' => 'bool', 'binary' => 'bool',
@@ -78,12 +76,12 @@ class Generator
 
 	/**
 	 * Creating entity.
-	 * @throws Dibi\Exception
-	 * @throws Exception
+	 * @throws \Dibi\Exception
+	 * @throws \Exception
 	 */
 	private function createEntity(string $table): void
 	{
-		$php = new PhpFile();
+		$php = new PhpFile;
 
 		// Preventive measures convert to lowercase.
 		$table = Strings::lower($table);
@@ -117,8 +115,7 @@ class Generator
 			$columnType = Arrays::get($this->getColumnType(), $columnType, 'string');
 
 			// Add the extend and the table constant to the entity.
-			$entity
-				->setExtends($options->extends)
+			$entity->setExtends($options->extends)
 				->addConstant('TABLE', $options->upper ? Strings::upper($table) : $table);
 
 			// Add property annotation to entity class.
@@ -134,16 +131,14 @@ class Generator
 
 			// Add attributes to the entity.
 			if ($options->attribute) {
-				$entity
-					->addProperty($column)
+				$entity->addProperty($column)
 					->setVisibility('protected')
 					->addComment('@var ' . $columnType);
 			}
 
 			// Add the getter method.
 			if ($options->getter) {
-				$entity
-					->addMethod('get' . Inflector::classify($column))
+				$entity->addMethod('get' . Inflector::classify($column))
 					->setVisibility('public')
 					->setReturnType($columnType)
 					->setReturnNullable($columnInfo->isNullable())
@@ -152,15 +147,13 @@ class Generator
 
 			// Add the setter method.
 			if ($options->setter) {
-				$entity
-					->addMethod('set' . Inflector::classify($column))
+				$entity->addMethod('set' . Inflector::classify($column))
 					->addBody($this->addField($column, '$this[\'__FIELD__\'] = $var;'))
 					->setVisibility('public')
 					->addParameter('var')
 					->setTypeHint($columnType)
 					->setNullable($columnInfo->isNullable());
 			}
-
 		}
 
 		$file = $options->path . '/' . $name . '.php';
@@ -181,12 +174,12 @@ class Generator
 
 	/**
 	 * Check column names for parentheses.
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private function addValidateColumn(string $table, string $column)
 	{
 		if (Strings::contains($column, '(')) {
-			throw new Exception('Bad column name ' . $column . ' for table ' .
+			throw new \Exception('Bad column name ' . $column . ' for table ' .
 				$table . ', please change the name or use AS');
 		}
 	}
