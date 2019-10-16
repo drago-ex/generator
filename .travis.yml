@@ -15,7 +15,7 @@ install:
   - composer install --no-interaction --prefer-source
 
 script:
-  - vendor/bin/tester -c tests tests -s
+  - vendor/bin/tester tests -s
 
 jobs:
   include:
@@ -30,7 +30,7 @@ jobs:
       install:
         - travis_retry composer create-project nette/coding-standard temp/coding-standard ^2 --no-progress
       script:
-        - php temp/coding-standard/ecs check src --config temp/coding-standard/coding-standard-php71.yml
+        - php temp/coding-standard/ecs check src tests --config temp/coding-standard/coding-standard-php71.yml
 
 
     - stage: Code Coverage
