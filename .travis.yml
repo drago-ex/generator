@@ -15,7 +15,7 @@ install:
   - composer install --no-interaction --prefer-source
 
 script:
-  - vendor/bin/tester -c tests/php.ini tests -s
+  - vendor/bin/tester -c tests tests -s
 
 jobs:
   include:
