@@ -3,27 +3,31 @@ php:
   - 7.2
   - 7.3
 
+services:
+  - mysql
+
 before_install:
+  - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS test;'
+  - mysql -u root test < tests/db.sql
   - composer self-update
 
 install:
   - composer install --no-interaction --prefer-source
 
 script:
-  - echo "skipping tests"
+  - vendor/bin/tester -c tests/php.ini tests -s
 
 jobs:
   include:
+    - name: Nette Code Checker
+      install:
+        - travis_retry composer create-project nette/code-checker temp/code-checker ^3 --no-progress
+      script:
+        - php temp/code-checker/code-checker --strict-types
 
-    -   name: Nette Code Checker
-        install:
-          - travis_retry composer create-project nette/code-checker temp/code-checker ^3 --no-progress
-        script:
-          - php temp/code-checker/code-checker --strict-types
 
-
-    -   name: Nette Coding Standard
-        install:
-          - travis_retry composer create-project nette/coding-standard temp/coding-standard ^2 --no-progress
-        script:
-          - php temp/coding-standard/ecs check src --config temp/coding-standard/coding-standard-php71.yml
+    - name: Nette Coding Standard
+      install:
+        - travis_retry composer create-project nette/coding-standard temp/coding-standard ^2 --no-progress
+      script:
+        - php temp/coding-standard/ecs check src --config temp/coding-standard/coding-standard-php71.yml

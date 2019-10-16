@@ -101,9 +101,6 @@ class Generator
 		$columns = $this->repository->getColumns($table);
 		foreach ($columns as $key => $column) {
 
-			// Preventive measures convert to lowercase.
-			$column = Strings::lower($column);
-
 			// Check column names for parentheses.
 			$this->addValidateColumn($table, $column);
 

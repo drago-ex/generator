@@ -12,13 +12,13 @@ namespace Drago\Generator;
 use Dibi\Reflection\Column;
 use Dibi\Reflection\Database;
 use Dibi\Reflection\Table;
-use Drago\Database\Connection;
+use Drago\Database\Connect;
 
 
 /**
  * Get table names ant types from database.
  */
-class Repository extends Connection
+class Repository extends Connect
 {
 	/**
 	 * Get database info.
