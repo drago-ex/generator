@@ -6,6 +6,7 @@ extensions:
 
 dibi:
 	host: localhost
+	driver: mysqli
 	username: root
 	password:
 	database: test
