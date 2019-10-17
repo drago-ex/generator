@@ -33,6 +33,7 @@ class GeneratorExtension extends TestCaseAbstract
 						username: root
 						password:
 						database: test
+						lazy: true
 					])
 			', 'neon'));
 			$compiler->addExtension('generator', new \Drago\Generator\DI\GeneratorExtension);
