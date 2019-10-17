@@ -27,11 +27,11 @@ class GeneratorExtension extends TestCaseAbstract
 			services:
 				dibi.connection:
 					factory: Dibi\Connection([
+						driver: mysqli
 						host: 127.0.0.1
 						username: root
 						password:
 						database: test
-						driver: mysqli
 					])
 			', 'neon'));
 			$compiler->addExtension('generator', new \Drago\Generator\DI\GeneratorExtension);
