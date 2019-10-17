@@ -28,7 +28,11 @@ function connect()
 test(function () {
 	$repository = new Repository(connect());
 
-	Assert::equal([0 => 'test'], $repository->getTableNames());
+	Assert::equal([
+		0 => 'error',
+		1 => 'test'
+	], $repository->getTableNames());
+
 	Assert::equal([
 		0 => 'sampleId',
 		1 => 'sampleString',

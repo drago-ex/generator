@@ -38,5 +38,7 @@ test(function () {
 
 	$generator = new Generator($repository, $options);
 	Assert::null($generator->runGenerate('test'));
-	Assert::null($generator->runGenerate());
+	Assert::exception(function () use ($generator) {
+		$generator->runGenerate();
+	}, \Exception::class, 'Bad column name error(bracket) for table error, please change the name or use AS');
 });

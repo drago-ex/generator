@@ -52,7 +52,6 @@ class Generator
 				// Generate all entity.
 				$this->createEntity($name);
 			}
-			return;
 		}
 
 		// Generate one entity.
