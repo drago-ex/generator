@@ -1,0 +1,23 @@
+extensions:
+	dibi: Dibi\Bridges\Nette\DibiExtension22
+	console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
+	generator: Drago\Generator\DI\GeneratorExtension
+
+
+dibi:
+	host: localhost
+	username: root
+	password:
+	database: test
+
+
+console:
+	name: Symfony Console
+	catchExceptions: false
+	autoExit: false
+	lazy: false
+
+
+generator:
+	path: %appDir%/Model/Entity
+	namespace: App\Model\Entity
