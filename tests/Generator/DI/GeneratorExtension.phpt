@@ -28,7 +28,7 @@ class GeneratorExtension extends TestCaseAbstract
 			services:
 				dibi.connection:
 					factory: Dibi\Connection([
-						driver: mysql
+						driver: mysqli
 						host: 127.0.0.1
 						username: root
 						password:
