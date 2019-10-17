@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 namespace Test\Generator;
+
 use Drago\Generator\Generator;
 use Nette\DI\Compiler;
 use Nette\DI\Container;
