@@ -10,6 +10,7 @@ dibi:
 	username: root
 	password:
 	database: test
+	lazy: true
 
 
 console:
