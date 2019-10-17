@@ -36,7 +36,7 @@ class GeneratorExtension extends TestCaseAbstract
 						lazy: true
 					])
 			', 'neon'));
-			$compiler->addExtension('generator', new \Drago\Generator\DI\GeneratorExtension);
+			$compiler->addExtension('generator', new \Drago\Generator\DI\GeneratorExtension('@dibi.connection'));
 		});
 		return new $class;
 	}
