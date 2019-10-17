@@ -27,7 +27,7 @@ class GeneratorExtension extends TestCaseAbstract
 			services:
 				dibi.connection:
 					factory: Dibi\Connection([
-						host: localhost
+						host: 127.0.0.1
 						username: root
 						password:
 						database: test
