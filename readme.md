@@ -13,6 +13,7 @@ Generating entity from database.
 [![PHP version](https://badge.fury.io/ph/drago-ex%2Fgenerator.svg)](https://badge.fury.io/ph/drago-ex%2Fgenerator)
 [![Build Status](https://travis-ci.org/drago-ex/generator.svg?branch=master)](https://travis-ci.org/drago-ex/generator)
 [![CodeFactor](https://www.codefactor.io/repository/github/drago-ex/generator/badge)](https://www.codefactor.io/repository/github/drago-ex/generator)
+[![Coverage Status](https://coveralls.io/repos/github/drago-ex/generator/badge.svg?branch=master)](https://coveralls.io/github/drago-ex/generator?branch=master)
 
 ## Requirements
 
