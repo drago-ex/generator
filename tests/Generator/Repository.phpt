@@ -30,7 +30,7 @@ test(function () {
 
 	Assert::equal([
 		0 => 'error',
-		1 => 'test'
+		1 => 'test',
 	], $repository->getTableNames());
 
 	Assert::equal([
