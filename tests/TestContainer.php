@@ -2,13 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Test;
+namespace Tests;
 
 use Nette\DI\Container;
 use Tester\TestCase;
 
 
-abstract class TestCaseAbstract extends TestCase
+abstract class TestContainer extends TestCase
 {
 	/** @var Container */
 	protected $container;

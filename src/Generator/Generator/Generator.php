@@ -175,8 +175,8 @@ class Generator
 	private function addValidateColumn(string $table, string $column)
 	{
 		if (Strings::contains($column, '(')) {
-			throw new \Exception('Bad column name ' . $column . ' for table ' .
-				$table . ', please change the name or use AS');
+			throw new \Exception('Wrong column name ' . $column . ' in table ' .
+				$table . ', change name or use AS');
 		}
 	}
 }

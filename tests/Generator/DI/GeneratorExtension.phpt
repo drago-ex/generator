@@ -8,14 +8,14 @@ use Drago\Generator\Generator;
 use Nette\DI\Compiler;
 use Nette\DI\Container;
 use Nette\DI\ContainerLoader;
-use Test\TestCaseAbstract;
 use Tester\Assert;
 use Tester\FileMock;
+use Tests\TestContainer;
 
 $container = require __DIR__ . '/../../bootstrap.php';
 
 
-class GeneratorExtension extends TestCaseAbstract
+class GeneratorExtension extends TestContainer
 {
 	private function createContainer(): Container
 	{

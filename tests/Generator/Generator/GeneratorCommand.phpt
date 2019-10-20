@@ -31,5 +31,6 @@ test(function () {
 	$repository = new Repository(connect());
 	$generator = new Generator($repository, new Options);
 	$command = new GeneratorCommand($generator);
+
 	Assert::type(GeneratorCommand::class, $command);
 });
