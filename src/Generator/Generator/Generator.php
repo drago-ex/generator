@@ -41,7 +41,7 @@ class Generator
 	 * Run entity generate.
 	 * @throws \Dibi\Exception
 	 */
-	public function runGenerate(?string $table = null): void
+	public function runGenerate(?string $table): void
 	{
 		if ($table === null) {
 
@@ -52,6 +52,7 @@ class Generator
 				// Generate all entity.
 				$this->createEntity($name);
 			}
+			return;
 		}
 
 		// Generate one entity.
