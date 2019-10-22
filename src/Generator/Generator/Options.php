@@ -28,6 +28,9 @@ class Options
 
 	/** @var  bool  add property */
 	public $property = true;
+	
+	/** @var  string  add visibility property */
+	public $propertyVisibility = 'public';
 
 	/** @var  bool  add constant to the entity */
 	public $constant = true;
