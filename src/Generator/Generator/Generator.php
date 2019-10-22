@@ -129,7 +129,7 @@ class Generator
 			// Add attributes to the entity.
 			if ($options->attribute) {
 				$entity->addProperty($column)
-					->setVisibility('protected')
+					->setVisibility($options->propertyVisibility)
 					->addComment('@var ' . $columnType);
 			}
 
