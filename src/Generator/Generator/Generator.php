@@ -41,7 +41,7 @@ class Generator
 	 * Run entity generate.
 	 * @throws \Dibi\Exception
 	 */
-	public function runGenerate(?string $table): void
+	public function runGenerate(?string $table = null): void
 	{
 		if ($table === null) {
 
