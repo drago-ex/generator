@@ -15,7 +15,7 @@ namespace Drago\Generator;
 class Types
 {
 	const
-		TEXT = 'string',
+		STRING = 'string',
 		BINARY = 'resource',
 		BOOL = 'bool',
 		INTEGER = 'int',
@@ -28,7 +28,7 @@ class Types
 	{
 		$pattern = [
 			'BYTEA|BLOB|BIN' => self::BINARY,
-			'TEXT|CHAR|POINT|INTERVAL|STRING' => self::TEXT,
+			'TEXT|CHAR|POINT|INTERVAL|STRING' => self::STRING,
 			'YEAR|BYTE|COUNTER|SERIAL|INT|LONG|SHORT' => self::INTEGER,
 			'CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => self::FLOAT,
 			'BOOL|BIT' => self::BOOL,
