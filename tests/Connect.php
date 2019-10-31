@@ -12,7 +12,7 @@ class Connect
 	/**
 	 * @throws \Dibi\Exception
 	 */
-	function mysql(): Connection
+	public function mysql(): Connection
 	{
 		$db = [
 			'driver' => 'mysqli',
@@ -28,7 +28,7 @@ class Connect
 	/**
 	 * @throws \Dibi\Exception
 	 */
-	function oracle(): Connection
+	public function oracle(): Connection
 	{
 		$db = [
 			'driver' => 'oracle',
