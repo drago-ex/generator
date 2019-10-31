@@ -12,7 +12,6 @@ namespace Drago\Generator;
 use Doctrine\Common\Inflector\Inflector;
 use Nette\PhpGenerator\PhpFile;
 use Nette\SmartObject;
-use Nette\Utils\Arrays;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 
