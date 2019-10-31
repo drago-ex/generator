@@ -61,20 +61,6 @@ class Generator
 
 
 	/**
-	 * Convert database types to php.
-	 */
-	private function getColumnType(): array
-	{
-		$arr = [
-			'int' => 'int', 'smallint' => 'int', 'mediumint' => 'int', 'bigint' => 'int', 'number' => 'int',
-			'float' => 'float', 'decimal' => 'float',
-			'bit' => 'bool', 'binary' => 'bool',
-		];
-		return $arr;
-	}
-
-
-	/**
 	 * Creating entity.
 	 * @throws \Dibi\Exception
 	 * @throws \Exception
@@ -108,8 +94,7 @@ class Generator
 			$columnInfo = $this->repository->getColumnInfo($table, $column);
 
 			// Get column type.
-			$columnType = Strings::lower($columnInfo->getNativeType());
-			$columnType = Arrays::get($this->getColumnType(), $columnType, 'string');
+			$columnType = Strings::lower(Types::detectType($columnInfo->getNativeType()));
 
 			// Add the extend and the table constant to the entity.
 			$entity->setExtends($options->extends)
@@ -173,7 +158,7 @@ class Generator
 	 * Check column names for parentheses.
 	 * @throws \Exception
 	 */
-	private function addValidateColumn(string $table, string $column)
+	private function addValidateColumn(string $table, string $column): void
 	{
 		if (Strings::contains($column, '(')) {
 			throw new \Exception('Wrong column name ' . $column . ' in table ' .
