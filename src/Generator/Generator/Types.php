@@ -14,7 +14,7 @@ namespace Drago\Generator;
  */
 class Types
 {
-	public const
+	const
 		TEXT = 'string',
 		BINARY = 'resource',
 		BOOL = 'bool',
