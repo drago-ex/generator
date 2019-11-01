@@ -15,7 +15,7 @@ namespace Drago\Generator;
 class Types
 {
 	public const
-		STRING = 'string',
+		TEXT = 'string',
 		BINARY = 'resource',
 		BOOL = 'bool',
 		INTEGER = 'int',
@@ -28,7 +28,7 @@ class Types
 	{
 		$pattern = [
 			'BYTEA|BLOB|BIN' => self::BINARY,
-			'TEXT|CHAR|POINT|INTERVAL|STRING' => self::STRING,
+			'TEXT|CHAR|POINT|INTERVAL|STRING' => self::TEXT,
 			'YEAR|BYTE|COUNTER|SERIAL|INT|LONG|SHORT' => self::INTEGER,
 			'CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => self::FLOAT,
 			'BOOL|BIT' => self::BOOL,
@@ -37,9 +37,9 @@ class Types
 		];
 		foreach ($pattern as $s => $val) {
 			if (preg_match("#$s#i", $type)) {
-				return $val;
+				$item = $val;
 			}
 		}
-		return null;
+		return isset($item) ? $item : null;
 	}
 }
