@@ -40,6 +40,6 @@ class Types
 				$item = $val;
 			}
 		}
-		return isset($item) ? $item : null;
+		return $item ?? null;
 	}
 }
