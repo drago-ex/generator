@@ -42,7 +42,12 @@ class Generator
 	 */
 	public function runGenerate(?string $table = null): void
 	{
-		if ($table === null) {
+		if ($table !== null) {
+
+			// Generate one entity by table name.
+			$this->createEntity($table);
+
+		} else {
 
 			// Get all table names.
 			$tables = $this->repository->getTableNames();
@@ -51,11 +56,7 @@ class Generator
 				// Generate all entity.
 				$this->createEntity($name);
 			}
-			return;
 		}
-
-		// Generate one entity.
-		$this->createEntity($table);
 	}
 
 
