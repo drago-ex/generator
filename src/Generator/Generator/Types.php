@@ -24,7 +24,7 @@ class Types
 		TIME = '\DateInterval';
 
 
-	public static function detectType(string $type): ?string
+	public static function detectType(string $type): string
 	{
 		$pattern = [
 			'BYTEA|BLOB|BIN' => self::BINARY,
@@ -40,6 +40,6 @@ class Types
 				$item = $val;
 			}
 		}
-		return $item ?? null;
+		return $item ?? self::TEXT;
 	}
 }
