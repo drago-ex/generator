@@ -1,3 +1,4 @@
+#!/bin/sh
 export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe;
 export ORACLE_SID=XE;
 $ORACLE_HOME/bin/sqlplus -S travis/travis <<SQL
