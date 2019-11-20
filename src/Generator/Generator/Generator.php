@@ -102,7 +102,7 @@ class Generator
 
 			// Add property annotation to entity class.
 			if ($options->property) {
-				$entity->addComment('@property' . ' ' . $columnType . ' $' . $column);
+				$entity->addComment('@property ' . $columnType . ' $' . $column);
 			}
 
 			// Add constants to the entity.
