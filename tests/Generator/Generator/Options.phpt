@@ -23,5 +23,6 @@ Assert::type(TYPE_STRING, $options->propertyVisibility);
 Assert::type(TYPE_BOOL, $options->constant);
 Assert::type(TYPE_BOOL, $options->attribute);
 Assert::type(TYPE_BOOL, $options->getter);
+Assert::type(TYPE_BOOL, $options->getterPrimaryNull);
 Assert::type(TYPE_BOOL, $options->setter);
 Assert::type(TYPE_BOOL, $options->upper);

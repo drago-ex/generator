@@ -39,6 +39,7 @@ class Generator
 	/**
 	 * Run entity generate.
 	 * @throws \Dibi\Exception
+	 * @throws \Throwable
 	 */
 	public function runGenerate(?string $table = null): void
 	{
@@ -64,6 +65,7 @@ class Generator
 	 * Creating entity.
 	 * @throws \Dibi\Exception
 	 * @throws \Exception
+	 * @throws \Throwable
 	 */
 	private function createEntity(string $table): void
 	{
@@ -123,7 +125,7 @@ class Generator
 				$entity->addMethod('get' . Inflector::classify($column))
 					->setVisibility('public')
 					->setReturnType($columnType)
-					->setReturnNullable($columnInfo->isNullable())
+					->setReturnNullable($options->getterPrimaryNull ? true : $columnInfo->isNullable())
 					->addBody($this->addField($column, 'return $this->__FIELD__;'));
 			}
 
@@ -133,7 +135,7 @@ class Generator
 					->addBody($this->addField($column, '$this[\'__FIELD__\'] = $var;'))
 					->setVisibility('public')
 					->addParameter('var')
-					->setTypeHint($columnType)
+					->setType($columnType)
 					->setNullable($columnInfo->isNullable());
 			}
 		}

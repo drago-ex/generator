@@ -29,7 +29,7 @@ class Options
 	/** @var  bool  add property */
 	public $property = true;
 
-	/** @var  string  add visibility property */
+	/** @var  string  visibility property */
 	public $propertyVisibility = 'public';
 
 	/** @var  bool  add constant to the entity */
@@ -40,6 +40,9 @@ class Options
 
 	/** @var  bool  add the getter method */
 	public $getter = true;
+
+	/** @var  bool  enable return null on the primary key */
+	public $getterPrimaryNull = true;
 
 	/** @var  bool  add the setter method */
 	public $setter = true;
