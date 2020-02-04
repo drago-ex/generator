@@ -19,7 +19,7 @@ jobs:
         - php temp/code-checker/code-checker --strict-types
       language: php
       php:
-        - 7.1
+        - 7.2
 
 
     - name: Nette Coding Standard
@@ -29,7 +29,7 @@ jobs:
         - php temp/coding-standard/ecs check src --config temp/coding-standard/coding-standard-php71.yml
       language: php
       php:
-        - 7.1
+        - 7.2
 
 
     - name: PHP 7.2
@@ -56,6 +56,19 @@ jobs:
       language: php
       php:
         - 7.3
+
+
+    - name: PHP 7.4
+      install:
+        - travis_retry composer require nette/tester --dev
+      script:
+        - vendor/bin/tester -c tests/php.linux.ini tests -s
+      before_script:
+        - bash tests/bash/setup.sh
+        - bash tests/bash/db.sh
+      language: php
+      php:
+        - 7.4
 
 
     - stage: Code Coverage
