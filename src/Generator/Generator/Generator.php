@@ -125,7 +125,7 @@ class Generator
 				$entity->addMethod('get' . Inflector::classify($column))
 					->setVisibility('public')
 					->setReturnType($columnType)
-					->setReturnNullable($options->getterPrimaryNull ? true : $columnInfo->isNullable())
+					->setReturnNullable($options->getterPrimaryNull && $columnInfo->isAutoIncrement() ? true : $columnInfo->isNullable())
 					->addBody($this->addField($column, 'return $this->__FIELD__;'));
 			}
 
