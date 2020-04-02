@@ -9,15 +9,15 @@ declare(strict_types = 1);
 
 namespace Drago\Generator\DI;
 
+use Nette\DI;
 use Nette\Schema;
-use Nette\DI\CompilerExtension;
 use Drago\Generator;
 
 
 /**
  * Register services for generator.
  */
-class GeneratorExtension extends CompilerExtension
+class GeneratorExtension extends DI\CompilerExtension
 {
 	private $service;
 

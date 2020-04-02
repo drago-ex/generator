@@ -4,10 +4,10 @@ declare(strict_types = 1);
 
 namespace Test\Generator;
 
+use Tests;
 use Dibi\Reflection\Column;
 use Drago\Generator\Repository;
 use Tester\Assert;
-use Tests\Connect;
 
 require __DIR__ . '/../bootstrap.php';
 require __DIR__ . '/../Connect.php';
@@ -15,14 +15,14 @@ require __DIR__ . '/../Connect.php';
 
 function mysql()
 {
-	$db = new Connect;
+	$db = new Tests\Connect();
 	return new Repository($db->mysql());
 }
 
 
 function oracle()
 {
-	$db = new Connect;
+	$db = new Tests\Connect();
 	return new Repository($db->oracle());
 }
 
