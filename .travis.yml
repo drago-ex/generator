@@ -31,6 +31,19 @@ jobs:
         - 7.2
 
 
+    - name: PHP 7.1
+      install:
+        - travis_retry composer require nette/tester --dev
+      script:
+        - vendor/bin/tester -c tests/php.linux.ini tests -s
+      before_script:
+        - bash tests/bash/setup.sh
+        - bash tests/bash/db.sh
+      language: php
+      php:
+        - 7.1
+
+
     - name: PHP 7.2
       install:
         - travis_retry composer require nette/tester --dev
