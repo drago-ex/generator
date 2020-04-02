@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
+
 /**
  * Data type converter for php.
  */

@@ -9,16 +9,15 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Command;
+use Symfony\Component\Console\Input;
+use Symfony\Component\Console\Output;
 
 
 /**
  * Command for generate entity.
  */
-class GeneratorCommand extends Command
+class GeneratorCommand extends Command\Command
 {
 	/** @var Generator */
 	private $generator;
@@ -38,15 +37,16 @@ class GeneratorCommand extends Command
 	{
 		$this->setName('generate:entity')
 			->setDescription('Generating entity from database.')
-			->addArgument('table', InputArgument::OPTIONAL);
+			->addArgument('table', Input\InputArgument::OPTIONAL);
 	}
 
 
 	/**
 	 * Executes the current command.
 	 * @throws \Dibi\Exception
+	 * @throws \Throwable
 	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
+	protected function execute(Input\InputInterface $input, Output\OutputInterface $output): void
 	{
 		$this->generator->runGenerate($input->getArgument('table'));
 	}

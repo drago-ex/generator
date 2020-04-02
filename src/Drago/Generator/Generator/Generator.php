@@ -12,8 +12,8 @@ namespace Drago\Generator;
 use Doctrine\Common\Inflector\Inflector;
 use Nette\PhpGenerator\PhpFile;
 use Nette\SmartObject;
-use Nette\Utils\FileSystem;
-use Nette\Utils\Strings;
+use Nette\Utils;
+
 
 /**
  * Generator entity.
@@ -49,8 +49,6 @@ class Generator
 			$this->createEntity($table);
 
 		} else {
-
-			// Get all table names.
 			$tables = $this->repository->getTableNames();
 			foreach ($tables as $name) {
 
@@ -72,7 +70,7 @@ class Generator
 		$php = new PhpFile;
 
 		// Preventive measures convert to lowercase.
-		$table = Strings::lower($table);
+		$table = Utils\Strings::lower($table);
 
 		// Options for generate entity.
 		$options = $this->options;
@@ -96,11 +94,11 @@ class Generator
 			$columnInfo = $this->repository->getColumnInfo($table, $column);
 
 			// Get column type.
-			$columnType = Strings::lower(Types::detectType($columnInfo->getNativeType()));
+			$columnType = Utils\Strings::lower(Types::detectType($columnInfo->getNativeType()));
 
 			// Add the extend and the table constant to the entity.
 			$entity->setExtends($options->extends)
-				->addConstant('TABLE', $options->upper ? Strings::upper($table) : $table);
+				->addConstant('TABLE', $options->upper ? Utils\Strings::upper($table) : $table);
 
 			// Add property annotation to entity class.
 			if ($options->property) {
@@ -109,7 +107,7 @@ class Generator
 
 			// Add constants to the entity.
 			if ($options->constant) {
-				$constant = Strings::upper(Inflector::tableize($column));
+				$constant = Utils\Strings::upper(Inflector::tableize($column));
 				$entity->addConstant($constant, $column);
 			}
 
@@ -141,7 +139,7 @@ class Generator
 		}
 
 		$file = $options->path . '/' . $name . '.php';
-		FileSystem::write($file, $php->__toString());
+		Utils\FileSystem::write($file, $php->__toString());
 	}
 
 
@@ -162,7 +160,7 @@ class Generator
 	 */
 	private function addValidateColumn(string $table, string $column): void
 	{
-		if (Strings::contains($column, '(')) {
+		if (Utils\Strings::contains($column, '(')) {
 			throw new \Exception('Wrong column name ' . $column . ' in table ' .
 				$table . ', change name or use AS');
 		}

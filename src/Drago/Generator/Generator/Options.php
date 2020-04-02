@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
+
 /**
  * Options for generate entity.
  */
