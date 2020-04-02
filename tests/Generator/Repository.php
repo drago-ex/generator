@@ -4,10 +4,10 @@ declare(strict_types = 1);
 
 namespace Test\Generator;
 
-use Tests;
 use Dibi\Reflection\Column;
 use Drago\Generator\Repository;
 use Tester\Assert;
+use Tests;
 
 require __DIR__ . '/../bootstrap.php';
 require __DIR__ . '/../Connect.php';

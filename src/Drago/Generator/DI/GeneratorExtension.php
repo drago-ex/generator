@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Drago\Generator\DI;
 
+use Drago\Generator;
 use Nette\DI;
 use Nette\Schema;
-use Drago\Generator;
 
 
 /**
