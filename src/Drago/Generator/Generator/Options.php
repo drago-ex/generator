@@ -24,7 +24,7 @@ class Options
 	public $extends = \Drago\Database\Entity::class;
 
 	/** @var  string  namespace for entity */
-	public $namespace = 'App\\Model\\Entity';
+	public $namespace = 'App\\Entity';
 
 	/** @var  bool  add property */
 	public $property = true;
