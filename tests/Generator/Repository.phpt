@@ -2,12 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Test\Generator;
-
 use Dibi\Reflection\Column;
 use Drago\Generator\Repository;
 use Tester\Assert;
-use Tests;
 
 require __DIR__ . '/../bootstrap.php';
 require __DIR__ . '/../Connect.php';
@@ -15,14 +12,14 @@ require __DIR__ . '/../Connect.php';
 
 function mysql()
 {
-	$db = new Tests\Connect();
+	$db = new Connect;
 	return new Repository($db->mysql());
 }
 
 
 function oracle()
 {
-	$db = new Tests\Connect();
+	$db = new Connect;
 	return new Repository($db->oracle());
 }
 

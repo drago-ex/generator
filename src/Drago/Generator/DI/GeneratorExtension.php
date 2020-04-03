@@ -10,14 +10,14 @@ declare(strict_types = 1);
 namespace Drago\Generator\DI;
 
 use Drago\Generator;
-use Nette\DI;
+use Nette;
 use Nette\Schema;
 
 
 /**
  * Register services for generator.
  */
-class GeneratorExtension extends DI\CompilerExtension
+class GeneratorExtension extends Nette\DI\CompilerExtension
 {
 	private $service;
 
@@ -39,8 +39,8 @@ class GeneratorExtension extends DI\CompilerExtension
 			$repository->setArguments([$this->service]);
 		}
 
-		$schema = new Schema\Processor();
-		$normalized = $schema->process(Schema\Expect::from(new Generator\Options()), $this->config);
+		$schema = new Schema\Processor;
+		$normalized = $schema->process(Schema\Expect::from(new Generator\Options), $this->config);
 		$builder->addDefinition($this->prefix('generator'))
 			->setFactory(Generator\Generator::class)
 			->setArguments(['@generator.repository', $normalized]);

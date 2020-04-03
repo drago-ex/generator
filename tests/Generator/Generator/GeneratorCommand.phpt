@@ -2,11 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Test\Generator;
-
 use Drago\Generator;
+use Drago\Generator\GeneratorCommand;
 use Tester\Assert;
-use Tests;
 
 require __DIR__ . '/../../bootstrap.php';
 require __DIR__ . '/../../Connect.php';
@@ -14,14 +12,14 @@ require __DIR__ . '/../../Connect.php';
 
 function mysql()
 {
-	$db = new Tests\Connect();
+	$db = new Connect;
 	return new Generator\Repository($db->mysql());
 }
 
 
 test(function () {
-	$generator = new Generator\Generator(mysql(), new Generator\Options());
-	$command = new Generator\GeneratorCommand($generator);
+	$generator = new Generator\Generator(mysql(), new Generator\Options);
+	$command = new GeneratorCommand($generator);
 
-	Assert::type(Generator\GeneratorCommand::class, $command);
+	Assert::type(GeneratorCommand::class, $command);
 });

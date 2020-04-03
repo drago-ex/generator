@@ -10,8 +10,7 @@ declare(strict_types = 1);
 namespace Drago\Generator;
 
 use Doctrine\Common\Inflector\Inflector;
-use Nette\PhpGenerator\PhpFile;
-use Nette\SmartObject;
+use Nette;
 use Nette\Utils;
 
 
@@ -20,7 +19,7 @@ use Nette\Utils;
  */
 class Generator
 {
-	use SmartObject;
+	use Nette\SmartObject;
 
 	/** @var Repository */
 	private $repository;
@@ -67,7 +66,7 @@ class Generator
 	 */
 	private function createEntity(string $table): void
 	{
-		$php = new PhpFile;
+		$php = new Nette\PhpGenerator\PhpFile;
 
 		// Preventive measures convert to lowercase.
 		$table = Utils\Strings::lower($table);

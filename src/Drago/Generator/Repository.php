@@ -10,13 +10,13 @@ declare(strict_types = 1);
 namespace Drago\Generator;
 
 use Dibi\Reflection;
-use Drago\Database;
+use Drago;
 
 
 /**
  * Get table names ant types from database.
  */
-class Repository extends Database\Connect
+class Repository extends Drago\Database\Connect
 {
 	/**
 	 * Get database info.

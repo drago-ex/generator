@@ -2,15 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace Test\Generator;
-
-use Drago;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
 
 
-$options = new Drago\Generator\Options();
+$options = new Drago\Generator\Options;
 $options->path = __DIR__ . '/path/to/entity';
 
 Assert::type(TYPE_STRING, $options->path);
