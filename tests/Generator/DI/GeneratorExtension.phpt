@@ -2,17 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Test\Generator;
-
-use Drago\Generator;
+use Drago\Generator\Generator;
 use Nette\DI;
-use Tester;
-use Tests;
 
 $container = require __DIR__ . '/../../bootstrap.php';
 
 
-class GeneratorExtension extends Tests\TestContainer
+class GeneratorExtension extends TestContainer
 {
 	private function createContainer(): DI\Container
 	{
@@ -33,7 +29,7 @@ class GeneratorExtension extends Tests\TestContainer
 						lazy: true
 					])
 			', 'neon'));
-			$compiler->addExtension('generator', new Generator\DI\GeneratorExtension('@dibi.connection'));
+			$compiler->addExtension('generator', new Drago\Generator\DI\GeneratorExtension('@dibi.connection'));
 		});
 		return new $class;
 	}
@@ -42,7 +38,7 @@ class GeneratorExtension extends Tests\TestContainer
 	public function test01(): void
 	{
 		$container = $this->createContainer();
-		Tester\Assert::type(Generator\Generator::class, $container->getByType(Generator\Generator::class));
+		Tester\Assert::type(Generator::class, $container->getByType(Generator::class));
 	}
 }
 

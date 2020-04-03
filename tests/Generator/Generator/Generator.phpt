@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
+use Dibi\Connection;
 use Drago\Generator\Generator;
 use Drago\Generator\Options;
 use Drago\Generator\Repository;
 use Nette\Utils\FileSystem;
 use Tester\Assert;
-use Dibi\Connection;
 
 require __DIR__ . '/../../bootstrap.php';
 require __DIR__ . '/../../Connect.php';
