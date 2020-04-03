@@ -3,24 +3,14 @@
 declare(strict_types = 1);
 
 use Dibi\Reflection\Column;
-use Drago\Generator\Repository;
 use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
-require __DIR__ . '/../Connect.php';
 
 
-function mysql()
+function repository(): TestRepository
 {
-	$db = new Connect;
-	return new Repository($db->mysql());
-}
-
-
-function oracle()
-{
-	$db = new Connect;
-	return new Repository($db->oracle());
+	return new TestRepository;
 }
 
 
@@ -28,14 +18,14 @@ test(function () {
 	Assert::equal([
 		0 => 'error',
 		1 => 'test',
-	], mysql()->getTableNames());
+	], repository()->mysql()->getTableNames());
 
 	Assert::equal([
 		0 => 'sampleId',
 		1 => 'sampleString',
-	], mysql()->getColumns('test'));
+	], repository()->mysql()->getColumns('test'));
 
-	$columnInfo = mysql()->getColumnInfo('test', 'sampleId');
+	$columnInfo = repository()->mysql()->getColumnInfo('test', 'sampleId');
 	Assert::type(Column::class, $columnInfo);
 });
 
@@ -43,13 +33,13 @@ test(function () {
 test(function () {
 	Assert::equal([
 		0 => 'TEST',
-	], oracle()->getTableNames());
+	], repository()->oracle()->getTableNames());
 
 	Assert::equal([
 		0 => 'SAMPLE_ID',
 		1 => 'SAMPLE_STRING',
-	], oracle()->getColumns('TEST'));
+	], repository()->oracle()->getColumns('TEST'));
 
-	$columnInfo = oracle()->getColumnInfo('TEST', 'SAMPLE_ID');
+	$columnInfo = repository()->oracle()->getColumnInfo('TEST', 'SAMPLE_ID');
 	Assert::type(Column::class, $columnInfo);
 });
