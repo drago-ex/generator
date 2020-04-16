@@ -86,6 +86,11 @@ class Generator
 		$columns = $this->repository->getColumns($table);
 		foreach ($columns as $key => $column) {
 
+			// Convert large characters to lowercase.
+			if ($this->options->lower) {
+				$column = Strings::lower($column);
+			}
+
 			// Check column names for parentheses.
 			$this->addValidateColumn($table, $column);
 
@@ -106,7 +111,7 @@ class Generator
 
 			// Add constants to the entity.
 			if ($options->constant) {
-				$constant = Utils\Strings::upper(Inflector::tableize($column));
+				$constant = Strings::upper($this->addSnakeCase($column));
 				$entity->addConstant($constant, $column);
 			}
 
@@ -119,7 +124,7 @@ class Generator
 
 			// Add the getter method.
 			if ($options->getter) {
-				$entity->addMethod('get' . Inflector::classify($column))
+				$entity->addMethod('get' . Inflector::classify($this->addSnakeCase($column)))
 					->setVisibility('public')
 					->setReturnType($columnType)
 					->setReturnNullable($options->getterPrimaryNull && $columnInfo->isAutoIncrement() ? true : $columnInfo->isNullable())
@@ -128,7 +133,7 @@ class Generator
 
 			// Add the setter method.
 			if ($options->setter) {
-				$entity->addMethod('set' . Inflector::classify($column))
+				$entity->addMethod('set' . Inflector::classify($this->addSnakeCase($column)))
 					->addBody($this->addField($column, '$this[\'__FIELD__\'] = $var;'))
 					->setVisibility('public')
 					->addParameter('var')
@@ -163,5 +168,21 @@ class Generator
 			throw new \Exception('Wrong column name ' . $column . ' in table ' .
 				$table . ', change name or use AS');
 		}
+	}
+
+
+	/**
+	 * Character conversion to snake.
+	 */
+	function addSnakeCase(string $input): string
+	{
+		if (preg_match('/[A-Z]/', $input) === 0) {
+			return $input;
+		}
+		$pattern = '/([a-z])([A-Z])/';
+		$r = strtolower(preg_replace_callback($pattern, function(array $a) {
+			return $a[1] . '_' . strtolower ($a[2]);
+		}, $input));
+		return $r;
 	}
 }
