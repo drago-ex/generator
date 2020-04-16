@@ -88,7 +88,7 @@ class Generator
 
 			// Convert large characters to lowercase.
 			if ($this->options->lower) {
-				$column = Strings::lower($column);
+				$column = Utils\Strings::lower($column);
 			}
 
 			// Check column names for parentheses.
@@ -111,7 +111,7 @@ class Generator
 
 			// Add constants to the entity.
 			if ($options->constant) {
-				$constant = Strings::upper($this->addSnakeCase($column));
+				$constant = Utils\Strings::upper($this->addSnakeCase($column));
 				$entity->addConstant($constant, $column);
 			}
 
