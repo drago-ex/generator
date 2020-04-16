@@ -174,13 +174,13 @@ class Generator
 	/**
 	 * Character conversion to snake.
 	 */
-	function addSnakeCase(string $input): string
+	private function addSnakeCase(string $input): string
 	{
 		if (preg_match('/[A-Z]/', $input) === 0) {
 			return $input;
 		}
 		$pattern = '/([a-z])([A-Z])/';
-		$r = strtolower(preg_replace_callback($pattern, function(array $a) {
+		$r = strtolower(preg_replace_callback($pattern, function (array $a) {
 			return $a[1] . '_' . strtolower ($a[2]);
 		}, $input));
 		return $r;
