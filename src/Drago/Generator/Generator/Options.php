@@ -48,6 +48,6 @@ class Options
 	/** @var bool  add the setter method */
 	public $setter = true;
 
-	/** @var bool  enable capitalization of table name  */
-	public $upper = false;
+	/** @var bool  enable convert large characters to lowercase */
+	public $lower = false;
 }
