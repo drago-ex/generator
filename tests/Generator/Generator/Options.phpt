@@ -21,4 +21,4 @@ Assert::type(TYPE_BOOL, $options->attribute);
 Assert::type(TYPE_BOOL, $options->getter);
 Assert::type(TYPE_BOOL, $options->getterPrimaryNull);
 Assert::type(TYPE_BOOL, $options->setter);
-Assert::type(TYPE_BOOL, $options->upper);
+Assert::type(TYPE_BOOL, $options->lower);
