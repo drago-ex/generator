@@ -102,7 +102,7 @@ class Generator
 
 			// Add the extend and the table constant to the entity.
 			$entity->setExtends($options->extends)
-				->addConstant('TABLE', $options->upper ? Utils\Strings::upper($table) : $table);
+				->addConstant('TABLE', $table);
 
 			// Add property annotation to entity class.
 			if ($options->property) {
