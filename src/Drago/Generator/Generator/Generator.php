@@ -69,13 +69,13 @@ class Generator
 		$php = new Nette\PhpGenerator\PhpFile;
 
 		// Preventive measures convert to lowercase.
-		$table = Utils\Strings::lower($table);
+		$class = Utils\Strings::lower($table);
 
 		// Options for generate entity.
 		$options = $this->options;
 
 		// Create an entity name from the table name and the added suffix.
-		$name = Inflector::classify($table) . $options->suffix;
+		$name = Inflector::classify($class) . $options->suffix;
 
 		// We create a entity and add namespace.
 		$entity = $php
@@ -88,6 +88,7 @@ class Generator
 
 			// Convert large characters to lowercase.
 			if ($this->options->lower) {
+				$columnConstant = $column;
 				$column = Utils\Strings::lower($column);
 			}
 
@@ -112,7 +113,7 @@ class Generator
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Utils\Strings::upper($this->addSnakeCase($column));
-				$entity->addConstant($constant, $column);
+				$entity->addConstant($constant, $columnConstant ?? $column);
 			}
 
 			// Add attributes to the entity.
