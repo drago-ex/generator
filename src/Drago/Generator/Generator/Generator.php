@@ -113,7 +113,8 @@ class Generator
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Utils\Strings::upper($this->addSnakeCase($column));
-				$entity->addConstant($constant, $columnConstant ?? $column);
+				$entity->addConstant($constant, $columnConstant ?? $column)
+					->setPublic();
 			}
 
 			// Add attributes to the entity.
