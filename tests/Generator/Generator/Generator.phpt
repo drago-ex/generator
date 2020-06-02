@@ -5,6 +5,8 @@ declare(strict_types = 1);
 use Drago\Generator\Generator;
 use Drago\Generator\Options;
 use Drago\Generator\Repository;
+use Doctrine\Inflector\Inflector;
+use Doctrine\Inflector\NoopWordInflector;
 use Nette\Utils\FileSystem;
 use Tester\Assert;
 
@@ -25,9 +27,16 @@ function options(string $path): Options
 }
 
 
-function generator(Repository $repository, Options $options): Generator
+function inflector(): Inflector
 {
-	return new Generator($repository, $options);
+	$inflector = new Inflector(new NoopWordInflector, new NoopWordInflector);
+	return $inflector;
+}
+
+
+function generator(Repository $repository, Options $options, Inflector $inflector): Generator
+{
+	return new Generator($repository, $options, $inflector);
 }
 
 
@@ -43,7 +52,7 @@ test(function () {
 	$options = options(__DIR__ . '/../../Entity');
 	isDirectory($options->path);
 
-	$generator = generator(repository()->mysql(), $options);
+	$generator = generator(repository()->mysql(), $options, inflector());
 	$generator->runGenerate('test');
 
 	Assert::exception(function () use ($generator) {
@@ -56,6 +65,6 @@ test(function () {
 	$options = options(__DIR__ . '/../../EntityOracle');
 	isDirectory($options->path);
 
-	$generator = generator(repository()->oracle(), $options);
+	$generator = generator(repository()->oracle(), $options, inflector());
 	$generator->runGenerate('TEST');
 });
