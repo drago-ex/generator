@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
-use Doctrine\Common\Inflector\Inflector;
+use Doctrine\Inflector\Inflector;
 use Nette;
 use Nette\Utils;
 
@@ -27,11 +27,15 @@ class Generator
 	/** @var Options */
 	private $options;
 
+	/** @var Inflector */
+	private $inflector;
 
-	public function __construct(Repository $repository, Options $options)
+
+	public function __construct(Repository $repository, Options $options, Inflector $inflector)
 	{
 		$this->repository = $repository;
 		$this->options = $options;
+		$this->inflector = $inflector;
 	}
 
 
@@ -75,7 +79,7 @@ class Generator
 		$options = $this->options;
 
 		// Create an entity name from the table name and the added suffix.
-		$name = Inflector::classify($class) . $options->suffix;
+		$name = $this->inflector->classify($class) . $options->suffix;
 
 		// We create a entity and add namespace.
 		$entity = $php
@@ -126,7 +130,7 @@ class Generator
 
 			// Add the getter method.
 			if ($options->getter) {
-				$entity->addMethod('get' . Inflector::classify($this->addSnakeCase($column)))
+				$entity->addMethod('get' . $this->inflector->classify($this->addSnakeCase($column)))
 					->setVisibility('public')
 					->setReturnType($columnType)
 					->setReturnNullable($options->getterPrimaryNull && $columnInfo->isAutoIncrement() ? true : $columnInfo->isNullable())
@@ -135,7 +139,7 @@ class Generator
 
 			// Add the setter method.
 			if ($options->setter) {
-				$entity->addMethod('set' . Inflector::classify($this->addSnakeCase($column)))
+				$entity->addMethod('set' . $this->inflector->classify($this->addSnakeCase($column)))
 					->addBody($this->addField($column, '$this[\'__FIELD__\'] = $var;'))
 					->setVisibility('public')
 					->addParameter('var')
