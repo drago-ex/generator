@@ -71,7 +71,6 @@ class Generator
 	private function createEntity(string $table): void
 	{
 		$php = new Nette\PhpGenerator\PhpFile;
-		$php->addComment('This file is auto-generated.');
 		$php->setStrictTypes();
 
 		// Preventive measures convert to lowercase.
@@ -109,7 +108,8 @@ class Generator
 
 			// Add the extend and the table constant to the entity.
 			$entity->setExtends($options->extends)
-				->addConstant('TABLE', $table);
+				->addConstant('TABLE', $table)
+				->setPublic();
 
 			// Add property annotation to entity class.
 			if ($options->property) {
