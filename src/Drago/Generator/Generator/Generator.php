@@ -71,6 +71,8 @@ class Generator
 	private function createEntity(string $table): void
 	{
 		$php = new Nette\PhpGenerator\PhpFile;
+		$php->addComment('This file is auto-generated.');
+		$php->setStrictTypes();
 
 		// Preventive measures convert to lowercase.
 		$class = Utils\Strings::lower($table);
