@@ -40,7 +40,7 @@ class Options
 	public $attribute = true;
 
 	/** @var bool  allow attributes column length */
-	public $attributeLength = false;
+	public $attributeLength = true;
 
 	/** @var bool  allow the getter method */
 	public $getter = true;
