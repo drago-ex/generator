@@ -21,6 +21,17 @@ class Generator
 {
 	use Nette\SmartObject;
 
+	/** @var string */
+	private const
+		NAME = 'name',
+		AUTO_INCREMENT = 'autoIncrement',
+		SIZE = 'length',
+		DEFAULT = 'default',
+		NULLABLE = 'nullable',
+		PRIMARY = 'primary',
+		UNIQUE = 'unique',
+		TYPE = 'type';
+
 	/** @var Repository */
 	private $repository;
 
@@ -192,5 +203,49 @@ class Generator
 			return $a[1] . '_' . strtolower ($a[2]);
 		}, $input));
 		return $r;
+	}
+
+
+	/**
+	 * Column attribute.
+	 * @throws \Dibi\Exception
+	 */
+	private function getColumnAttribute(string $table, string $column): array
+	{
+		$index = [];
+		$columnInfo = $this->repository->getColumnInfo($table, $column);
+		$columnInfo = [
+			self::NAME => $columnInfo->name,
+			self::AUTO_INCREMENT => $columnInfo->autoIncrement,
+			self::SIZE => $columnInfo->size,
+			self::DEFAULT => $columnInfo->default,
+			self::NULLABLE => $columnInfo->nullable,
+			self::TYPE => Utils\Strings::lower($columnInfo->nativeType),
+			self::PRIMARY => null,
+			self::UNIQUE => null,
+		];
+		foreach ($this->repository->getTable($table)->getIndexes() as $item) {
+			foreach ($item->columns as $key => $row) {
+				if (array_key_exists($key, $item->columns)) {
+					if ($item->columns[$key]->name === $column) {
+						$index = [
+							self::PRIMARY => $item->primary,
+							self::UNIQUE => $item->unique,
+						];
+					}
+				}
+			}
+		}
+		$arr = array_merge($columnInfo, $index);
+		return $arr;
+	}
+
+
+	/**
+	 * Column information.
+	 */
+	private function getColumnInfo(array $attribute, string $key): ?string
+	{
+		return $attribute[$key] ? $key . '="' . $attribute[$key] . '" ' : null;
 	}
 }

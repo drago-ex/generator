@@ -34,7 +34,7 @@ class Repository extends Drago\Database\Connect
 	 * Get table information.
 	 * @throws \Dibi\Exception
 	 */
-	private function getTable(string $name): Reflection\Table
+	public function getTable(string $name): Reflection\Table
 	{
 		$table = $this->getDatabaseInfo()
 			->getTable($name);
