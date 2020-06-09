@@ -23,13 +23,10 @@ class Generator
 
 	/** @var string */
 	private const
-		NAME = 'name',
 		AUTO_INCREMENT = 'autoIncrement',
 		SIZE = 'length',
 		DEFAULT = 'default',
 		NULLABLE = 'nullable',
-		PRIMARY = 'primary',
-		UNIQUE = 'unique',
 		TYPE = 'type';
 
 	/** @var Repository */
@@ -138,6 +135,7 @@ class Generator
 			if ($options->attribute) {
 				$entity->addProperty($column)
 					->setVisibility($options->propertyVisibility)
+					->addComment($this->getColumnQuery($table, $column))
 					->addComment('@var ' . $columnType);
 
 				// Add column length info.
@@ -221,7 +219,6 @@ class Generator
 	{
 		$info = $this->repository->getColumnInfo($table, $column);
 		return [
-			self::NAME => $info->name,
 			self::AUTO_INCREMENT => $info->autoIncrement,
 			self::SIZE => $info->size,
 			self::DEFAULT => $info->default,
@@ -236,6 +233,22 @@ class Generator
 	 */
 	private function getColumnInfo(array $attribute, string $key): ?string
 	{
-		return $attribute[$key] ? $key . '="' . $attribute[$key] . '" ' : null;
+		return $attribute[$key] ? 'Column ' .
+			$key . ' = ' . $attribute[$key] . "\n" : null;
+	}
+
+
+	/**
+	 * @throws \Dibi\Exception
+	 */
+	private function getColumnQuery(string $table, string $column): string
+	{
+		$attr = $this->getColumnAttribute($table, $column);
+		$columnInfo  = $this->getColumnInfo($attr, self::AUTO_INCREMENT);
+		$columnInfo .= $this->getColumnInfo($attr, self::SIZE);
+		$columnInfo .= $this->getColumnInfo($attr, self::DEFAULT);
+		$columnInfo .= $this->getColumnInfo($attr, self::NULLABLE);
+		$columnInfo .= $this->getColumnInfo($attr, self::TYPE);
+		return $columnInfo;
 	}
 }
