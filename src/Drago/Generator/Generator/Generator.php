@@ -244,7 +244,7 @@ class Generator
 	private function getColumnQuery(string $table, string $column): string
 	{
 		$attr = $this->getColumnAttribute($table, $column);
-		$columnInfo  = $this->getColumnInfo($attr, self::AUTO_INCREMENT);
+		$columnInfo = $this->getColumnInfo($attr, self::AUTO_INCREMENT);
 		$columnInfo .= $this->getColumnInfo($attr, self::SIZE);
 		$columnInfo .= $this->getColumnInfo($attr, self::DEFAULT);
 		$columnInfo .= $this->getColumnInfo($attr, self::NULLABLE);
