@@ -18,36 +18,39 @@ class Options
 	/** @var string  the path where the entity will be generated */
 	public $path;
 
-	/** @var string  entity suffix name */
+	/** @var string  suffix name */
 	public $suffix = 'Entity';
 
-	/** @var string  parent for entity */
+	/** @var string  parent */
 	public $extends = \Drago\Database\Entity::class;
 
-	/** @var string  namespace for entity */
+	/** @var string  namespace */
 	public $namespace = 'App\\Entity';
 
-	/** @var bool  add property */
+	/** @var bool  allow property */
 	public $property = true;
 
 	/** @var string  visibility property */
 	public $propertyVisibility = 'public';
 
-	/** @var bool  add constant to the entity */
+	/** @var bool  allow constant */
 	public $constant = true;
 
-	/** @var bool  add attributes to the entity */
+	/** @var bool  allow attributes */
 	public $attribute = true;
 
-	/** @var bool  add the getter method */
+	/** @var bool  allow attributes column length */
+	public $attributeLength = true;
+
+	/** @var bool  allow the getter method */
 	public $getter = true;
 
-	/** @var bool  enable return null on the primary key */
+	/** @var bool  allow return null on the primary key */
 	public $getterPrimaryNull = true;
 
-	/** @var bool  add the setter method */
+	/** @var bool  allow the setter method */
 	public $setter = true;
 
-	/** @var bool  enable convert large characters to lowercase */
+	/** @var bool  allow convert large characters to lowercase */
 	public $lower = false;
 }

@@ -139,6 +139,13 @@ class Generator
 				$entity->addProperty($column)
 					->setVisibility($options->propertyVisibility)
 					->addComment('@var ' . $columnType);
+
+				// Add column length info.
+				if ($options->attributeLength) {
+					$columnAttribute = $this->getColumnAttribute($table, $column);
+					$entity->addProperty($column . 'Length', $this->getColumnInfo($columnAttribute, self::SIZE))
+						->addComment('@var int');
+				}
 			}
 
 			// Add the getter method.
