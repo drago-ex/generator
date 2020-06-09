@@ -33,7 +33,7 @@ class GeneratorCommand extends Console\Command\Command
 	 */
 	protected function configure(): void
 	{
-		$this->setName('generate:entity')
+		$this->setName('make:entity')
 			->setDescription('Generating entity from database.')
 			->addArgument('table', Console\Input\InputArgument::OPTIONAL);
 	}
