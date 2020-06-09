@@ -36,11 +36,11 @@ class Options
 	/** @var bool  allow constant */
 	public $constant = true;
 
+	/** @var bool  allow constant column length */
+	public $constantLength = true;
+
 	/** @var bool  allow attributes */
 	public $attribute = true;
-
-	/** @var bool  allow attributes column length */
-	public $attributeLength = true;
 
 	/** @var bool  allow the getter method */
 	public $getter = true;
