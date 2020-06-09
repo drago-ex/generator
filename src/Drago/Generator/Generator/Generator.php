@@ -129,6 +129,14 @@ class Generator
 				$constant = Utils\Strings::upper($this->addSnakeCase($column));
 				$entity->addConstant($constant, $columnConstant ?? $column)
 					->setPublic();
+
+				// Add constants length info.
+				if ($options->constantLength) {
+					$constant = Utils\Strings::upper($this->addSnakeCase($column));
+					$attr = $this->getColumnAttribute($table, $column);
+					$entity->addConstant($constant . '_LENGTH', $columnConstant ?? $attr[self::SIZE])
+						->setPublic();
+				}
 			}
 
 			// Add attributes to the entity.
@@ -137,13 +145,6 @@ class Generator
 					->setVisibility($options->propertyVisibility)
 					->addComment($this->getColumnQuery($table, $column))
 					->addComment('@var ' . $columnType);
-
-				// Add column length info.
-				if ($options->attributeLength) {
-					$attribute = $this->getColumnAttribute($table, $column);
-					$entity->addProperty($column . 'Length', $attribute[self::SIZE])
-						->addComment('@var int');
-				}
 			}
 
 			// Add the getter method.
