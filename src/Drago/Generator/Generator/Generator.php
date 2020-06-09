@@ -143,7 +143,7 @@ class Generator
 				// Add column length info.
 				if ($options->attributeLength) {
 					$columnAttribute = $this->getColumnAttribute($table, $column);
-					$entity->addProperty($column . 'Length', $this->getColumnInfo($columnAttribute, self::SIZE))
+					$entity->addProperty($column . 'Length', $columnAttribute[self::SIZE])
 						->addComment('@var int');
 				}
 			}
