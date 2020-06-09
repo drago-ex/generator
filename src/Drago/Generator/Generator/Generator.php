@@ -142,8 +142,8 @@ class Generator
 
 				// Add column length info.
 				if ($options->attributeLength) {
-					$columnAttribute = $this->getColumnAttribute($table, $column);
-					$entity->addProperty($column . 'Length', $columnAttribute[self::SIZE])
+					$attribute = $this->getColumnAttribute($table, $column);
+					$entity->addProperty($column . 'Length', $attribute[self::SIZE])
 						->addComment('@var int');
 				}
 			}
@@ -219,32 +219,15 @@ class Generator
 	 */
 	private function getColumnAttribute(string $table, string $column): array
 	{
-		$index = [];
-		$columnInfo = $this->repository->getColumnInfo($table, $column);
-		$columnInfo = [
-			self::NAME => $columnInfo->name,
-			self::AUTO_INCREMENT => $columnInfo->autoIncrement,
-			self::SIZE => $columnInfo->size,
-			self::DEFAULT => $columnInfo->default,
-			self::NULLABLE => $columnInfo->nullable,
-			self::TYPE => Utils\Strings::lower($columnInfo->nativeType),
-			self::PRIMARY => null,
-			self::UNIQUE => null,
+		$info = $this->repository->getColumnInfo($table, $column);
+		return [
+			self::NAME => $info->name,
+			self::AUTO_INCREMENT => $info->autoIncrement,
+			self::SIZE => $info->size,
+			self::DEFAULT => $info->default,
+			self::NULLABLE => $info->nullable,
+			self::TYPE => Utils\Strings::lower($info->nativeType),
 		];
-		foreach ($this->repository->getTable($table)->getIndexes() as $item) {
-			foreach ($item->columns as $key => $row) {
-				if (array_key_exists($key, $item->columns)) {
-					if ($item->columns[$key]->name === $column) {
-						$index = [
-							self::PRIMARY => $item->primary,
-							self::UNIQUE => $item->unique,
-						];
-					}
-				}
-			}
-		}
-		$arr = array_merge($columnInfo, $index);
-		return $arr;
 	}
 
 
