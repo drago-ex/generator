@@ -28,19 +28,13 @@ class Options
 	public $namespace = 'App\\Entity';
 
 	/** @var bool  allow property */
-	public $property = true;
+	public $property = false;
 
 	/** @var string  visibility property */
 	public $propertyVisibility = 'public';
 
 	/** @var bool  allow constant */
-	public $constant = true;
-
-	/** @var bool  allow constant column length */
-	public $constantLength = true;
-
-	/** @var bool  allow attributes */
-	public $attribute = true;
+	public $constant = false;
 
 	/** @var bool  allow the getter method */
 	public $getter = true;
@@ -49,7 +43,7 @@ class Options
 	public $getterPrimaryNull = true;
 
 	/** @var bool  allow the setter method */
-	public $setter = true;
+	public $setter = false;
 
 	/** @var bool  allow convert large characters to lowercase */
 	public $lower = false;
