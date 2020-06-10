@@ -46,7 +46,7 @@ class GeneratorExtension extends Nette\DI\CompilerExtension
 		$normalized = $schema->process(Schema\Expect::from(new Generator\Options), $this->config);
 		$builder->addDefinition($this->prefix('generator'))
 			->setFactory(Generator\Generator::class)
-			->setArguments(['@generator.repository', $normalized, $inflector]);
+			->setArguments(['@generator.repository', $normalized, $inflector, new Generator\Helpers]);
 
 		$builder->addDefinition($this->prefix('command'))
 			->setFactory(Generator\GeneratorCommand::class);

@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Drago\Generator;
 
 use Doctrine\Inflector\Inflector;
+use Drago\Generator\Data\Attributes;
 use Nette;
 use Nette\Utils;
 
@@ -21,14 +22,6 @@ class Generator
 {
 	use Nette\SmartObject;
 
-	/** @var string */
-	private const
-		AUTO_INCREMENT = 'autoIncrement',
-		SIZE = 'length',
-		DEFAULT = 'default',
-		NULLABLE = 'nullable',
-		TYPE = 'type';
-
 	/** @var Repository */
 	private $repository;
 
@@ -38,12 +31,16 @@ class Generator
 	/** @var Inflector */
 	private $inflector;
 
+	/** @var Helpers */
+	private $helpers;
 
-	public function __construct(Repository $repository, Options $options, Inflector $inflector)
+
+	public function __construct(Repository $repository, Options $options, Inflector $inflector, Helpers $helpers)
 	{
 		$this->repository = $repository;
 		$this->options = $options;
 		$this->inflector = $inflector;
+		$this->helpers = $helpers;
 	}
 
 
@@ -87,6 +84,9 @@ class Generator
 		// Options for generate entity.
 		$options = $this->options;
 
+		// Helpers class.
+		$helpers = $this->helpers;
+
 		// Create an entity name from the table name and the added suffix.
 		$name = $this->inflector->classify($class) . $options->suffix;
 
@@ -106,13 +106,13 @@ class Generator
 			}
 
 			// Check column names for parentheses.
-			$this->addValidateColumn($table, $column);
+			$helpers->addValidateColumn($table, $column);
 
 			// Get all column information.
 			$columnInfo = $this->repository->getColumnInfo($table, $column);
 
 			// Get column type.
-			$columnType = Utils\Strings::lower(Types::detectType($columnInfo->getNativeType()));
+			$columnType = Utils\Strings::lower($helpers->addDetectType($columnInfo->getNativeType()));
 
 			// Add the extend and the table constant to the entity.
 			$entity->setExtends($options->extends)
@@ -126,7 +126,7 @@ class Generator
 
 			// Add constants to the entity.
 			if ($options->constant) {
-				$constant = Utils\Strings::upper($this->addSnakeCase($column));
+				$constant = Utils\Strings::upper($helpers->addSnakeCase($column));
 				$entity->addConstant($constant, $columnConstant ?? $column)
 					->setPublic();
 			}
@@ -139,17 +139,17 @@ class Generator
 
 			// Add the getter method.
 			if ($options->getter) {
-				$entity->addMethod('get' . $this->inflector->classify($this->addSnakeCase($column)))
+				$entity->addMethod('get' . $this->inflector->classify($helpers->addSnakeCase($column)))
 					->setVisibility('public')
 					->setReturnType($columnType)
 					->setReturnNullable($options->getterPrimaryNull && $columnInfo->isAutoIncrement() ? true : $columnInfo->isNullable())
-					->addBody($this->addField($column, 'return $this->__FIELD__;'));
+					->addBody($helpers->addField($column, 'return $this->__FIELD__;'));
 			}
 
 			// Add the setter method.
 			if ($options->setter) {
-				$entity->addMethod('set' . $this->inflector->classify($this->addSnakeCase($column)))
-					->addBody($this->addField($column, '$this[\'__FIELD__\'] = $var;'))
+				$entity->addMethod('set' . $this->inflector->classify($helpers->addSnakeCase($column)))
+					->addBody($helpers->addField($column, '$this[\'__FIELD__\'] = $var;'))
 					->setVisibility('public')
 					->addParameter('var')
 					->setType($columnType)
@@ -163,46 +163,6 @@ class Generator
 
 
 	/**
-	 * Replace string with the replacement string.
-	 * @return mixed
-	 */
-	private function addField(string $replace, string $subject)
-	{
-		$str = str_replace('__FIELD__', $replace, $subject);
-		return $str;
-	}
-
-
-	/**
-	 * Check column names for parentheses.
-	 * @throws \Exception
-	 */
-	private function addValidateColumn(string $table, string $column): void
-	{
-		if (Utils\Strings::contains($column, '(')) {
-			throw new \Exception('Wrong column name ' . $column . ' in table ' .
-				$table . ', change name or use AS');
-		}
-	}
-
-
-	/**
-	 * Character conversion to snake.
-	 */
-	private function addSnakeCase(string $input): string
-	{
-		if (preg_match('/[A-Z]/', $input) === 0) {
-			return $input;
-		}
-		$pattern = '/([a-z])([A-Z])/';
-		$r = strtolower(preg_replace_callback($pattern, function (array $a) {
-			return $a[1] . '_' . strtolower ($a[2]);
-		}, $input));
-		return $r;
-	}
-
-
-	/**
 	 * Column attribute.
 	 * @throws \Dibi\Exception
 	 */
@@ -210,11 +170,11 @@ class Generator
 	{
 		$info = $this->repository->getColumnInfo($table, $column);
 		return [
-			self::AUTO_INCREMENT => $info->autoIncrement,
-			self::SIZE => $info->size,
-			self::DEFAULT => $info->default,
-			self::NULLABLE => $info->nullable,
-			self::TYPE => Utils\Strings::lower($info->nativeType),
+			Attributes::AUTO_INCREMENT => $info->autoIncrement,
+			Attributes::SIZE => $info->size,
+			Attributes::DEFAULT => $info->default,
+			Attributes::NULLABLE => $info->nullable,
+			Attributes::TYPE => Utils\Strings::lower($info->nativeType),
 		];
 	}
 
@@ -235,11 +195,11 @@ class Generator
 	private function getColumnQuery(string $table, string $column): string
 	{
 		$attr = $this->getColumnAttribute($table, $column);
-		$columnInfo = $this->getColumnInfo($attr, self::AUTO_INCREMENT);
-		$columnInfo .= $this->getColumnInfo($attr, self::SIZE);
-		$columnInfo .= $this->getColumnInfo($attr, self::DEFAULT);
-		$columnInfo .= $this->getColumnInfo($attr, self::NULLABLE);
-		$columnInfo .= $this->getColumnInfo($attr, self::TYPE);
+		$columnInfo = $this->getColumnInfo($attr, Attributes::AUTO_INCREMENT);
+		$columnInfo .= $this->getColumnInfo($attr, Attributes::SIZE);
+		$columnInfo .= $this->getColumnInfo($attr, Attributes::DEFAULT);
+		$columnInfo .= $this->getColumnInfo($attr, Attributes::NULLABLE);
+		$columnInfo .= $this->getColumnInfo($attr, Attributes::TYPE);
 		return $columnInfo;
 	}
 }
