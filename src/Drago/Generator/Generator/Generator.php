@@ -100,7 +100,7 @@ class Generator
 		foreach ($columns as $key => $column) {
 
 			// Convert large characters to lowercase.
-			if ($this->options->lower) {
+			if ($options->lower) {
 				$columnConstant = $column;
 				$column = Utils\Strings::lower($column);
 			}
