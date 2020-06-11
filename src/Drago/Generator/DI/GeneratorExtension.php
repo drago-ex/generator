@@ -41,12 +41,18 @@ class GeneratorExtension extends Nette\DI\CompilerExtension
 			$repository->setArguments([$this->service]);
 		}
 
+		$builder->addDefinition($this->prefix('noopWordInflector'))
+			->setFactory(NoopWordInflector::class);
+
+		$builder->addDefinition($this->prefix('inflector'))
+			->setFactory(Inflector::class)
+			->setArguments(['@generator.noopWordInflector', '@generator.noopWordInflector']);
+
 		$schema = new Schema\Processor;
-		$inflector = new Inflector(new NoopWordInflector, new NoopWordInflector);
 		$normalized = $schema->process(Schema\Expect::from(new Generator\Options), $this->config);
 		$builder->addDefinition($this->prefix('generator'))
 			->setFactory(Generator\Generator::class)
-			->setArguments(['@generator.repository', $normalized, $inflector, new Generator\Helpers]);
+			->setArguments(['@generator.repository', $normalized, '@generator.inflector', new Generator\Helpers]);
 
 		$builder->addDefinition($this->prefix('command'))
 			->setFactory(Generator\GeneratorCommand::class);
