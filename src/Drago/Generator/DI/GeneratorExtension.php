@@ -20,25 +20,11 @@ use Nette\Schema;
  */
 class GeneratorExtension extends Nette\DI\CompilerExtension
 {
-	private $service;
-
-
-	public function __construct($service = null)
-	{
-		$this->service = $service;
-	}
-
-
 	public function loadConfiguration(): void
 	{
 		$builder = $this->getContainerBuilder();
-		$repository = $builder
-			->addDefinition($this->prefix('repository'))
+		$builder->addDefinition($this->prefix('repository'))
 			->setFactory(Generator\Repository::class);
-
-		if ($this->service) {
-			$repository->setArguments([$this->service]);
-		}
 
 		$builder->addDefinition($this->prefix('noopWordInflector'))
 			->setFactory(Inflector\NoopWordInflector::class);
