@@ -44,10 +44,11 @@ class GeneratorCommand extends Console\Command\Command
 
 	/**
 	 * Executes the current command.
+	 * @return int|void
 	 * @throws \Dibi\Exception
 	 * @throws \Throwable
 	 */
-	protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output): void
+	protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
 	{
 		$this->generator->runGenerate($input->getArgument('table'));
 	}
