@@ -106,13 +106,13 @@ class Generator
 			}
 
 			// Check column names for parentheses.
-			$helpers->addValidateColumn($table, $column);
+			$helpers->validateColumn($table, $column);
 
 			// Get all column information.
 			$columnInfo = $this->repository->getColumnInfo($table, $column);
 
 			// Get column type.
-			$columnType = Utils\Strings::lower($helpers->addDetectType($columnInfo->getNativeType()));
+			$columnType = Utils\Strings::lower($helpers->detectType($columnInfo->getNativeType()));
 
 			// Add the extend and the table constant to the entity.
 			$entity->setExtends($options->extends)
@@ -126,7 +126,7 @@ class Generator
 
 			// Add constants to the entity.
 			if ($options->constant) {
-				$constant = Utils\Strings::upper($helpers->addSnakeCase($column));
+				$constant = Utils\Strings::upper($helpers->snakeCase($column));
 				$entity->addConstant($constant, $columnConstant ?? $column)
 					->setPublic();
 			}
@@ -139,7 +139,7 @@ class Generator
 
 			// Add the getter method.
 			if ($options->getter) {
-				$entity->addMethod('get' . $this->inflector->classify($helpers->addSnakeCase($column)))
+				$entity->addMethod('get' . $this->inflector->classify($helpers->snakeCase($column)))
 					->setVisibility('public')
 					->setReturnType($columnType)
 					->setReturnNullable($options->getterPrimaryNull && $columnInfo->isAutoIncrement() ? true : $columnInfo->isNullable())
@@ -148,7 +148,7 @@ class Generator
 
 			// Add the setter method.
 			if ($options->setter) {
-				$entity->addMethod('set' . $this->inflector->classify($helpers->addSnakeCase($column)))
+				$entity->addMethod('set' . $this->inflector->classify($helpers->snakeCase($column)))
 					->addBody($helpers->addField($column, '$this[\'__FIELD__\'] = $var;'))
 					->setVisibility('public')
 					->addParameter('var')
@@ -180,26 +180,19 @@ class Generator
 
 
 	/**
-	 * Column information.
-	 */
-	private function getColumnInfo(array $attribute, string $key): ?string
-	{
-		return $attribute[$key] ? 'Column ' .
-			$key . ' = ' . $attribute[$key] . "\n" : null;
-	}
-
-
-	/**
 	 * @throws \Dibi\Exception
 	 */
 	private function getColumnQuery(string $table, string $column): string
 	{
+		$help = $this->helpers;
 		$attr = $this->getColumnAttribute($table, $column);
-		$columnInfo = $this->getColumnInfo($attr, Attributes::AUTO_INCREMENT);
-		$columnInfo .= $this->getColumnInfo($attr, Attributes::SIZE);
-		$columnInfo .= $this->getColumnInfo($attr, Attributes::DEFAULT);
-		$columnInfo .= $this->getColumnInfo($attr, Attributes::NULLABLE);
-		$columnInfo .= $this->getColumnInfo($attr, Attributes::TYPE);
-		return $columnInfo;
+
+		// Column attributes.
+		$assembly = $help->getAttribute($attr, Attributes::AUTO_INCREMENT);
+		$assembly .= $help->getAttribute($attr, Attributes::SIZE);
+		$assembly .= $help->getAttribute($attr, Attributes::DEFAULT);
+		$assembly .= $help->getAttribute($attr, Attributes::NULLABLE);
+		$assembly .= $help->getAttribute($attr, Attributes::TYPE);
+		return $assembly;
 	}
 }

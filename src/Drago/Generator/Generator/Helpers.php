@@ -13,6 +13,9 @@ use Drago\Generator\Data\Type;
 use Nette\Utils\Strings;
 
 
+/**
+ * Auxiliary methods for the generator.
+ */
 class Helpers
 {
 	/**
@@ -29,7 +32,7 @@ class Helpers
 	 * Check column names for parentheses.
 	 * @throws \Exception
 	 */
-	public function addValidateColumn(string $table, string $column): void
+	public function validateColumn(string $table, string $column): void
 	{
 		if (Strings::contains($column, '(')) {
 			throw new \Exception('Wrong column name ' . $column . ' in table ' .
@@ -41,7 +44,7 @@ class Helpers
 	/**
 	 * Character conversion to snake.
 	 */
-	public function addSnakeCase(string $input): string
+	public function snakeCase(string $input): string
 	{
 		if (preg_match('/[A-Z]/', $input) === 0) {
 			return $input;
@@ -53,9 +56,19 @@ class Helpers
 
 
 	/**
+	 * Column attribute information.
+	 */
+	public function getAttribute(array $attribute, string $key): ?string
+	{
+		return $attribute[$key] ? 'Column ' .
+			$key . ' = ' . $attribute[$key] . "\n" : null;
+	}
+
+
+	/**
 	 * Type detection.
 	 */
-	public function addDetectType(string $type): string
+	public function detectType(string $type): string
 	{
 		$pattern = [
 			'BYTEA|BLOB|BIN' => Type::BINARY,
