@@ -17,6 +17,9 @@ use Symfony\Component\Console;
  */
 class GeneratorCommand extends Console\Command\Command
 {
+	/** @var string */
+	protected static $defaultName = 'make:entity';
+
 	/** @var Generator */
 	private $generator;
 
@@ -33,7 +36,7 @@ class GeneratorCommand extends Console\Command\Command
 	 */
 	protected function configure(): void
 	{
-		$this->setName('make:entity')
+		$this->setName(self::$defaultName)
 			->setDescription('Generating entity from database.')
 			->addArgument('table', Console\Input\InputArgument::OPTIONAL);
 	}
