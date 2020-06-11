@@ -12,6 +12,7 @@ namespace Drago\Generator\DI;
 use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\NoopWordInflector;
 use Drago\Generator;
+use Drago\Generator\Helpers;
 use Nette;
 use Nette\Schema;
 
@@ -48,11 +49,14 @@ class GeneratorExtension extends Nette\DI\CompilerExtension
 			->setFactory(Inflector::class)
 			->setArguments(['@generator.noopWordInflector', '@generator.noopWordInflector']);
 
+		$builder->addDefinition($this->prefix('helpers'))
+			->setFactory(Helpers::class);
+
 		$schema = new Schema\Processor;
 		$normalized = $schema->process(Schema\Expect::from(new Generator\Options), $this->config);
 		$builder->addDefinition($this->prefix('generator'))
 			->setFactory(Generator\Generator::class)
-			->setArguments(['@generator.repository', $normalized, '@generator.inflector', new Generator\Helpers]);
+			->setArguments(['@generator.repository', $normalized, '@generator.inflector', '@generator.helpers']);
 
 		$builder->addDefinition($this->prefix('command'))
 			->setFactory(Generator\GeneratorCommand::class);
