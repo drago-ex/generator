@@ -29,7 +29,7 @@ class GeneratorExtension extends TestContainer
 						lazy: true
 					])
 			', 'neon'));
-			$compiler->addExtension('generator', new Drago\Generator\DI\GeneratorExtension('@dibi.connection'));
+			$compiler->addExtension('generator', new Drago\Generator\DI\GeneratorExtension);
 		});
 		return new $class;
 	}
