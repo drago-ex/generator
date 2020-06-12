@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-use Dibi\Reflection\Column;
+use Dibi\Reflection;
 use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
@@ -26,7 +26,7 @@ test(function () {
 	], repository()->mysql()->getColumns('test'));
 
 	$columnInfo = repository()->mysql()->getColumnInfo('test', 'sampleId');
-	Assert::type(Column::class, $columnInfo);
+	Assert::type(Reflection\Column::class, $columnInfo);
 });
 
 
@@ -41,5 +41,5 @@ test(function () {
 	], repository()->oracle()->getColumns('TEST'));
 
 	$columnInfo = repository()->oracle()->getColumnInfo('TEST', 'SAMPLE_ID');
-	Assert::type(Column::class, $columnInfo);
+	Assert::type(Reflection\Column::class, $columnInfo);
 });

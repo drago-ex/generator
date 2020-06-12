@@ -11,14 +11,14 @@ namespace Drago\Generator\DI;
 
 use Doctrine\Inflector;
 use Drago\Generator;
-use Nette;
+use Nette\DI;
 use Nette\Schema;
 
 
 /**
  * Register services for generator.
  */
-class GeneratorExtension extends Nette\DI\CompilerExtension
+class GeneratorExtension extends DI\CompilerExtension
 {
 	public function loadConfiguration(): void
 	{
@@ -38,8 +38,8 @@ class GeneratorExtension extends Nette\DI\CompilerExtension
 
 		$schema = new Schema\Processor;
 		$normalized = $schema->process(Schema\Expect::from(new Generator\Options), $this->config);
-		$builder->addDefinition($this->prefix('generator'))
-			->setFactory(Generator\Generator::class)
+		$builder->addDefinition($this->prefix('generatorEntity'))
+			->setFactory(Generator\GeneratorEntity::class)
 			->setArguments(['@generator.repository', $normalized, '@generator.inflector', '@generator.helpers']);
 
 		$builder->addDefinition($this->prefix('command'))

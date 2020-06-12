@@ -9,16 +9,16 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
-use Doctrine\Inflector\Inflector;
-use Drago\Generator\Data\Attributes;
+use Doctrine\Inflector;
+use Drago\Generator\Data;
 use Nette;
 use Nette\Utils;
 
 
 /**
- * Generator entity.
+ * Generating an entity from database tables.
  */
-class Generator
+class GeneratorEntity
 {
 	use Nette\SmartObject;
 
@@ -28,14 +28,14 @@ class Generator
 	/** @var Options */
 	private $options;
 
-	/** @var Inflector */
+	/** @var Inflector\Inflector */
 	private $inflector;
 
 	/** @var Helpers */
 	private $helpers;
 
 
-	public function __construct(Repository $repository, Options $options, Inflector $inflector, Helpers $helpers)
+	public function __construct(Repository $repository, Options $options, Inflector\Inflector $inflector, Helpers $helpers)
 	{
 		$this->repository = $repository;
 		$this->options = $options;
@@ -96,7 +96,7 @@ class Generator
 			->addClass($name);
 
 		// Get all columns names from table.
-		$columns = $this->repository->getColumns($table);
+		$columns = $this->repository->getColumnNames($table);
 		foreach ($columns as $key => $column) {
 
 			// Convert large characters to lowercase.
@@ -109,7 +109,7 @@ class Generator
 			$helpers->validateColumn($table, $column);
 
 			// Get all column information.
-			$columnInfo = $this->repository->getColumnInfo($table, $column);
+			$columnInfo = $this->repository->getColumn($table, $column);
 
 			// Get column type.
 			$columnType = Utils\Strings::lower($helpers->detectType($columnInfo->getNativeType()));
@@ -168,13 +168,13 @@ class Generator
 	 */
 	private function getColumnAttribute(string $table, string $column): array
 	{
-		$info = $this->repository->getColumnInfo($table, $column);
+		$info = $this->repository->getColumn($table, $column);
 		return [
-			Attributes::AUTO_INCREMENT => $info->autoIncrement,
-			Attributes::SIZE => $info->size,
-			Attributes::DEFAULT => $info->default,
-			Attributes::NULLABLE => $info->nullable,
-			Attributes::TYPE => Utils\Strings::lower($info->nativeType),
+			Data\Attribute::AUTO_INCREMENT => $info->autoIncrement,
+			Data\Attribute::SIZE => $info->size,
+			Data\Attribute::DEFAULT => $info->default,
+			Data\Attribute::NULLABLE => $info->nullable,
+			Data\Attribute::TYPE => Nette\Utils\Strings::lower($info->nativeType),
 		];
 	}
 
@@ -188,11 +188,11 @@ class Generator
 		$attr = $this->getColumnAttribute($table, $column);
 
 		// Column attributes.
-		$assembly = $help->getAttribute($attr, Attributes::AUTO_INCREMENT);
-		$assembly .= $help->getAttribute($attr, Attributes::SIZE);
-		$assembly .= $help->getAttribute($attr, Attributes::DEFAULT);
-		$assembly .= $help->getAttribute($attr, Attributes::NULLABLE);
-		$assembly .= $help->getAttribute($attr, Attributes::TYPE);
+		$assembly = $help->getAttribute($attr, Data\Attribute::AUTO_INCREMENT);
+		$assembly .= $help->getAttribute($attr, Data\Attribute::SIZE);
+		$assembly .= $help->getAttribute($attr, Data\Attribute::DEFAULT);
+		$assembly .= $help->getAttribute($attr, Data\Attribute::NULLABLE);
+		$assembly .= $help->getAttribute($attr, Data\Attribute::TYPE);
 		return $assembly;
 	}
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-use Drago\Generator\Generator;
+use Drago\Generator;
 use Nette\DI;
 
 $container = require __DIR__ . '/../../bootstrap.php';
@@ -38,7 +38,7 @@ class GeneratorExtension extends TestContainer
 	public function test01(): void
 	{
 		$container = $this->createContainer();
-		Tester\Assert::type(Generator::class, $container->getByType(Generator::class));
+		Tester\Assert::type(Generator\Generator::class, $container->getByType(Generator\Generator::class));
 	}
 }
 

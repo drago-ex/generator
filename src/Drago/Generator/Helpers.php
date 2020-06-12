@@ -9,18 +9,18 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
-use Drago\Generator\Data\Type;
-use Nette\Utils\Strings;
+use Drago\Generator\Data;
+use Nette\Utils;
 
 
 /**
- * Auxiliary methods for the generator.
+ * Helpful methods for the generator.
  */
 class Helpers
 {
 	/**
 	 * Replace string with the replacement string.
-	 * @return mixed
+	 * @return string|string[]
 	 */
 	public function addField(string $replace, string $subject)
 	{
@@ -34,7 +34,7 @@ class Helpers
 	 */
 	public function validateColumn(string $table, string $column): void
 	{
-		if (Strings::contains($column, '(')) {
+		if (Utils\Strings::contains($column, '(')) {
 			throw new \Exception('Wrong column name ' . $column . ' in table ' .
 				$table . ', change name or use AS');
 		}
@@ -71,19 +71,19 @@ class Helpers
 	public function detectType(string $type): string
 	{
 		$pattern = [
-			'BYTEA|BLOB|BIN' => Type::BINARY,
-			'TEXT|CHAR|POINT|INTERVAL|STRING' => Type::TEXT,
-			'YEAR|BYTE|COUNTER|SERIAL|INT|LONG|SHORT' => Type::INTEGER,
-			'CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => Type::FLOAT,
-			'BOOL|BIT' => Type::BOOL,
-			'TIME' => Type::TIME,
-			'DATE' => Type::DATE,
+			'BYTEA|BLOB|BIN' => Data\Type::BINARY,
+			'TEXT|CHAR|POINT|INTERVAL|STRING' => Data\Type::TEXT,
+			'YEAR|BYTE|COUNTER|SERIAL|INT|LONG|SHORT' => Data\Type::INTEGER,
+			'CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => Data\Type::FLOAT,
+			'BOOL|BIT' => Data\Type::BOOL,
+			'TIME' => Data\Type::TIME,
+			'DATE' => Data\Type::DATE,
 		];
 		foreach ($pattern as $s => $val) {
 			if (preg_match("#$s#i", $type)) {
 				$item = $val;
 			}
 		}
-		return $item ?? Type::TEXT;
+		return $item ?? Data\Type::TEXT;
 	}
 }

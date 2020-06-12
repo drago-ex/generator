@@ -11,9 +11,9 @@ namespace Drago\Generator\Data;
 
 
 /**
- * Column attributes.
+ * Column attribute.
  */
-class Attributes
+class Attribute
 {
 	public const
 		AUTO_INCREMENT = 'autoIncrement',
