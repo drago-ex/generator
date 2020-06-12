@@ -3,9 +3,7 @@
 declare(strict_types = 1);
 
 use Drago\Generator;
-use Drago\Generator\GeneratorCommand;
-use Doctrine\Inflector\Inflector;
-use Doctrine\Inflector\NoopWordInflector;
+use Doctrine\Inflector;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
@@ -18,9 +16,10 @@ function repository(): TestRepository
 
 
 test(function () {
-	$inflector = new Inflector(new NoopWordInflector, new NoopWordInflector);
-	$generator = new Generator\Generator(repository()->mysql(), new Generator\Options, $inflector);
-	$command = new GeneratorCommand($generator);
+	$noopWordInflector = new Inflector\NoopWordInflector;
+	$inflector = new Inflector\Inflector($noopWordInflector, $noopWordInflector);
+	$generator = new Generator\Generator(repository()->mysql(), new Generator\Options, $inflector, new Generator\Helpers);
+	$generatorCommand = new Generator\GeneratorCommand($generator);
 
-	Assert::type(GeneratorCommand::class, $command);
+	Assert::type(Generator\GeneratorCommand::class, $generatorCommand);
 });
