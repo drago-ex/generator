@@ -32,11 +32,11 @@ class Helpers
 	 * Check column names for parentheses.
 	 * @throws \Exception
 	 */
-	public function validateColumn(string $table, string $column): void
+	public function validateColumn(string $tableName, string $columnName): void
 	{
-		if (Utils\Strings::contains($column, '(')) {
-			throw new \Exception('Wrong column name ' . $column . ' in table ' .
-				$table . ', change name or use AS');
+		if (Utils\Strings::contains($columnName, '(')) {
+			throw new \Exception('Wrong column name ' . $columnName . ' in table ' .
+				$tableName . ', change name or use AS');
 		}
 	}
 
@@ -58,10 +58,10 @@ class Helpers
 	/**
 	 * Column attribute information.
 	 */
-	public function getAttribute(array $attribute, string $key): ?string
+	public function getAttribute(array $attributes, string $key): ?string
 	{
-		return $attribute[$key] ? 'Column ' .
-			$key . ' = ' . $attribute[$key] . "\n" : null;
+		return $attributes[$key] ? 'Column ' .
+			$key . ' = ' . $attributes[$key] . "\n" : null;
 	}
 
 

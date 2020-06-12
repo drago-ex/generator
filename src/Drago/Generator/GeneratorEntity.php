@@ -49,19 +49,18 @@ class GeneratorEntity
 	 * @throws \Dibi\Exception
 	 * @throws \Throwable
 	 */
-	public function runGenerate(?string $table = null): void
+	public function runGenerate(?string $tableName = null): void
 	{
-		if ($table !== null) {
+		if ($tableName !== null) {
 
 			// Generate one entity by table name.
-			$this->createEntity($table);
+			$this->createEntity($tableName);
 
 		} else {
-			$tables = $this->repository->getTableNames();
-			foreach ($tables as $name) {
+			foreach ($this->repository->getTableNames() as $tableName) {
 
 				// Generate all entity.
-				$this->createEntity($name);
+				$this->createEntity($tableName);
 			}
 		}
 	}
@@ -73,13 +72,13 @@ class GeneratorEntity
 	 * @throws \Exception
 	 * @throws \Throwable
 	 */
-	private function createEntity(string $table): void
+	private function createEntity(string $tableName): void
 	{
-		$php = new Nette\PhpGenerator\PhpFile;
-		$php->setStrictTypes();
+		$phpFile = new Nette\PhpGenerator\PhpFile;
+		$phpFile->setStrictTypes();
 
 		// Preventive measures convert to lowercase.
-		$class = Utils\Strings::lower($table);
+		$className = Utils\Strings::lower($tableName);
 
 		// Options for generate entity.
 		$options = $this->options;
@@ -88,93 +87,93 @@ class GeneratorEntity
 		$helpers = $this->helpers;
 
 		// Create an entity name from the table name and the added suffix.
-		$name = $this->inflector->classify($class) . $options->suffix;
+		$entityName = $this->inflector->classify($className) . $options->suffix;
 
 		// We create a entity and add namespace.
-		$entity = $php
+		$entity = $phpFile
 			->addNamespace($options->namespace)
-			->addClass($name);
+			->addClass($entityName);
 
 		// Get all columns names from table.
-		$columns = $this->repository->getColumnNames($table);
-		foreach ($columns as $key => $column) {
+		$columnsNames = $this->repository->getColumnNames($tableName);
+		foreach ($columnsNames as $key => $columnName) {
 
 			// Convert large characters to lowercase.
 			if ($options->lower) {
-				$columnConstant = $column;
-				$column = Utils\Strings::lower($column);
+				$columnConstant = $columnName;
+				$columnName = Utils\Strings::lower($columnName);
 			}
 
 			// Check column names for parentheses.
-			$helpers->validateColumn($table, $column);
+			$helpers->validateColumn($tableName, $columnName);
 
-			// Get all column information.
-			$columnInfo = $this->repository->getColumn($table, $column);
+			// Get column information.
+			$column = $this->repository->getColumn($tableName, $columnName);
 
 			// Get column type.
-			$columnType = Utils\Strings::lower($helpers->detectType($columnInfo->getNativeType()));
+			$columnType = Utils\Strings::lower($helpers->detectType($column->getNativeType()));
 
 			// Add the extend and the table constant to the entity.
 			$entity->setExtends($options->extends)
-				->addConstant('TABLE', $table)
+				->addConstant('TABLE', $tableName)
 				->setPublic();
 
 			// Add property annotation to entity class.
 			if ($options->property) {
-				$entity->addComment('@property ' . $columnType . ' $' . $column);
+				$entity->addComment('@property ' . $columnType . ' $' . $columnName);
 			}
 
 			// Add constants to the entity.
 			if ($options->constant) {
-				$constant = Utils\Strings::upper($helpers->snakeCase($column));
-				$entity->addConstant($constant, $columnConstant ?? $column)
+				$constant = Utils\Strings::upper($helpers->snakeCase($columnName));
+				$entity->addConstant($constant, $columnConstant ?? $columnName)
 					->setPublic();
 			}
 
 			// Add attributes to the entity.
-			$entity->addProperty($column)
+			$entity->addProperty($columnName)
 				->setVisibility($options->propertyVisibility)
-				->addComment($this->getColumnQuery($table, $column))
+				->addComment($this->getColumnQuery($tableName, $columnName))
 				->addComment('@var ' . $columnType);
 
 			// Add the getter method.
 			if ($options->getter) {
-				$entity->addMethod('get' . $this->inflector->classify($helpers->snakeCase($column)))
+				$entity->addMethod('get' . $this->inflector->classify($helpers->snakeCase($columnName)))
 					->setVisibility('public')
 					->setReturnType($columnType)
-					->setReturnNullable($options->getterPrimaryNull && $columnInfo->isAutoIncrement() ? true : $columnInfo->isNullable())
-					->addBody($helpers->addField($column, 'return $this->__FIELD__;'));
+					->setReturnNullable($options->getterPrimaryNull && $column->isAutoIncrement() ? true : $column->isNullable())
+					->addBody($helpers->addField($columnName, 'return $this->__FIELD__;'));
 			}
 
 			// Add the setter method.
 			if ($options->setter) {
-				$entity->addMethod('set' . $this->inflector->classify($helpers->snakeCase($column)))
-					->addBody($helpers->addField($column, '$this[\'__FIELD__\'] = $var;'))
+				$entity->addMethod('set' . $this->inflector->classify($helpers->snakeCase($columnName)))
+					->addBody($helpers->addField($columnName, '$this[\'__FIELD__\'] = $var;'))
 					->setVisibility('public')
 					->addParameter('var')
 					->setType($columnType)
-					->setNullable($columnInfo->isNullable());
+					->setNullable($column->isNullable());
 			}
 		}
 
-		$file = $options->path . '/' . $name . '.php';
-		Utils\FileSystem::write($file, $php->__toString());
+		$file = $options->path . '/' . $entityName . '.php';
+		Utils\FileSystem::write($file, $phpFile->__toString());
 	}
 
 
 	/**
-	 * Column attribute.
+	 * Column data attribute.
 	 * @throws \Dibi\Exception
 	 */
-	private function getColumnAttribute(string $table, string $column): array
+	private function getColumnAttribute(string $tableName, string $columnName): array
 	{
-		$info = $this->repository->getColumn($table, $column);
+		$column = $this->repository->getColumn($tableName, $columnName);
 		return [
-			Data\Attribute::AUTO_INCREMENT => $info->autoIncrement,
-			Data\Attribute::SIZE => $info->size,
-			Data\Attribute::DEFAULT => $info->default,
-			Data\Attribute::NULLABLE => $info->nullable,
-			Data\Attribute::TYPE => Nette\Utils\Strings::lower($info->nativeType),
+			Data\Attribute::AUTO_INCREMENT => $column->autoIncrement,
+			Data\Attribute::SIZE => $column->size,
+			Data\Attribute::DEFAULT => $column->default,
+			Data\Attribute::NULLABLE => $column->nullable,
+			Data\Attribute::TYPE => Nette\Utils\Strings::lower($column->nativeType),
 		];
 	}
 
@@ -182,10 +181,10 @@ class GeneratorEntity
 	/**
 	 * @throws \Dibi\Exception
 	 */
-	private function getColumnQuery(string $table, string $column): string
+	private function getColumnQuery(string $tableName, string $columnName): string
 	{
 		$help = $this->helpers;
-		$attr = $this->getColumnAttribute($table, $column);
+		$attr = $this->getColumnAttribute($tableName, $columnName);
 
 		// Column attributes.
 		$assembly = $help->getAttribute($attr, Data\Attribute::AUTO_INCREMENT);
