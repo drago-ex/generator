@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
+use Dibi\Exception;
 use Dibi\Reflection;
 use Drago\Database;
 
@@ -29,7 +30,7 @@ class Repository extends Database\Connect
 
 	/**
 	 * Get table information.
-	 * @throws \Dibi\Exception
+	 * @throws Exception
 	 */
 	public function getTable(string $name): Reflection\Table
 	{
@@ -50,7 +51,7 @@ class Repository extends Database\Connect
 
 	/**
 	 * Get all columns names from table.
-	 * @throws \Dibi\Exception
+	 * @throws Exception
 	 */
 	public function getColumnNames(string $table): array
 	{
@@ -61,7 +62,7 @@ class Repository extends Database\Connect
 
 	/**
 	 * Get all column information.
-	 * @throws \Dibi\Exception
+	 * @throws Exception
 	 */
 	public function getColumn(string $table, string $column): Reflection\Column
 	{

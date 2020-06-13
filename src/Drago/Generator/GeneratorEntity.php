@@ -9,10 +9,12 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
+use Dibi\Exception;
 use Doctrine\Inflector;
 use Drago\Generator\Data;
 use Nette;
 use Nette\Utils;
+use Throwable;
 
 
 /**
@@ -46,8 +48,8 @@ class GeneratorEntity
 
 	/**
 	 * Run generate entity.
-	 * @throws \Dibi\Exception
-	 * @throws \Throwable
+	 * @throws Exception
+	 * @throws Throwable
 	 */
 	public function runGeneration(?string $tableName = null): void
 	{
@@ -68,9 +70,8 @@ class GeneratorEntity
 
 	/**
 	 * Creating php file.
-	 * @throws \Dibi\Exception
-	 * @throws \Exception
-	 * @throws \Throwable
+	 * @throws Exception
+	 * @throws Throwable
 	 */
 	private function createPhpFile(string $tableName): void
 	{
@@ -159,7 +160,7 @@ class GeneratorEntity
 
 	/**
 	 * Column data attribute.
-	 * @throws \Dibi\Exception
+	 * @throws Exception
 	 */
 	private function getColumnAttribute(string $tableName, string $columnName): array
 	{
@@ -175,7 +176,7 @@ class GeneratorEntity
 
 
 	/**
-	 * @throws \Dibi\Exception
+	 * @throws Exception
 	 */
 	private function getColumnQuery(string $tableName, string $columnName): string
 	{

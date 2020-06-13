@@ -3,16 +3,18 @@
 declare(strict_types = 1);
 
 use Tester\Assert;
+use Drago\Database;
+use Drago\Generator;
 
 require __DIR__ . '/../../bootstrap.php';
 
 
-$options = new Drago\Generator\Options;
+$options = new Generator\Options;
 $options->path = __DIR__ . '/path/to/entity';
 
 Assert::type(TYPE_STRING, $options->path);
 Assert::type(TYPE_STRING, $options->suffix);
-Assert::same(Drago\Database\Entity::class, $options->extends);
+Assert::same(Database\Entity::class, $options->extends);
 Assert::type(TYPE_STRING, $options->namespace);
 Assert::type(TYPE_BOOL, $options->property);
 Assert::type(TYPE_STRING, $options->propertyVisibility);

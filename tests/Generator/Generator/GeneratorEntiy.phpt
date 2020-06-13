@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 use Drago\Generator;
 use Doctrine\Inflector;
-use Nette\Utils\FileSystem;
+use Nette\Utils;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
@@ -38,21 +38,21 @@ function inflector(): Inflector\Inflector
 }
 
 
-function generator(
+function generatorEntity(
 	Generator\Repository $repository,
 	Generator\Options $options,
 	Inflector\Inflector $inflector,
 	Generator\Helpers $helpers
-	): Generator\Generator
+): Generator\GeneratorEntity
 {
-	return new Generator\Generator($repository, $options, $inflector, $helpers);
+	return new Generator\GeneratorEntity($repository, $options, $inflector, $helpers);
 }
 
 
 function isDirectory(string $dir): void
 {
 	if (!is_dir($dir)) {
-		FileSystem::createDir($dir);
+		Utils\FileSystem::createDir($dir);
 	}
 }
 
@@ -61,11 +61,11 @@ test(function () {
 	$options = options(__DIR__ . '/../../Entity');
 	isDirectory($options->path);
 
-	$generator = generator(repository()->mysql(), $options, inflector(), helper());
-	$generator->runGenerate('test');
+	$generatorEntity = generatorEntity(repository()->mysql(), $options, inflector(), helper());
+	$generatorEntity->runGeneration('test');
 
-	Assert::exception(function () use ($generator) {
-		$generator->runGenerate();
+	Assert::exception(function () use ($generatorEntity) {
+		$generatorEntity->runGeneration();
 	}, Exception::class, 'Wrong column name error(...) in table error, change name or use AS');
 });
 
@@ -74,6 +74,6 @@ test(function () {
 	$options = options(__DIR__ . '/../../EntityOracle');
 	isDirectory($options->path);
 
-	$generator = generator(repository()->oracle(), $options, inflector(), helper());
-	$generator->runGenerate('TEST');
+	$generatorEntity = generatorEntity(repository()->oracle(), $options, inflector(), helper());
+	$generatorEntity->runGeneration('TEST');
 });

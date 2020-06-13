@@ -18,8 +18,8 @@ function repository(): TestRepository
 test(function () {
 	$noopWordInflector = new Inflector\NoopWordInflector;
 	$inflector = new Inflector\Inflector($noopWordInflector, $noopWordInflector);
-	$generator = new Generator\Generator(repository()->mysql(), new Generator\Options, $inflector, new Generator\Helpers);
-	$generatorCommand = new Generator\GeneratorCommand($generator);
+	$generatorEntity = new Generator\GeneratorEntity(repository()->mysql(), new Generator\Options, $inflector, new Generator\Helpers);
+	$generatorCommand = new Generator\GeneratorCommand($generatorEntity);
 
 	Assert::type(Generator\GeneratorCommand::class, $generatorCommand);
 });

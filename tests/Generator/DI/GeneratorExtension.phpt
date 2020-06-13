@@ -12,8 +12,7 @@ class GeneratorExtension extends TestContainer
 {
 	private function createContainer(): DI\Container
 	{
-		$container = $this->container;
-		$loader = new DI\ContainerLoader($container->getParameters()['tempDir'], true);
+		$loader = new DI\ContainerLoader($this->container->getParameters()['tempDir'], true);
 		$class = $loader->load(function (DI\Compiler $compiler): void {
 			$compiler->loadConfig(Tester\FileMock::create('
 			generator:
@@ -29,7 +28,7 @@ class GeneratorExtension extends TestContainer
 						lazy: true
 					])
 			', 'neon'));
-			$compiler->addExtension('generator', new Drago\Generator\DI\GeneratorExtension);
+			$compiler->addExtension('generatorEntity', new Drago\Generator\DI\GeneratorExtension);
 		});
 		return new $class;
 	}
@@ -37,8 +36,8 @@ class GeneratorExtension extends TestContainer
 
 	public function test01(): void
 	{
-		$container = $this->createContainer();
-		Tester\Assert::type(Generator\Generator::class, $container->getByType(Generator\Generator::class));
+		Tester\Assert::type(Generator\GeneratorEntity::class, $this->createContainer()
+			->getByType(Generator\GeneratorEntity::class));
 	}
 }
 

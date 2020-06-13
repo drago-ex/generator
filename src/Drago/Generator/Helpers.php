@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Drago\Generator;
 
 use Drago\Generator\Data;
+use Exception;
 use Nette\Utils;
 
 
@@ -30,12 +31,12 @@ class Helpers
 
 	/**
 	 * Check column names for parentheses.
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function validateColumn(string $tableName, string $columnName): void
 	{
 		if (Utils\Strings::contains($columnName, '(')) {
-			throw new \Exception('Wrong column name ' . $columnName . ' in table ' .
+			throw new Exception('Wrong column name ' . $columnName . ' in table ' .
 				$tableName . ', change name or use AS');
 		}
 	}
