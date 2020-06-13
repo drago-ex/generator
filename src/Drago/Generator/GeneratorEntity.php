@@ -45,40 +45,37 @@ class GeneratorEntity
 
 
 	/**
-	 * Run entity generate.
+	 * Run generate entity.
 	 * @throws \Dibi\Exception
 	 * @throws \Throwable
 	 */
-	public function runGenerate(?string $tableName = null): void
+	public function runGeneration(?string $tableName = null): void
 	{
 		if ($tableName !== null) {
 
 			// Generate one entity by table name.
-			$this->createEntity($tableName);
+			$this->createPhpFile($tableName);
 
 		} else {
 			foreach ($this->repository->getTableNames() as $tableName) {
 
 				// Generate all entity.
-				$this->createEntity($tableName);
+				$this->createPhpFile($tableName);
 			}
 		}
 	}
 
 
 	/**
-	 * Creating entity.
+	 * Creating php file.
 	 * @throws \Dibi\Exception
 	 * @throws \Exception
 	 * @throws \Throwable
 	 */
-	private function createEntity(string $tableName): void
+	private function createPhpFile(string $tableName): void
 	{
 		$phpFile = new Nette\PhpGenerator\PhpFile;
 		$phpFile->setStrictTypes();
-
-		// Preventive measures convert to lowercase.
-		$className = Utils\Strings::lower($tableName);
 
 		// Options for generate entity.
 		$options = $this->options;
@@ -87,12 +84,12 @@ class GeneratorEntity
 		$helpers = $this->helpers;
 
 		// Create an entity name from the table name and the added suffix.
-		$entityName = $this->inflector->classify($className) . $options->suffix;
+		$className = $this->inflector->classify(Utils\Strings::lower($tableName)) . $options->suffix;
 
 		// We create a entity and add namespace.
 		$entity = $phpFile
 			->addNamespace($options->namespace)
-			->addClass($entityName);
+			->addClass($className);
 
 		// Get all columns names from table.
 		$columnsNames = $this->repository->getColumnNames($tableName);
@@ -100,7 +97,6 @@ class GeneratorEntity
 
 			// Convert large characters to lowercase.
 			if ($options->lower) {
-				$columnConstant = $columnName;
 				$columnName = Utils\Strings::lower($columnName);
 			}
 
@@ -125,8 +121,8 @@ class GeneratorEntity
 
 			// Add constants to the entity.
 			if ($options->constant) {
-				$constant = Utils\Strings::upper($helpers->snakeCase($columnName));
-				$entity->addConstant($constant, $columnConstant ?? $columnName)
+				$constantName = Utils\Strings::upper($helpers->snakeCase($columnName));
+				$entity->addConstant($constantName, $columnName)
 					->setPublic();
 			}
 
@@ -156,7 +152,7 @@ class GeneratorEntity
 			}
 		}
 
-		$file = $options->path . '/' . $entityName . '.php';
+		$file = $options->path . '/' . $className . '.php';
 		Utils\FileSystem::write($file, $phpFile->__toString());
 	}
 

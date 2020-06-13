@@ -20,14 +20,14 @@ class GeneratorCommand extends Console\Command\Command
 	/** @var string */
 	protected static $defaultName = 'make:entity';
 
-	/** @var Generator */
-	private $generator;
+	/** @var GeneratorEntity */
+	private $generatorEntity;
 
 
-	public function __construct(Generator $generator)
+	public function __construct(GeneratorEntity $generatorEntity)
 	{
 		parent::__construct();
-		$this->generator = $generator;
+		$this->generatorEntity = $generatorEntity;
 	}
 
 
@@ -50,6 +50,6 @@ class GeneratorCommand extends Console\Command\Command
 	 */
 	protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
 	{
-		$this->generator->runGenerate($input->getArgument('table'));
+		$this->generatorEntity->runGeneration($input->getArgument('table'));
 	}
 }
