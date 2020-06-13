@@ -31,7 +31,7 @@ class GeneratorExtension extends DI\CompilerExtension
 
 		$builder->addDefinition($this->prefix('inflector'))
 			->setFactory(Inflector\Inflector::class)
-			->setArguments(['@generator.noopWordInflector', '@generator.noopWordInflector']);
+			->setArguments(['@generatorEntity.noopWordInflector', '@generatorEntity.noopWordInflector']);
 
 		$builder->addDefinition($this->prefix('helpers'))
 			->setFactory(Generator\Helpers::class);
@@ -40,7 +40,7 @@ class GeneratorExtension extends DI\CompilerExtension
 		$normalized = $schema->process(Schema\Expect::from(new Generator\Options), $this->config);
 		$builder->addDefinition($this->prefix('generatorEntity'))
 			->setFactory(Generator\GeneratorEntity::class)
-			->setArguments(['@generator.repository', $normalized, '@generator.inflector', '@generator.helpers']);
+			->setArguments(['@generatorEntity.repository', $normalized, '@generatorEntity.inflector', '@generatorEntity.helpers']);
 
 		$builder->addDefinition($this->prefix('command'))
 			->setFactory(Generator\GeneratorCommand::class);
