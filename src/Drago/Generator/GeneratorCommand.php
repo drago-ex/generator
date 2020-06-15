@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
-use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -50,7 +49,6 @@ class GeneratorCommand extends Command
 	/**
 	 * Executes the current command.
 	 * @return int|void
-	 * @throws Exception
 	 * @throws Throwable
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output)
