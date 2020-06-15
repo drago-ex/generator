@@ -23,9 +23,9 @@ test(function () {
 	Assert::equal([
 		0 => 'sampleId',
 		1 => 'sampleString',
-	], repository()->mysql()->getColumns('test'));
+	], repository()->mysql()->getColumnNames('test'));
 
-	$columnInfo = repository()->mysql()->getColumnInfo('test', 'sampleId');
+	$columnInfo = repository()->mysql()->getColumn('test', 'sampleId');
 	Assert::type(Column::class, $columnInfo);
 });
 
@@ -38,8 +38,8 @@ test(function () {
 	Assert::equal([
 		0 => 'SAMPLE_ID',
 		1 => 'SAMPLE_STRING',
-	], repository()->oracle()->getColumns('TEST'));
+	], repository()->oracle()->getColumnNames('TEST'));
 
-	$columnInfo = repository()->oracle()->getColumnInfo('TEST', 'SAMPLE_ID');
+	$columnInfo = repository()->oracle()->getColumn('TEST', 'SAMPLE_ID');
 	Assert::type(Column::class, $columnInfo);
 });

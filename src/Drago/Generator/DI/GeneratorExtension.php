@@ -9,40 +9,46 @@ declare(strict_types = 1);
 
 namespace Drago\Generator\DI;
 
-use Doctrine\Inflector;
-use Drago\Generator;
-use Nette;
-use Nette\Schema;
+use Doctrine\Inflector\Inflector;
+use Doctrine\Inflector\NoopWordInflector;
+use Drago\Generator\GeneratorCommand;
+use Drago\Generator\GeneratorEntity;
+use Drago\Generator\Helpers;
+use Drago\Generator\Options;
+use Drago\Generator\Repository;
+use Nette\DI\CompilerExtension;
+use Nette\Schema\Expect;
+use Nette\Schema\Processor;
 
 
 /**
  * Register services for generator.
  */
-class GeneratorExtension extends Nette\DI\CompilerExtension
+class GeneratorExtension extends CompilerExtension
 {
 	public function loadConfiguration(): void
 	{
 		$builder = $this->getContainerBuilder();
 		$builder->addDefinition($this->prefix('repository'))
-			->setFactory(Generator\Repository::class);
+			->setFactory(Repository::class);
 
-		$builder->addDefinition($this->prefix('noopWordInflector'))
-			->setFactory(Inflector\NoopWordInflector::class);
+		$builder->addDefinition($this->prefix('wordInflector'))
+			->setFactory(NoopWordInflector::class);
 
 		$builder->addDefinition($this->prefix('inflector'))
-			->setFactory(Inflector\Inflector::class)
-			->setArguments(['@generator.noopWordInflector', '@generator.noopWordInflector']);
+			->setFactory(Inflector::class)
+			->setArguments(['@generator.wordInflector', '@generator.wordInflector']);
 
 		$builder->addDefinition($this->prefix('helpers'))
-			->setFactory(Generator\Helpers::class);
+			->setFactory(Helpers::class);
 
-		$schema = new Schema\Processor;
-		$normalized = $schema->process(Schema\Expect::from(new Generator\Options), $this->config);
+		$schema = new Processor;
+		$normalized = $schema->process(Expect::from(new Options), $this->config);
 		$builder->addDefinition($this->prefix('generator'))
-			->setFactory(Generator\Generator::class)
+			->setFactory(GeneratorEntity::class)
 			->setArguments(['@generator.repository', $normalized, '@generator.inflector', '@generator.helpers']);
 
 		$builder->addDefinition($this->prefix('command'))
-			->setFactory(Generator\GeneratorCommand::class);
+			->setFactory(GeneratorCommand::class);
 	}
 }

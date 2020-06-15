@@ -9,37 +9,35 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
-use Dibi\Reflection;
-use Drago;
+use Dibi\Reflection\Column;
+use Dibi\Reflection\Database;
+use Dibi\Reflection\Table;
+use Drago\Database\Connect;
+use Exception;
 
 
 /**
  * Get table names ant types from database.
  */
-class Repository extends Drago\Database\Connect
+class Repository extends Connect
 {
 	/**
 	 * Get database info.
 	 */
-	private function getDatabaseInfo(): Reflection\Database
+	private function getDatabaseInfo(): Database
 	{
-		$database = $this->db
-			->getDatabaseInfo();
-
-		return $database;
+		return $this->db->getDatabaseInfo();
 	}
 
 
 	/**
 	 * Get table information.
-	 * @throws \Dibi\Exception
+	 * @throws Exception
 	 */
-	public function getTable(string $name): Reflection\Table
+	public function getTable(string $name): Table
 	{
-		$table = $this->getDatabaseInfo()
+		return $this->getDatabaseInfo()
 			->getTable($name);
-
-		return $table;
 	}
 
 
@@ -48,35 +46,29 @@ class Repository extends Drago\Database\Connect
 	 */
 	public function getTableNames(): array
 	{
-		$tables = $this->getDatabaseInfo()
+		return $this->getDatabaseInfo()
 			->getTableNames();
-
-		return $tables;
 	}
 
 
 	/**
 	 * Get all columns names from table.
-	 * @throws \Dibi\Exception
+	 * @throws Exception
 	 */
-	public function getColumns(string $table): array
+	public function getColumnNames(string $table): array
 	{
-		$columns = $this->getTable($table)
+		return $this->getTable($table)
 			->getColumnNames();
-
-		return $columns;
 	}
 
 
 	/**
 	 * Get all column information.
-	 * @throws \Dibi\Exception
+	 * @throws Exception
 	 */
-	public function getColumnInfo(string $table, string $column): Reflection\Column
+	public function getColumn(string $table, string $column): Column
 	{
-		$column = $this->getTable($table)
+		return $this->getTable($table)
 			->getColumn($column);
-
-		return $column;
 	}
 }

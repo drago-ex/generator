@@ -3,23 +3,19 @@
 declare(strict_types = 1);
 
 use Drago\Generator;
-use Doctrine\Inflector;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
 
 
-function repository(): TestRepository
+function generator(): TestGenerator
 {
-	return new TestRepository;
+	return new TestGenerator();
 }
 
 
 test(function () {
-	$noopWordInflector = new Inflector\NoopWordInflector;
-	$inflector = new Inflector\Inflector($noopWordInflector, $noopWordInflector);
-	$generator = new Generator\Generator(repository()->mysql(), new Generator\Options, $inflector, new Generator\Helpers);
-	$generatorCommand = new Generator\GeneratorCommand($generator);
-
+	$generatorEntity = generator()->createGeneratorEntity(generator()->repository()->mysql(), generator()->options());
+	$generatorCommand = new Generator\GeneratorCommand($generatorEntity);
 	Assert::type(Generator\GeneratorCommand::class, $generatorCommand);
 });

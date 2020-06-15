@@ -9,11 +9,13 @@ declare(strict_types = 1);
 
 namespace Drago\Generator\Data;
 
+use Exception;
+
 
 /**
- * Column attributes.
+ * Column attribute.
  */
-class Attributes
+class Attribute
 {
 	public const
 		AUTO_INCREMENT = 'autoIncrement',
@@ -23,8 +25,11 @@ class Attributes
 		TYPE = 'type';
 
 
+	/**
+	 * @throws Exception
+	 */
 	final public function __construct()
 	{
-		throw new \Exception('Cannot instantiate static class ' . __CLASS__);
+		throw new Exception('Cannot instantiate static class ' . __CLASS__);
 	}
 }

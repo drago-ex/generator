@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Drago\Generator\Data;
 
+use Exception;
+
 
 /**
  * Data types.
@@ -25,8 +27,11 @@ class Type
 		TIME = '\DateInterval';
 
 
+	/**
+	 * @throws Exception
+	 */
 	final public function __construct()
 	{
-		throw new \Exception('Cannot instantiate static class ' . __CLASS__);
+		throw new Exception('Cannot instantiate static class ' . __CLASS__);
 	}
 }
