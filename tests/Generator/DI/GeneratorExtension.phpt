@@ -32,7 +32,7 @@ class TestGeneratorExtension extends TestContainer
 						lazy: true
 					])
 			', 'neon'));
-			$compiler->addExtension('generator', new GeneratorExtension());
+			$compiler->addExtension('generator', new GeneratorExtension);
 		});
 		return new $class;
 	}

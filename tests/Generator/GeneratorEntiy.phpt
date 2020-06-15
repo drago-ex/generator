@@ -5,7 +5,7 @@ declare(strict_types = 1);
 use Nette\Utils\FileSystem;
 use Tester\Assert;
 
-require __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../bootstrap.php';
 
 
 function generator(): TestGenerator

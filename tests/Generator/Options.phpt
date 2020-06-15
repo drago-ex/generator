@@ -6,7 +6,7 @@ use Drago\Database\Entity;
 use Tester\Assert;
 use Drago\Generator;
 
-require __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../bootstrap.php';
 
 
 $options = new Generator\Options;

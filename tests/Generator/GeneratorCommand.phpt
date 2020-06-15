@@ -5,7 +5,7 @@ declare(strict_types = 1);
 use Drago\Generator;
 use Tester\Assert;
 
-require __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../bootstrap.php';
 
 
 function generator(): TestGenerator
