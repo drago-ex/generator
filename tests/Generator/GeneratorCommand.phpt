@@ -10,7 +10,7 @@ require __DIR__ . '/../bootstrap.php';
 
 function generator(): TestGenerator
 {
-	return new TestGenerator();
+	return new TestGenerator;
 }
 
 
