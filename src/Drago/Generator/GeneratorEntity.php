@@ -50,7 +50,6 @@ class GeneratorEntity
 
 	/**
 	 * Run generate entity.
-	 * @throws Exception
 	 * @throws Throwable
 	 */
 	public function runGeneration(?string $tableName = null): void
@@ -72,7 +71,6 @@ class GeneratorEntity
 
 	/**
 	 * Creating php file.
-	 * @throws Exception
 	 * @throws Throwable
 	 */
 	private function createPhpFile(string $tableName): void
@@ -177,9 +175,6 @@ class GeneratorEntity
 	}
 
 
-	/**
-	 * @throws Exception
-	 */
 	private function getColumnQuery(string $tableName, string $columnName): string
 	{
 		$help = $this->helpers;
