@@ -2,15 +2,13 @@
 
 declare(strict_types = 1);
 
-use Drago\Generator;
-use Doctrine\Inflector;
-use Nette\Utils;
+use Nette\Utils\FileSystem;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
 
 
-function generatorEntity(): TestGenerator
+function generator(): TestGenerator
 {
 	return new TestGenerator;
 }
@@ -19,18 +17,18 @@ function generatorEntity(): TestGenerator
 function isDirectory(string $dir): void
 {
 	if (!is_dir($dir)) {
-		Utils\FileSystem::createDir($dir);
+		FileSystem::createDir($dir);
 	}
 }
 
 
 test(function () {
-	$options = generatorEntity()->options();
+	$options = generator()->options();
 	$options->path = __DIR__ . '/../../Entity';
 	isDirectory($options->path);
 
-	$generator = generatorEntity();
-	$generatorEntity = $generator->testGenratorEntity($generator->repository()->mysql(), $options);
+	$generator = generator();
+	$generatorEntity = $generator->createGeneratorEntity($generator->repository()->mysql(), $options);
 	$generatorEntity->runGeneration('test');
 
 	Assert::exception(function () use ($generatorEntity) {
@@ -40,11 +38,11 @@ test(function () {
 
 
 test(function () {
-	$options = generatorEntity()->options();
+	$options = generator()->options();
 	$options->path = __DIR__ . '/../../EntityOracle';
 	isDirectory($options->path);
 
-	$generator = generatorEntity();
-	$generatorEntity = $generator->testGenratorEntity($generator->repository()->oracle(), $options);
+	$generator = generator();
+	$generatorEntity = $generator->createGeneratorEntity($generator->repository()->oracle(), $options);
 	$generatorEntity->runGeneration('TEST');
 });

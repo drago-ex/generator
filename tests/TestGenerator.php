@@ -2,8 +2,12 @@
 
 declare(strict_types = 1);
 
-use Drago\Generator;
-use Doctrine\Inflector;
+use Doctrine\Inflector\Inflector;
+use Doctrine\Inflector\NoopWordInflector;
+use Drago\Generator\GeneratorEntity;
+use Drago\Generator\Helpers;
+use Drago\Generator\Options;
+use Drago\Generator\Repository;
 
 
 class TestGenerator
@@ -14,42 +18,27 @@ class TestGenerator
 	}
 
 
-	public function options(): Generator\Options
+	public function options(): Options
 	{
-		return new Generator\Options;
+		return new Options;
 	}
 
 
-	private function helper(): Generator\Helpers
+	private function helper(): Helpers
 	{
-		return new Generator\Helpers;
+		return new Helpers;
 	}
 
 
-	private function inflector(): Inflector\Inflector
+	private function inflector(): Inflector
 	{
-		$noopWordInflector = new Inflector\NoopWordInflector;
-		$inflector = new Inflector\Inflector($noopWordInflector, $noopWordInflector);
-		return $inflector;
+		$noopWordInflector = new NoopWordInflector;
+		return new Inflector($noopWordInflector, $noopWordInflector);
 	}
 
 
-	public function testGenratorEntity(Generator\Repository $repository, Generator\Options $options): Generator\GeneratorEntity
+	public function createGeneratorEntity(Repository $repository, Options $options): GeneratorEntity
 	{
-		return new Generator\GeneratorEntity($repository, $options, $this->inflector(), $this->helper());
-	}
-
-
-	/**
-	 * @throws Dibi\Exception
-	 */
-	public function getGeneratorEntity(): Generator\GeneratorEntity
-	{
-		return new Generator\GeneratorEntity(
-			$this->repository()->mysql(),
-			$this->options(),
-			$this->inflector(),
-			$this->helper()
-		);
+		return new GeneratorEntity($repository, $options, $this->inflector(), $this->helper());
 	}
 }

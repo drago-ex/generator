@@ -9,20 +9,22 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
-use Dibi\Exception;
-use Dibi\Reflection;
-use Drago\Database;
+use Dibi\Reflection\Column;
+use Dibi\Reflection\Database;
+use Dibi\Reflection\Table;
+use Drago\Database\Connect;
+use Exception;
 
 
 /**
  * Get table names ant types from database.
  */
-class Repository extends Database\Connect
+class Repository extends Connect
 {
 	/**
 	 * Get database info.
 	 */
-	private function getDatabaseInfo(): Reflection\Database
+	private function getDatabaseInfo(): Database
 	{
 		return $this->db->getDatabaseInfo();
 	}
@@ -32,7 +34,7 @@ class Repository extends Database\Connect
 	 * Get table information.
 	 * @throws Exception
 	 */
-	public function getTable(string $name): Reflection\Table
+	public function getTable(string $name): Table
 	{
 		return $this->getDatabaseInfo()
 			->getTable($name);
@@ -64,7 +66,7 @@ class Repository extends Database\Connect
 	 * Get all column information.
 	 * @throws Exception
 	 */
-	public function getColumn(string $table, string $column): Reflection\Column
+	public function getColumn(string $table, string $column): Column
 	{
 		return $this->getTable($table)
 			->getColumn($column);

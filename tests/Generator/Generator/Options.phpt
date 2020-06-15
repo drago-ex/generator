@@ -2,8 +2,8 @@
 
 declare(strict_types = 1);
 
+use Drago\Database\Entity;
 use Tester\Assert;
-use Drago\Database;
 use Drago\Generator;
 
 require __DIR__ . '/../../bootstrap.php';
@@ -14,7 +14,7 @@ $options->path = __DIR__ . '/path/to/entity';
 
 Assert::type(TYPE_STRING, $options->path);
 Assert::type(TYPE_STRING, $options->suffix);
-Assert::same(Database\Entity::class, $options->extends);
+Assert::same(Entity::class, $options->extends);
 Assert::type(TYPE_STRING, $options->namespace);
 Assert::type(TYPE_BOOL, $options->property);
 Assert::type(TYPE_STRING, $options->propertyVisibility);

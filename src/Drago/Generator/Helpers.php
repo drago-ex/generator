@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
-use Drago\Generator\Data;
+use Drago\Generator\Data\Type;
 use Exception;
-use Nette\Utils;
+use Nette\Utils\Strings;
 
 
 /**
@@ -35,7 +35,7 @@ class Helpers
 	 */
 	public function validateColumn(string $tableName, string $columnName): void
 	{
-		if (Utils\Strings::contains($columnName, '(')) {
+		if (Strings::contains($columnName, '(')) {
 			throw new Exception('Wrong column name ' . $columnName . ' in table ' .
 				$tableName . ', change name or use AS');
 		}
@@ -72,19 +72,19 @@ class Helpers
 	public function detectType(string $type): string
 	{
 		$pattern = [
-			'BYTEA|BLOB|BIN' => Data\Type::BINARY,
-			'TEXT|CHAR|POINT|INTERVAL|STRING' => Data\Type::TEXT,
-			'YEAR|BYTE|COUNTER|SERIAL|INT|LONG|SHORT' => Data\Type::INTEGER,
-			'CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => Data\Type::FLOAT,
-			'BOOL|BIT' => Data\Type::BOOL,
-			'TIME' => Data\Type::TIME,
-			'DATE' => Data\Type::DATE,
+			'BYTEA|BLOB|BIN' => Type::BINARY,
+			'TEXT|CHAR|POINT|INTERVAL|STRING' => Type::TEXT,
+			'YEAR|BYTE|COUNTER|SERIAL|INT|LONG|SHORT' => Type::INTEGER,
+			'CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => Type::FLOAT,
+			'BOOL|BIT' => Type::BOOL,
+			'TIME' => Type::TIME,
+			'DATE' => Type::DATE,
 		];
 		foreach ($pattern as $s => $val) {
 			if (preg_match("#$s#i", $type)) {
 				$item = $val;
 			}
 		}
-		return $item ?? Data\Type::TEXT;
+		return $item ?? Type::TEXT;
 	}
 }

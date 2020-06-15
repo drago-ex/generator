@@ -2,20 +2,24 @@
 
 declare(strict_types = 1);
 
-use Drago\Generator;
-use Nette\DI;
+use Drago\Generator\DI\GeneratorExtension;
+use Drago\Generator\GeneratorEntity;
+use Nette\DI\Compiler;
+use Nette\DI\Container;
+use Nette\DI\ContainerLoader;
+use Tester\Assert;
 
 $container = require __DIR__ . '/../../bootstrap.php';
 
 
-class GeneratorExtension extends TestContainer
+class TestGeneratorExtension extends TestContainer
 {
-	private function createContainer(): DI\Container
+	private function createContainer(): Container
 	{
-		$loader = new DI\ContainerLoader($this->container->getParameters()['tempDir'], true);
-		$class = $loader->load(function (DI\Compiler $compiler): void {
+		$loader = new ContainerLoader($this->container->getParameters()['tempDir'], true);
+		$class = $loader->load(function (Compiler $compiler): void {
 			$compiler->loadConfig(Tester\FileMock::create('
-			generatorEntity:
+			generator:
 				path: entity
 			services:
 				dibi.connection:
@@ -28,7 +32,7 @@ class GeneratorExtension extends TestContainer
 						lazy: true
 					])
 			', 'neon'));
-			$compiler->addExtension('generatorEntity', new Drago\Generator\DI\GeneratorExtension);
+			$compiler->addExtension('generator', new GeneratorExtension());
 		});
 		return new $class;
 	}
@@ -36,11 +40,11 @@ class GeneratorExtension extends TestContainer
 
 	public function test01(): void
 	{
-		Tester\Assert::type(Generator\GeneratorEntity::class, $this->createContainer()
-			->getByType(Generator\GeneratorEntity::class));
+		Assert::type(GeneratorEntity::class, $this->createContainer()
+			->getByType(GeneratorEntity::class));
 	}
 }
 
 
-$extension = new GeneratorExtension($container);
+$extension = new TestGeneratorExtension($container);
 $extension->run();

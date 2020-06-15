@@ -2,6 +2,8 @@
 
 declare(strict_types = 1);
 
+use Dibi\Exception;
+use Dibi\Connection;
 use Drago\Generator\Repository;
 
 
@@ -13,14 +15,14 @@ class TestRepository
 	}
 
 
-	public function repository(Dibi\Connection $db): Repository
+	public function repository(Connection $db): Repository
 	{
 		return new Repository($db);
 	}
 
 
 	/**
-	 * @throws Dibi\Exception
+	 * @throws Exception
 	 */
 	public function mysql(): Repository
 	{
@@ -30,7 +32,7 @@ class TestRepository
 
 
 	/**
-	 * @throws Dibi\Exception
+	 * @throws Exception
 	 */
 	public function oracle(): Repository
 	{

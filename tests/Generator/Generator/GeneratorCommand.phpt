@@ -8,14 +8,14 @@ use Tester\Assert;
 require __DIR__ . '/../../bootstrap.php';
 
 
-function generatorEntity(): TestGenerator
+function generator(): TestGenerator
 {
 	return new TestGenerator();
 }
 
 
 test(function () {
-	$generatorEntity = generatorEntity()->getGeneratorEntity();
+	$generatorEntity = generator()->createGeneratorEntity(generator()->repository()->mysql(), generator()->options());
 	$generatorCommand = new Generator\GeneratorCommand($generatorEntity);
 	Assert::type(Generator\GeneratorCommand::class, $generatorCommand);
 });

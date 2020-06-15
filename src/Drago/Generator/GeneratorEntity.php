@@ -9,11 +9,13 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
-use Dibi\Exception;
-use Doctrine\Inflector;
-use Drago\Generator\Data;
-use Nette;
-use Nette\Utils;
+use Doctrine\Inflector\Inflector;
+use Drago\Generator\Data\Attribute;
+use Exception;
+use Nette\PhpGenerator\PhpFile;
+use Nette\SmartObject;
+use Nette\Utils\FileSystem;
+use Nette\Utils\Strings;
 use Throwable;
 
 
@@ -22,7 +24,7 @@ use Throwable;
  */
 class GeneratorEntity
 {
-	use Nette\SmartObject;
+	use SmartObject;
 
 	/** @var Repository */
 	private $repository;
@@ -30,14 +32,14 @@ class GeneratorEntity
 	/** @var Options */
 	private $options;
 
-	/** @var Inflector\Inflector */
+	/** @var Inflector */
 	private $inflector;
 
 	/** @var Helpers */
 	private $helpers;
 
 
-	public function __construct(Repository $repository, Options $options, Inflector\Inflector $inflector, Helpers $helpers)
+	public function __construct(Repository $repository, Options $options, Inflector $inflector, Helpers $helpers)
 	{
 		$this->repository = $repository;
 		$this->options = $options;
@@ -75,7 +77,7 @@ class GeneratorEntity
 	 */
 	private function createPhpFile(string $tableName): void
 	{
-		$phpFile = new Nette\PhpGenerator\PhpFile;
+		$phpFile = new PhpFile;
 		$phpFile->setStrictTypes();
 
 		// Options for generate entity.
@@ -85,7 +87,7 @@ class GeneratorEntity
 		$helpers = $this->helpers;
 
 		// Create an entity name from the table name and the added suffix.
-		$className = $this->inflector->classify(Utils\Strings::lower($tableName)) . $options->suffix;
+		$className = $this->inflector->classify(Strings::lower($tableName)) . $options->suffix;
 
 		// We create a entity and add namespace.
 		$entity = $phpFile
@@ -98,7 +100,7 @@ class GeneratorEntity
 
 			// Convert large characters to lowercase.
 			if ($options->lower) {
-				$columnName = Utils\Strings::lower($columnName);
+				$columnName = Strings::lower($columnName);
 			}
 
 			// Check column names for parentheses.
@@ -108,7 +110,7 @@ class GeneratorEntity
 			$column = $this->repository->getColumn($tableName, $columnName);
 
 			// Get column type.
-			$columnType = Utils\Strings::lower($helpers->detectType($column->getNativeType()));
+			$columnType = Strings::lower($helpers->detectType($column->getNativeType()));
 
 			// Add the extend and the table constant to the entity.
 			$entity->setExtends($options->extends)
@@ -122,7 +124,7 @@ class GeneratorEntity
 
 			// Add constants to the entity.
 			if ($options->constant) {
-				$constantName = Utils\Strings::upper($helpers->snakeCase($columnName));
+				$constantName = Strings::upper($helpers->snakeCase($columnName));
 				$entity->addConstant($constantName, $columnName)
 					->setPublic();
 			}
@@ -154,7 +156,7 @@ class GeneratorEntity
 		}
 
 		$file = $options->path . '/' . $className . '.php';
-		Utils\FileSystem::write($file, $phpFile->__toString());
+		FileSystem::write($file, $phpFile->__toString());
 	}
 
 
@@ -166,11 +168,11 @@ class GeneratorEntity
 	{
 		$column = $this->repository->getColumn($tableName, $columnName);
 		return [
-			Data\Attribute::AUTO_INCREMENT => $column->autoIncrement,
-			Data\Attribute::SIZE => $column->size,
-			Data\Attribute::DEFAULT => $column->default,
-			Data\Attribute::NULLABLE => $column->nullable,
-			Data\Attribute::TYPE => Nette\Utils\Strings::lower($column->nativeType),
+			Attribute::AUTO_INCREMENT => $column->autoIncrement,
+			Attribute::SIZE => $column->size,
+			Attribute::DEFAULT => $column->default,
+			Attribute::NULLABLE => $column->nullable,
+			Attribute::TYPE => Strings::lower($column->nativeType),
 		];
 	}
 
@@ -184,11 +186,11 @@ class GeneratorEntity
 		$attr = $this->getColumnAttribute($tableName, $columnName);
 
 		// Column attributes.
-		$assembly = $help->getAttribute($attr, Data\Attribute::AUTO_INCREMENT);
-		$assembly .= $help->getAttribute($attr, Data\Attribute::SIZE);
-		$assembly .= $help->getAttribute($attr, Data\Attribute::DEFAULT);
-		$assembly .= $help->getAttribute($attr, Data\Attribute::NULLABLE);
-		$assembly .= $help->getAttribute($attr, Data\Attribute::TYPE);
+		$assembly = $help->getAttribute($attr, Attribute::AUTO_INCREMENT);
+		$assembly .= $help->getAttribute($attr, Attribute::SIZE);
+		$assembly .= $help->getAttribute($attr, Attribute::DEFAULT);
+		$assembly .= $help->getAttribute($attr, Attribute::NULLABLE);
+		$assembly .= $help->getAttribute($attr, Attribute::TYPE);
 		return $assembly;
 	}
 }
