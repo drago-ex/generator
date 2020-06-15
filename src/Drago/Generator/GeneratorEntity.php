@@ -175,6 +175,9 @@ class GeneratorEntity
 	}
 
 
+	/**
+	 * @throws Exception
+	 */
 	private function getColumnQuery(string $tableName, string $columnName): string
 	{
 		$help = $this->helpers;
