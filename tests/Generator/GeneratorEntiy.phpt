@@ -24,7 +24,7 @@ function isDirectory(string $dir): void
 
 test(function () {
 	$options = generator()->options();
-	$options->path = __DIR__ . '/../../Entity';
+	$options->path = __DIR__ . '/../../entity';
 	isDirectory($options->path);
 
 	$generator = generator();
