@@ -39,7 +39,7 @@ test(function () {
 
 test(function () {
 	$options = generator()->options();
-	$options->path = __DIR__ . '/../../EntityOracle';
+	$options->path = __DIR__ . '/../../entity-oracle';
 	isDirectory($options->path);
 
 	$generator = generator();
