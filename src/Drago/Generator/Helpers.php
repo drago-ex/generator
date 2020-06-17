@@ -62,7 +62,7 @@ class Helpers
 	public function getAttribute(array $attributes, string $key): ?string
 	{
 		return $attributes[$key] ? 'Column ' .
-			$key . ' = ' . $attributes[$key] . "\n" : null;
+			$key . ' = ' . $attributes[$key] : null;
 	}
 
 
