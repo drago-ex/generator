@@ -43,20 +43,6 @@ class Helpers
 
 
 	/**
-	 * Character conversion to snake.
-	 */
-	public function snakeCase(string $input): string
-	{
-		if (preg_match('/[A-Z]/', $input) === 0) {
-			return $input;
-		}
-		return strtolower(preg_replace_callback('/([a-z])([A-Z])/', function (array $a) {
-			return $a[1] . '_' . strtolower($a[2]);
-		}, $input));
-	}
-
-
-	/**
 	 * Column attribute information.
 	 */
 	public function getAttribute(array $attributes, string $key): ?string

@@ -13,7 +13,7 @@
 		"php": ">=7.2",
 		"contributte/console": "^0.7",
 		"doctrine/inflector": "^1.4",
-		"nette/utils": "^3.0",
+		"drago-ex/utils": "^1.0",
 		"drago-ex/database": "^1.0"
 	},
 	"require-dev": {

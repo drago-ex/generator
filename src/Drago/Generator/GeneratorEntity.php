@@ -11,6 +11,7 @@ namespace Drago\Generator;
 
 use Doctrine\Inflector\Inflector;
 use Drago\Generator\Data\Attribute;
+use Drago\Utils\CaseConverter;
 use Exception;
 use Nette\PhpGenerator\PhpFile;
 use Nette\SmartObject;
@@ -122,20 +123,27 @@ class GeneratorEntity
 
 			// Add constants to the entity.
 			if ($options->constant) {
-				$constantName = Strings::upper($helpers->snakeCase($columnName));
+				$constantName = Strings::upper(CaseConverter::snakeCase($columnName));
 				$entity->addConstant($constantName, $columnName)
 					->setPublic();
 			}
 
 			// Add attributes to the entity.
-			$entity->addProperty($columnName)
+			$property = $entity->addProperty($columnName)
 				->setVisibility($options->propertyVisibility)
 				->addComment($this->getColumnQuery($tableName, $columnName))
 				->addComment('@var ' . $columnType);
 
+			// We will add the data type lde version of php.
+			if (PHP_VERSION_ID > 70400) {
+				$property->setType($columnType);
+			} else {
+				$property->addComment('@var ' . $columnType);
+			}
+
 			// Add the getter method.
 			if ($options->getter) {
-				$entity->addMethod('get' . $this->inflector->classify($helpers->snakeCase($columnName)))
+				$entity->addMethod('get' . $this->inflector->classify(CaseConverter::snakeCase($columnName)))
 					->setVisibility('public')
 					->setReturnType($columnType)
 					->setReturnNullable($options->getterPrimaryNull && $column->isAutoIncrement() ? true : $column->isNullable())
@@ -144,7 +152,7 @@ class GeneratorEntity
 
 			// Add the setter method.
 			if ($options->setter) {
-				$entity->addMethod('set' . $this->inflector->classify($helpers->snakeCase($columnName)))
+				$entity->addMethod('set' . $this->inflector->classify(CaseConverter::snakeCase($columnName)))
 					->addBody($helpers->addField($columnName, '$this[\'__FIELD__\'] = $var;'))
 					->setVisibility('public')
 					->addParameter('var')
