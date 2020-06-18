@@ -16,7 +16,7 @@ namespace Drago\Generator;
 class Options
 {
 	/** @var string  the path where the entity will be generated */
-	public $path;
+	public $path = '';
 
 	/** @var string  suffix name */
 	public $suffix = 'Entity';
