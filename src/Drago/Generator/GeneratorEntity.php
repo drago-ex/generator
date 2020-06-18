@@ -151,10 +151,11 @@ class GeneratorEntity
 
 			// Add the setter method.
 			if ($options->setter) {
-				$entity->addMethod('set' . $this->inflector->classify(CaseConverter::snakeCase($columnName)))
-					->addBody($helpers->addField($columnName, '$this[\'__FIELD__\'] = $var;'))
+				$method = $this->inflector->classify(CaseConverter::snakeCase($columnName));
+				$entity->addMethod('set' . $method)
+					->addBody($helpers->addField($columnName, '$this[\'__FIELD__\'] = $' . Strings::firstLower($method) . ';'))
 					->setVisibility('public')
-					->addParameter('var')
+					->addParameter(Strings::firstLower($method))
 					->setType($columnType)
 					->setNullable($column->isNullable());
 			}
