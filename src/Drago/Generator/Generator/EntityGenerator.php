@@ -51,7 +51,7 @@ class EntityGenerator extends Base implements IGenerator
 		$options = $this->options;
 
 		// Add filename and namespace.
-		$phpFile = $phpFile
+		$create = $phpFile
 			->addNamespace($options->namespace)
 			->addClass($this->getFilename($table));
 
@@ -67,20 +67,20 @@ class EntityGenerator extends Base implements IGenerator
 			$this->validateColumn($table, $column);
 
 			// Add the extends and the table constant to the entity.
-			$phpFile->setExtends($options->extendsEntity)
+			$create->setExtends($options->extendsEntity)
 				->addConstant('TABLE', $table)->setPublic();
 
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
-				$phpFile->addConstant($constant, $column)->setPublic();
+				$create->addConstant($constant, $column)->setPublic();
 			}
 
 			// Get column attribute information.
 			$attr = $this->repository->getColumn($table, $column);
 
 			// Add attributes to the entity.
-			$property = $phpFile->addProperty($column)->setPublic()
+			$property = $create->addProperty($column)->setPublic()
 				->setNullable($options->primaryNull && $attr->isAutoIncrement() ? true : $attr->isNullable())
 				->setType(Strings::lower($this->detectType($attr->getNativeType())));
 
@@ -88,18 +88,17 @@ class EntityGenerator extends Base implements IGenerator
 			$autoIncrement = 'Column autoIncrement ' . $attr->isAutoIncrement() . "\n";
 			$size = 'Column size ' . $attr->getSize() . "\n";
 			$default = 'Column default ' . $attr->getDefault() . "\n";
-			$nullable = 'Column nullable ' . $attr->isNullable() . "\n";
-			$type = 'Column type ' . $attr->getType();
+			$nullable = 'Column nullable ' . $attr->isNullable();
 
 			// Add columns attributes to entity.
 			$options->attributeColumn
-				? $property->addComment($autoIncrement . $size . $default . $nullable . $type)
-				: $phpFile = $property;
+				? $property->addComment($autoIncrement . $size . $default . $nullable)
+				: $create = $property;
 
 			// Add table references.
 			try {
 				foreach ($this->getReferencesTable($table) as $reference) {
-					$phpFile->addProperty($reference)
+					$create->addProperty($reference)
 						->setType($options->namespace . '\\' . $this->getFilename($reference))
 						->addComment('Reference to table.');
 				}
