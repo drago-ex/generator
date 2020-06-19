@@ -31,7 +31,7 @@ class Options
 	public $property = true;
 
 	/** @var string  visibility property */
-	public $propertyVisibility = 'public';
+	public $propertyVisibility = 'protected';
 
 	/** @var bool  allow constant */
 	public $constant = true;
