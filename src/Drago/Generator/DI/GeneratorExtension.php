@@ -36,7 +36,7 @@ class GeneratorExtension extends CompilerExtension
 
 		$builder->addDefinition($this->prefix('inflector'))
 			->setFactory(Inflector::class)
-			->setArguments(['@entityGenerator.wordInflector', '@generator.wordInflector']);
+			->setArguments(['@entityGenerator.wordInflector', '@entityGenerator.wordInflector']);
 
 		$schema = new Processor;
 		$normalized = $schema->process(Expect::from(new Options), $this->config);
