@@ -42,7 +42,7 @@ class GeneratorExtension extends CompilerExtension
 		$normalized = $schema->process(Expect::from(new Options), $this->config);
 		$builder->addDefinition($this->prefix('generator'))
 			->setFactory(EntityGenerator::class)
-			->setArguments(['@entityGenerator.repository', $normalized, '@entityGenerator.inflector', '@entityGenerator.helpers']);
+			->setArguments(['@entityGenerator.repository', $normalized, '@entityGenerator.inflector']);
 
 		$builder->addDefinition($this->prefix('command'))
 			->setFactory(EntityCommand::class);
