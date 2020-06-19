@@ -9,6 +9,10 @@ before_install:
 install:
   - composer install --no-interaction --prefer-source
 
+after_failure:
+  # Print *.actual content
+  - for i in $(find tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
+
 jobs:
   include:
     - name: Nette Code Checker
@@ -56,3 +60,7 @@ jobs:
       language: php
       php:
         - 7.4
+
+    allow_failures:
+      -   stage: Static Analysis (informative)
+      -   stage: Code Coverage
