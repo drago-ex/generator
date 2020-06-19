@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
-use Drago\Generator\Data\Attribute;
 use Drago\Utils\CaseConverter;
 use Exception;
 use Nette\PhpGenerator\PhpFile;
