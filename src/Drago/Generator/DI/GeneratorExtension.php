@@ -11,9 +11,8 @@ namespace Drago\Generator\DI;
 
 use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\NoopWordInflector;
-use Drago\Generator\GeneratorCommand;
-use Drago\Generator\GeneratorEntity;
-use Drago\Generator\Helpers;
+use Drago\Generator\Command\EntityCommand;
+use Drago\Generator\EntityGenerator;
 use Drago\Generator\Options;
 use Drago\Generator\Repository;
 use Nette\DI\CompilerExtension;
@@ -39,16 +38,13 @@ class GeneratorExtension extends CompilerExtension
 			->setFactory(Inflector::class)
 			->setArguments(['@generator.wordInflector', '@generator.wordInflector']);
 
-		$builder->addDefinition($this->prefix('helpers'))
-			->setFactory(Helpers::class);
-
 		$schema = new Processor;
 		$normalized = $schema->process(Expect::from(new Options), $this->config);
 		$builder->addDefinition($this->prefix('generator'))
-			->setFactory(GeneratorEntity::class)
+			->setFactory(EntityGenerator::class)
 			->setArguments(['@generator.repository', $normalized, '@generator.inflector', '@generator.helpers']);
 
 		$builder->addDefinition($this->prefix('command'))
-			->setFactory(GeneratorCommand::class);
+			->setFactory(EntityCommand::class);
 	}
 }

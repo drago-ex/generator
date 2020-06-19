@@ -10,7 +10,7 @@
 		}
 	],
 	"require": {
-		"php": ">=7.2",
+		"php": ">=7.4",
 		"contributte/console": "^0.7",
 		"doctrine/inflector": "^1.4",
 		"drago-ex/utils": "^1.0",

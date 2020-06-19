@@ -4,13 +4,12 @@ declare(strict_types = 1);
 
 use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\NoopWordInflector;
-use Drago\Generator\GeneratorEntity;
-use Drago\Generator\Helpers;
+use Drago\Generator\EntityGenerator;
 use Drago\Generator\Options;
 use Drago\Generator\Repository;
 
 
-class TestGenerator
+class TestEntityGenerator
 {
 	public function repository(): TestRepository
 	{
@@ -24,12 +23,6 @@ class TestGenerator
 	}
 
 
-	private function helper(): Helpers
-	{
-		return new Helpers;
-	}
-
-
 	private function inflector(): Inflector
 	{
 		$noopWordInflector = new NoopWordInflector;
@@ -37,8 +30,8 @@ class TestGenerator
 	}
 
 
-	public function createGeneratorEntity(Repository $repository, Options $options): GeneratorEntity
+	public function createGeneratorEntity(Repository $repository, Options $options): EntityGenerator
 	{
-		return new GeneratorEntity($repository, $options, $this->inflector(), $this->helper());
+		return new EntityGenerator($repository, $options, $this->inflector());
 	}
 }

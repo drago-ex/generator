@@ -9,42 +9,41 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
+use Drago\Database\Entity;
+use Drago\Utils\ExtraArrayHash;
+
 
 /**
- * Options for generate entity.
+ * Options for generate php file.
  */
 class Options
 {
-	/** @var string  the path where the entity will be generated */
-	public $path = '';
+	/** The path where the entity will be generated. */
+	public string $path = '';
 
-	/** @var string  suffix name */
-	public $suffix = 'Entity';
+	/** Suffix name. */
+	public string $suffix = 'Entity';
 
-	/** @var string  parent */
-	public $extends = \Drago\Database\Entity::class;
+	/** Parent entity class. */
+	public string $extendsEntity = Entity::class;
 
-	/** @var string  namespace */
-	public $namespace = 'App\\Entity';
+	/** Class namespace. */
+	public string $namespace = 'App\\Entity';
 
-	/** @var bool  allow property */
-	public $property = true;
+	/** Allow constant. */
+	public bool $constant = true;
 
-	/** @var string  visibility property */
-	public $propertyVisibility = 'protected';
+	/** Allow return null on the primary key.*/
+	public bool $primaryNull = true;
 
-	/** @var bool  allow constant */
-	public $constant = true;
+	/** Allow attribute column info. */
+	public bool $attributeColumn = true;
 
-	/** @var bool  allow the getter method */
-	public $getter = true;
+	/** Allow convert large characters to lowercase. */
+	public bool $lower = false;
 
-	/** @var bool  allow return null on the primary key */
-	public $getterPrimaryNull = true;
+	/** Options for form data generator ----------------------------------------------------------------------------- */
 
-	/** @var bool  allow the setter method */
-	public $setter = true;
-
-	/** @var bool  allow convert large characters to lowercase */
-	public $lower = false;
+	/** Parent form data class. */
+	public string $extendsFormData = ExtraArrayHash::class;
 }

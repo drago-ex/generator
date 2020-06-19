@@ -7,8 +7,9 @@ declare(strict_types = 1);
  * Package built on Nette Framework
  */
 
-namespace Drago\Generator;
+namespace Drago\Generator\Command;
 
+use Drago\Generator\EntityGenerator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,16 +20,13 @@ use Throwable;
 /**
  * Command for generate entity.
  */
-class GeneratorCommand extends Command
+class EntityCommand extends Command
 {
-	/** @var string */
 	protected static $defaultName = 'make:entity';
-
-	/** @var GeneratorEntity */
-	private $generatorEntity;
+	private EntityGenerator $generatorEntity;
 
 
-	public function __construct(GeneratorEntity $generatorEntity)
+	public function __construct(EntityGenerator $generatorEntity)
 	{
 		parent::__construct();
 		$this->generatorEntity = $generatorEntity;

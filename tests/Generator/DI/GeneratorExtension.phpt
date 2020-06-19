@@ -3,7 +3,7 @@
 declare(strict_types = 1);
 
 use Drago\Generator\DI\GeneratorExtension;
-use Drago\Generator\GeneratorEntity;
+use Drago\Generator\EntityGenerator;
 use Nette\DI\Compiler;
 use Nette\DI\Container;
 use Nette\DI\ContainerLoader;
@@ -40,8 +40,8 @@ class TestGeneratorExtension extends TestContainer
 
 	public function test01(): void
 	{
-		Assert::type(GeneratorEntity::class, $this->createContainer()
-			->getByType(GeneratorEntity::class));
+		Assert::type(EntityGenerator::class, $this->createContainer()
+			->getByType(EntityGenerator::class));
 	}
 }
 
