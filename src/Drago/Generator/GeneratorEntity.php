@@ -129,16 +129,10 @@ class GeneratorEntity
 			}
 
 			// Add attributes to the entity.
-			$property = $entity->addProperty($columnName)
+			$entity->addProperty($columnName)
 				->setVisibility($options->propertyVisibility)
-				->addComment($this->getColumnQuery($tableName, $columnName));
-
-			// We will add the data type lde version of php.
-			if (PHP_VERSION_ID > 70400) {
-				$property->setType($columnType);
-			} else {
-				$property->addComment('@var ' . $columnType);
-			}
+				->addComment($this->getColumnQuery($tableName, $columnName))
+				->addComment('@var ' . $columnType);
 
 			// Add the getter method.
 			if ($options->getter) {
