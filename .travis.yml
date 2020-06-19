@@ -60,7 +60,3 @@ jobs:
       language: php
       php:
         - 7.4
-
-    allow_failures:
-      -   stage: Static Analysis (informative)
-      -   stage: Code Coverage
