@@ -15,7 +15,7 @@ use Exception;
 /**
  * Column attributes.
  */
-class Attr
+class Attribute
 {
 	public const
 		AUTO_INCREMENT = 'autoIncrement',

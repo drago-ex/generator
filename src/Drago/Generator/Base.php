@@ -62,11 +62,11 @@ class Base
 	public function attributes(Column $attr): array
 	{
 		return [
-			Attr::AUTO_INCREMENT => $attr->isAutoIncrement(),
-			Attr::SIZE => $attr->getSize(),
-			Attr::DEFAULT => $attr->getDefault(),
-			Attr::NULLABLE => $attr->isNullable(),
-			Attr::TYPE => Strings::lower($attr->nativeType),
+			Attribute::AUTO_INCREMENT => $attr->isAutoIncrement(),
+			Attribute::SIZE => $attr->getSize(),
+			Attribute::DEFAULT => $attr->getDefault(),
+			Attribute::NULLABLE => $attr->isNullable(),
+			Attribute::TYPE => Strings::lower($attr->nativeType),
 		];
 	}
 

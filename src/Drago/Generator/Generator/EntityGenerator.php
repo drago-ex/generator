@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Drago\Generator;
 
 use Drago\Utils\CaseConverter;
-use Exception;
 use Nette\PhpGenerator\PhpFile;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
@@ -77,23 +76,24 @@ class EntityGenerator extends Base implements IGenerator
 			}
 
 			// Get column attribute information.
-			$attr = $this->attributes($this->repository->getColumn($table, $column));
+			$attr = $this->repository->getColumn($table, $column);
 
 			// Add attributes to the entity.
 			$property = $create->addProperty($column)->setPublic()
-				->setNullable($options->primaryNull && $attr[Attr::AUTO_INCREMENT] ? true : $attr[Attr::NULLABLE])
-				->setType(Strings::lower($this->detectType($attr[Attr::TYPE])));
+				->setNullable($options->primaryNull && $attr->isAutoIncrement() ? true : $attr->isNullable())
+				->setType(Strings::lower($this->detectType($attr->getNativeType())));
 
 			// Column attributes.
-			$autoIncrement = $this->attr($attr, Attr::AUTO_INCREMENT);
-			$size = $this->attr($attr, Attr::SIZE);
-			$default = $this->attr($attr, Attr::DEFAULT);
-			$nullable = $this->attr($attr, Attr::NULLABLE);
-
-			// Add columns attributes to entity.
-			$options->attributeColumn
-				? $property->addComment($autoIncrement . $size . $default . $nullable)
-				: $create = $property;
+			if ($options->attributeColumn) {
+				$attribute = $this->attributes($attr);
+				$property->addComment($this->attr($attribute, Attribute::AUTO_INCREMENT)
+					. $this->attr($attribute, Attribute::SIZE)
+					. $this->attr($attribute, Attribute::DEFAULT)
+					. $this->attr($attribute, Attribute::NULLABLE)
+				);
+			} else {
+				$create = $property;
+			}
 		}
 
 		// Generate file.
