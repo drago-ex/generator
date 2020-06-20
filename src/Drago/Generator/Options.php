@@ -25,7 +25,7 @@ class Options
 	public string $suffix = 'Entity';
 
 	/** Parent entity class. */
-	public string $extendsEntity = Entity::class;
+	public string $extends = Entity::class;
 
 	/** Class namespace. */
 	public string $namespace = 'App\\Entity';

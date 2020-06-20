@@ -38,7 +38,8 @@ class Base
 	 */
 	public function filename(string $name, string $suffix): string
 	{
-		return $this->inflector->classify(Strings::lower($name));
+		$filename = $this->inflector->classify(Strings::lower($name));
+		return $filename . $suffix;
 	}
 
 

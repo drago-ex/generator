@@ -69,7 +69,7 @@ class EntityGenerator extends Base implements IGenerator
 			$this->validateColumn($table, $column);
 
 			// Add the extends and the table constant to the entity.
-			$create->setExtends($options->extendsEntity)
+			$create->setExtends($options->extends)
 				->addConstant('TABLE', $table)
 				->setPublic();
 
