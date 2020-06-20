@@ -85,10 +85,10 @@ class FormDataGenerator extends Base implements IGenerator
 			}
 
 			// Add attributes to the entity.
-			 $create->addProperty($column)
-				 ->setNullable($options->primaryNull && $attr->isAutoIncrement() ? true : $attr->isNullable())
-				 ->setType(Strings::lower($this->detectType($attr->getNativeType())))
-				 ->setPublic();
+			$create->addProperty($column)
+				->setNullable($options->primaryNull && $attr->isAutoIncrement() ? true : $attr->isNullable())
+				->setType(Strings::lower($this->detectType($attr->getNativeType())))
+				->setPublic();
 
 			// Add reference to table.
 			foreach ($this->getReferencesTable($table) as $reference) {
