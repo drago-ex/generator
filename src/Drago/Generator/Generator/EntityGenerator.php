@@ -55,7 +55,8 @@ class EntityGenerator extends Base implements IGenerator
 		// Add filename and namespace.
 		$create = $phpFile
 			->addNamespace($options->namespace)
-			->addClass($filename);
+			->addClass($filename)
+			->setExtends($options->extends);
 
 		// Get all columns names from table.
 		foreach ($this->repository->getColumnNames($table) as $column) {
@@ -68,9 +69,8 @@ class EntityGenerator extends Base implements IGenerator
 			// Check column names for parentheses.
 			$this->validateColumn($table, $column);
 
-			// Add the extends and the table constant to the entity.
-			$create->setExtends($options->extends)
-				->addConstant('TABLE', $table)
+			// Add the constant table to the entity.
+			$create->addConstant('TABLE', $table)
 				->setPublic();
 
 			// Add constants to the entity.
@@ -97,8 +97,6 @@ class EntityGenerator extends Base implements IGenerator
 					. $this->attr($attribute, Attribute::DEFAULT)
 					. $this->attr($attribute, Attribute::NULLABLE)
 				);
-			} else {
-				$create = $property;
 			}
 		}
 
