@@ -76,7 +76,7 @@ class Base
 	 */
 	public function attr(array $attr, string $key): string
 	{
-		return $attr[$key] ? 'Column ' . $key . $attr[$key] . "\n" : '';
+		return $attr[$key] ? 'Column ' . $key . ' ' . $attr[$key] . "\n" : '';
 	}
 
 
