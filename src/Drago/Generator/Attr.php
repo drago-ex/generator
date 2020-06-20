@@ -13,18 +13,16 @@ use Exception;
 
 
 /**
- * Data types.
+ * Column attributes.
  */
-class Type
+class Attr
 {
 	public const
-		TEXT = 'string',
-		BINARY = 'resource',
-		BOOL = 'bool',
-		INTEGER = 'int',
-		FLOAT = 'float',
-		DATE = '\DateTime',
-		TIME = '\DateInterval';
+		AUTO_INCREMENT = 'autoIncrement',
+		SIZE = 'length',
+		DEFAULT = 'default',
+		NULLABLE = 'nullable',
+		TYPE = 'type';
 
 
 	/**

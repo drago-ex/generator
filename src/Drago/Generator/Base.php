@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
+use Dibi\Reflection\Column;
 use Doctrine\Inflector\Inflector;
-use Drago\Generator\Data\Type;
 use Exception;
 use Nette\Utils\Strings;
 
@@ -36,24 +36,10 @@ class Base
 	/**
 	 * Create filename and the added suffix.
 	 */
-	public function getFilename(string $name): string
+	public function filename(string $name): string
 	{
 		$filename = $this->inflector->classify(Strings::lower($name));
 		return $filename . $this->options->suffix;
-	}
-
-
-	/**
-	 * Table references.
-	 * @throws Exception
-	 */
-	public function getReferencesTable(string $table)
-	{
-		$reference = [];
-		foreach ($this->repository->getTable($table)->getForeignKeys() as $foreignKey) {
-			$reference[] = $foreignKey->getReferences()['table'];
-		}
-		return $reference;
 	}
 
 
@@ -67,6 +53,30 @@ class Base
 			throw new Exception('Wrong column name ' . $column . ' in table ' .
 				$table . ', change name or use AS');
 		}
+	}
+
+
+	/**
+	 * Column attributes.
+	 */
+	public function attributes(Column $attr): array
+	{
+		return [
+			Attr::AUTO_INCREMENT => $attr->isAutoIncrement(),
+			Attr::SIZE => $attr->getSize(),
+			Attr::DEFAULT => $attr->getDefault(),
+			Attr::NULLABLE => $attr->isNullable(),
+			Attr::TYPE => Strings::lower($attr->nativeType),
+		];
+	}
+
+
+	/**
+	 * Info column attribute.
+	 */
+	public function attr(array $attr, string $key): string
+	{
+		return $attr[$key] ? 'Column ' . $key . $attr[$key] . "\n" : '';
 	}
 
 

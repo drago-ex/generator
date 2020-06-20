@@ -53,7 +53,7 @@ class EntityGenerator extends Base implements IGenerator
 		// Add filename and namespace.
 		$create = $phpFile
 			->addNamespace($options->namespace)
-			->addClass($this->getFilename($table));
+			->addClass($this->filename($table));
 
 		// Get all columns names from table.
 		foreach ($this->repository->getColumnNames($table) as $column) {
@@ -77,38 +77,27 @@ class EntityGenerator extends Base implements IGenerator
 			}
 
 			// Get column attribute information.
-			$attr = $this->repository->getColumn($table, $column);
+			$attr = $this->attributes($this->repository->getColumn($table, $column));
 
 			// Add attributes to the entity.
 			$property = $create->addProperty($column)->setPublic()
-				->setNullable($options->primaryNull && $attr->isAutoIncrement() ? true : $attr->isNullable())
-				->setType(Strings::lower($this->detectType($attr->getNativeType())));
+				->setNullable($options->primaryNull && $attr[Attr::AUTO_INCREMENT] ? true : $attr[Attr::NULLABLE])
+				->setType(Strings::lower($this->detectType($attr[Attr::TYPE])));
 
 			// Column attributes.
-			$autoIncrement = 'Column autoIncrement ' . $attr->isAutoIncrement() . "\n";
-			$size = 'Column size ' . $attr->getSize() . "\n";
-			$default = 'Column default ' . $attr->getDefault() . "\n";
-			$nullable = 'Column nullable ' . $attr->isNullable();
+			$autoIncrement = $this->attr($attr, Attr::AUTO_INCREMENT);
+			$size = $this->attr($attr, Attr::SIZE);
+			$default = $this->attr($attr, Attr::DEFAULT);
+			$nullable = $this->attr($attr, Attr::NULLABLE);
 
 			// Add columns attributes to entity.
 			$options->attributeColumn
 				? $property->addComment($autoIncrement . $size . $default . $nullable)
 				: $create = $property;
-
-			// Add table references.
-			try {
-				foreach ($this->getReferencesTable($table) as $reference) {
-					$create->addProperty($reference)
-						->setType($options->namespace . '\\' . $this->getFilename($reference))
-						->addComment('Reference to table.');
-				}
-			} catch (Exception $e) {
-				// Not implemented.
-			}
 		}
 
 		// Generate file.
-		$file = $options->path . '/' . $this->getFilename($table) . '.php';
+		$file = $options->path . '/' . $this->filename($table) . '.php';
 		FileSystem::write($file, $phpFile->__toString());
 	}
 }
