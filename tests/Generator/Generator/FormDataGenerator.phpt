@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 use Nette\Utils\FileSystem;
+use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
 
@@ -23,18 +24,22 @@ function isDirectory(string $dir): void
 
 test(function () {
 	$options = generator()->options();
-	$options->pathFormData = __DIR__ . '/../../data';
+	$options->pathFormData = __DIR__ . '/../../entity';
 	isDirectory($options->pathFormData);
 
 	$generator = generator()->createFormDataGenerator(generator()->repository()->mysql(), $options);
 	$generator->runGeneration('test');
+
+	Assert::exception(function () use ($generator) {
+		$generator->runGeneration();
+	}, Exception::class, 'Wrong column name error(...) in table error, change name or use AS');
 });
 
 
 test(function () {
 	$options = generator()->options();
-	$options->path = __DIR__ . '/../../data-oracle';
-	isDirectory($options->path);
+	$options->pathFormData = __DIR__ . '/../../entity-oracle';
+	isDirectory($options->pathFormData);
 
 	$generator = generator()->createFormDataGenerator(generator()->repository()->oracle(), $options);
 	$generator->runGeneration('TEST');
