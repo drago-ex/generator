@@ -8,9 +8,9 @@ use Tester\Assert;
 require __DIR__ . '/../../bootstrap.php';
 
 
-function generator(): TestEntityGenerator
+function generator(): TestGenerator
 {
-	return new TestEntityGenerator;
+	return new TestGenerator;
 }
 
 
@@ -27,12 +27,11 @@ test(function () {
 	$options->path = __DIR__ . '/../../entity';
 	isDirectory($options->path);
 
-	$generator = generator();
-	$generatorEntity = $generator->createGeneratorEntity($generator->repository()->mysql(), $options);
-	$generatorEntity->runGeneration('test');
+	$generator = generator()->createEntityGenerator(generator()->repository()->mysql(), $options);
+	$generator->runGeneration('test');
 
-	Assert::exception(function () use ($generatorEntity) {
-		$generatorEntity->runGeneration();
+	Assert::exception(function () use ($generator) {
+		$generator->runGeneration();
 	}, Exception::class, 'Wrong column name error(...) in table error, change name or use AS');
 });
 
@@ -42,7 +41,30 @@ test(function () {
 	$options->path = __DIR__ . '/../../entity-oracle';
 	isDirectory($options->path);
 
-	$generator = generator();
-	$generatorEntity = $generator->createGeneratorEntity($generator->repository()->oracle(), $options);
-	$generatorEntity->runGeneration('TEST');
+	$generator = generator()->createEntityGenerator(generator()->repository()->oracle(), $options);
+	$generator->runGeneration('TEST');
+});
+
+
+test(function () {
+	$options = generator()->options();
+	$options->pathFormData = __DIR__ . '/../../data';
+	isDirectory($options->pathFormData);
+
+	$generator = generator()->createFormDataGenerator(generator()->repository()->mysql(), $options);
+	$generator->runGeneration('test');
+
+	Assert::exception(function () use ($generator) {
+		$generator->runGeneration();
+	}, Exception::class, 'Wrong column name error(...) in table error, change name or use AS');
+});
+
+
+test(function () {
+	$options = generator()->options();
+	$options->pathFormData = __DIR__ . '/../../data-oracle';
+	isDirectory($options->pathFormData);
+
+	$generator = generator()->createEntityGenerator(generator()->repository()->oracle(), $options);
+	$generator->runGeneration('TEST');
 });

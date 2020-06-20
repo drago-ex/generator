@@ -18,6 +18,20 @@ use Drago\Utils\ExtraArrayHash;
  */
 class Options
 {
+	/** Base options ------------------------------------------------------------------------------------------------ */
+
+	/** Allow constant. */
+	public bool $constant = true;
+
+	/** Allow return null on the primary key.*/
+	public bool $primaryNull = true;
+
+	/** Allow convert large characters to lowercase (Typical of Oracle). */
+	public bool $lower = false;
+
+
+	/** Options for entity generator -------------------------------------------------------------------------------- */
+
 	/** The path where the entity will be generated. */
 	public string $path = '';
 
@@ -30,17 +44,8 @@ class Options
 	/** Class namespace. */
 	public string $namespace = 'App\\Entity';
 
-	/** Allow constant. */
-	public bool $constant = true;
-
-	/** Allow return null on the primary key.*/
-	public bool $primaryNull = true;
-
 	/** Allow attribute column info. */
 	public bool $attributeColumn = true;
-
-	/** Allow convert large characters to lowercase. */
-	public bool $lower = false;
 
 
 	/** Options for form data generator ----------------------------------------------------------------------------- */
