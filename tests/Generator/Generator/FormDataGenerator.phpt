@@ -3,7 +3,6 @@
 declare(strict_types = 1);
 
 use Nette\Utils\FileSystem;
-use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
 
@@ -29,10 +28,6 @@ test(function () {
 
 	$generator = generator()->createFormDataGenerator(generator()->repository()->mysql(), $options);
 	$generator->runGeneration('test');
-
-	Assert::exception(function () use ($generator) {
-		$generator->runGeneration();
-	}, Exception::class, 'Wrong column name error(...) in table error, change name or use AS');
 });
 
 
