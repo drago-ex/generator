@@ -44,23 +44,3 @@ test(function () {
 	$generator = generator()->createEntityGenerator(generator()->repository()->oracle(), $options);
 	$generator->runGeneration('TEST');
 });
-
-
-test(function () {
-	$options = generator()->options();
-	$options->pathFormData = __DIR__ . '/../../data';
-	isDirectory($options->pathFormData);
-
-	$generator = generator()->createFormDataGenerator(generator()->repository()->mysql(), $options);
-	$generator->runGeneration('test');
-});
-
-
-test(function () {
-	$options = generator()->options();
-	$options->pathFormData = __DIR__ . '/../../data-oracle';
-	isDirectory($options->pathFormData);
-
-	$generator = generator()->createFormDataGenerator(generator()->repository()->oracle(), $options);
-	$generator->runGeneration('TEST');
-});

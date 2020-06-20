@@ -28,5 +28,5 @@ Assert::type('bool', $options->attributeColumn);
 // generator form data
 Assert::type('string', $options->pathFormData);
 Assert::type('string', $options->suffixFormData);
-Assert::type(ExtraArrayHash::class, $options->extendsFormData);
+Assert::same(ExtraArrayHash::class, $options->extendsFormData);
 Assert::type('string', $options->namespaceFormData);

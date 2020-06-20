@@ -24,25 +24,21 @@ function isDirectory(string $dir): void
 
 test(function () {
 	$options = generator()->options();
-	$options->path = __DIR__ . '/../../entity';
-	isDirectory($options->path);
+	$options->pathFormData = __DIR__ . '/../../entity';
+	isDirectory($options->pathFormData);
 
 	$generator = generator();
-	$generatorEntity = $generator->createGeneratorEntity($generator->repository()->mysql(), $options);
+	$generatorEntity = $generator->createFormDataGenerator($generator->repository()->mysql(), $options);
 	$generatorEntity->runGeneration('test');
-
-	Assert::exception(function () use ($generatorEntity) {
-		$generatorEntity->runGeneration();
-	}, Exception::class, 'Wrong column name error(...) in table error, change name or use AS');
 });
 
 
 test(function () {
 	$options = generator()->options();
-	$options->path = __DIR__ . '/../../entity-oracle';
-	isDirectory($options->path);
+	$options->pathFormData = __DIR__ . '/../../entity-oracle';
+	isDirectory($options->pathFormData);
 
 	$generator = generator();
-	$generatorEntity = $generator->createGeneratorEntity($generator->repository()->oracle(), $options);
+	$generatorEntity = $generator->createFormDataGenerator($generator->repository()->oracle(), $options);
 	$generatorEntity->runGeneration('TEST');
 });
