@@ -24,12 +24,11 @@ function isDirectory(string $dir): void
 
 test(function () {
 	$options = generator()->options();
-	$options->pathFormData = __DIR__ . '/../../entity';
+	$options->pathFormData = __DIR__ . '/../../data';
 	isDirectory($options->pathFormData);
 
-	$generator = generator();
-	$generatorEntity = $generator->createFormDataGenerator($generator->repository()->mysql(), $options);
-	$generatorEntity->runGeneration('test');
+	$generator = generator()->createFormDataGenerator(generator()->repository()->mysql(), $options);
+	$generator->runGeneration('test');
 
 	Assert::exception(function () use ($generator) {
 		$generator->runGeneration();
@@ -39,10 +38,9 @@ test(function () {
 
 test(function () {
 	$options = generator()->options();
-	$options->pathFormData = __DIR__ . '/../../entity-oracle';
-	isDirectory($options->pathFormData);
+	$options->path = __DIR__ . '/../../data-oracle';
+	isDirectory($options->path);
 
-	$generator = generator();
-	$generatorEntity = $generator->createFormDataGenerator($generator->repository()->oracle(), $options);
-	$generatorEntity->runGeneration('TEST');
+	$generator = generator()->createFormDataGenerator(generator()->repository()->oracle(), $options);
+	$generator->runGeneration('TEST');
 });

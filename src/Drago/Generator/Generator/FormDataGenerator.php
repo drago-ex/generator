@@ -67,11 +67,11 @@ class FormDataGenerator extends Base implements IGenerator
 				$column = Strings::lower($column);
 			}
 
-			// Get column attribute information.
-			$attr = $this->repository->getColumn($table, $column);
-
 			// Check column names for parentheses.
 			$this->validateColumn($table, $column);
+
+			// Get column attribute information.
+			$attr = $this->repository->getColumn($table, $column);
 
 			// Add constants to the entity.
 			if ($options->constant) {
