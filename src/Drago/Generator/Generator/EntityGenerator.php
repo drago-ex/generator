@@ -49,10 +49,13 @@ class EntityGenerator extends Base implements IGenerator
 		// Options for generator.
 		$options = $this->options;
 
+		// Create filename and add suffix.
+		$filename = $this->filename($table, $options->suffix);
+
 		// Add filename and namespace.
 		$create = $phpFile
 			->addNamespace($options->namespace)
-			->addClass($this->filename($table));
+			->addClass($filename);
 
 		// Get all columns names from table.
 		foreach ($this->repository->getColumnNames($table) as $column) {
@@ -67,21 +70,24 @@ class EntityGenerator extends Base implements IGenerator
 
 			// Add the extends and the table constant to the entity.
 			$create->setExtends($options->extendsEntity)
-				->addConstant('TABLE', $table)->setPublic();
+				->addConstant('TABLE', $table)
+				->setPublic();
 
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
-				$create->addConstant($constant, $column)->setPublic();
+				$create->addConstant($constant, $column)
+					->setPublic();
 			}
 
 			// Get column attribute information.
 			$attr = $this->repository->getColumn($table, $column);
 
 			// Add attributes to the entity.
-			$property = $create->addProperty($column)->setPublic()
+			$property = $create->addProperty($column)
 				->setNullable($options->primaryNull && $attr->isAutoIncrement() ? true : $attr->isNullable())
-				->setType(Strings::lower($this->detectType($attr->getNativeType())));
+				->setType(Strings::lower($this->detectType($attr->getNativeType())))
+				->setPublic();
 
 			// Column attributes.
 			if ($options->attributeColumn) {
@@ -97,7 +103,7 @@ class EntityGenerator extends Base implements IGenerator
 		}
 
 		// Generate file.
-		$file = $options->path . '/' . $this->filename($table) . '.php';
+		$file = $options->path . '/' . $filename . '.php';
 		FileSystem::write($file, $phpFile->__toString());
 	}
 }

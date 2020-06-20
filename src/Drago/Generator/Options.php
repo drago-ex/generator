@@ -42,8 +42,17 @@ class Options
 	/** Allow convert large characters to lowercase. */
 	public bool $lower = false;
 
+
 	/** Options for form data generator ----------------------------------------------------------------------------- */
 
-	/** Parent form data class. */
+	public string $pathFormData = '';
+
+	/** Suffix name. */
+	public string $suffixFormData = 'Data';
+
+	/** Parent entity class. */
 	public string $extendsFormData = ExtraArrayHash::class;
+
+	/** Class namespace. */
+	public string $namespaceFormData = 'App\\Data';
 }

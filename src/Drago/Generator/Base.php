@@ -36,10 +36,9 @@ class Base
 	/**
 	 * Create filename and the added suffix.
 	 */
-	public function filename(string $name): string
+	public function filename(string $name, string $suffix): string
 	{
-		$filename = $this->inflector->classify(Strings::lower($name));
-		return $filename . $this->options->suffix;
+		return $this->inflector->classify(Strings::lower($name));
 	}
 
 
