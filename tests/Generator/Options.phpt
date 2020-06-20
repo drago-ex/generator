@@ -15,7 +15,7 @@ $options->path = __DIR__ . '/path/to/entity';
 
 Assert::type('string', $options->path);
 Assert::type('string', $options->suffix);
-Assert::same(Entity::class, $options->extendsEntity);
+Assert::same(Entity::class, $options->extends);
 Assert::type('string', $options->namespace);
 Assert::type('bool', $options->primaryNull);
 Assert::type('bool', $options->attributeColumn);
