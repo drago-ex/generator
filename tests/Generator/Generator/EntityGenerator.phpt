@@ -53,10 +53,6 @@ test(function () {
 
 	$generator = generator()->createFormDataGenerator(generator()->repository()->mysql(), $options);
 	$generator->runGeneration('test');
-
-	Assert::exception(function () use ($generator) {
-		$generator->runGeneration();
-	}, Exception::class, 'Wrong column name error(...) in table error, change name or use AS');
 });
 
 
@@ -65,6 +61,6 @@ test(function () {
 	$options->pathFormData = __DIR__ . '/../../data-oracle';
 	isDirectory($options->pathFormData);
 
-	$generator = generator()->createEntityGenerator(generator()->repository()->oracle(), $options);
+	$generator = generator()->createFormDataGenerator(generator()->repository()->oracle(), $options);
 	$generator->runGeneration('TEST');
 });
