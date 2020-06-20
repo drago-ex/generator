@@ -93,8 +93,7 @@ class FormDataGenerator extends Base implements IGenerator
 			// Add reference to table.
 			foreach ($this->getReferencesTable($table) as $reference) {
 				$create->addProperty($reference)
-					->setType($options->namespace . '\\' . $this->filename($reference, $options->suffixFormData))
-					->addComment('Reference to table.')
+					->setType($options->namespaceFormData . '\\' . $this->filename($reference, $options->suffixFormData))
 					->setPublic();
 			}
 		}
