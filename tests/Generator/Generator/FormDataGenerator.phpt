@@ -30,6 +30,10 @@ test(function () {
 	$generator = generator();
 	$generatorEntity = $generator->createFormDataGenerator($generator->repository()->mysql(), $options);
 	$generatorEntity->runGeneration('test');
+
+	Assert::exception(function () use ($generator) {
+		$generator->runGeneration();
+	}, Exception::class, 'Wrong column name error(...) in table error, change name or use AS');
 });
 
 
