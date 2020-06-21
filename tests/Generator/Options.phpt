@@ -15,7 +15,6 @@ $options->path = __DIR__ . '/path/to/entity';
 
 // base options
 Assert::type('bool', $options->constant);
-Assert::type('bool', $options->primaryNull);
 Assert::type('bool', $options->lower);
 
 // generator entity
