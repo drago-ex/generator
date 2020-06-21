@@ -23,9 +23,6 @@ class Options
 	/** Allow constant. */
 	public bool $constant = true;
 
-	/** Allow return null on the primary key.*/
-	public bool $primaryNull = true;
-
 	/** Allow convert large characters to lowercase (typical of Oracle). */
 	public bool $lower = false;
 
