@@ -34,13 +34,3 @@ test(function () {
 		$generator->runGeneration();
 	}, Exception::class, 'Wrong column name error(...) in table error, change name or use AS');
 });
-
-
-test(function () {
-	$options = generator()->options();
-	$options->path = __DIR__ . '/../../entity-oracle';
-	isDirectory($options->path);
-
-	$generator = generator()->createEntityGenerator(generator()->repository()->oracle(), $options);
-	$generator->runGeneration('TEST');
-});
