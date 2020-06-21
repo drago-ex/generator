@@ -28,18 +28,3 @@ test(function () {
 	$columnInfo = repository()->mysql()->getColumn('test', 'sampleId');
 	Assert::type(Column::class, $columnInfo);
 });
-
-
-test(function () {
-	Assert::equal([
-		0 => 'TEST',
-	], repository()->oracle()->getTableNames());
-
-	Assert::equal([
-		0 => 'SAMPLE_ID',
-		1 => 'SAMPLE_STRING',
-	], repository()->oracle()->getColumnNames('TEST'));
-
-	$columnInfo = repository()->oracle()->getColumn('TEST', 'SAMPLE_ID');
-	Assert::type(Column::class, $columnInfo);
-});

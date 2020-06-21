@@ -29,14 +29,4 @@ class TestRepository
 		$db = $this->db()->mysql();
 		return $this->repository($db);
 	}
-
-
-	/**
-	 * @throws Exception
-	 */
-	public function oracle(): Repository
-	{
-		$db = $this->db()->oracle();
-		return $this->repository($db);
-	}
 }
