@@ -22,20 +22,4 @@ class Connect
 		];
 		return new Connection($db);
 	}
-
-
-	/**
-	 * @throws Exception
-	 */
-	public function oracle(): Connection
-	{
-		$db = [
-			'driver' => 'oracle',
-			'username' => 'travis',
-			'password' => 'travis',
-			'database' => '(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)))(CONNECT_DATA=(SID=xe)))',
-			'charset' => 'utf8',
-		];
-		return new Connection($db);
-	}
 }
