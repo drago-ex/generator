@@ -61,7 +61,7 @@ Form data options:
 | `pathFormData`      | `string`         | `empty`                      | The path where the classes will be generated. |
 | `constantFormData`  | `bool`           | `true`                       | Allow constant.                               |
 | `suffixFormData`    | `string`         | `Entity`                     | Add suffix name.                              |
-| `extendsFormData`   | `string`         | `Drago\Database\Entity`      | Add extends class.                            |
+| `extendsFormData`   | `string`         | `Drago\Utils\ExtraArrayHash` | Add extends class.                            |
 | `extendFormDataOn`  | `bool`           | `true`                       | Allow extension class.                        |
 | `finalFormData`     | `bool`           | `true`                       | Add final keyword.                            |
 | `namespaceFormData` | `string`         | `App\Entity`                 | Add class namespace.                          |
