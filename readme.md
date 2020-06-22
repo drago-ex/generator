@@ -65,7 +65,6 @@ Form data options:
 | `extendFormDataOn`  | `bool`           | `true`                       | Allow extends class.                          |
 | `finalFormData`     | `bool`           | `true`                       | Add final keyword.                            |
 | `namespaceFormData` | `string`         | `App\Data`                   | Add class namespace.                          |
-| `attributeColumn`   | `bool`           | `true`                       | Allow attribute column info.                  |
 
 ## Console commands
 
