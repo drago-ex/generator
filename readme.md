@@ -51,7 +51,7 @@ extensions:
 
 ## Console commands
 
-| Command               | info   
+| Command               | Description   
 | --------------------- | ---------------------------------------------------------|
 | `make:entity`         | **Generates all entities.**                              |
 | `make:entity table`   | **Generates one entity according to the table name.**    |
