@@ -26,16 +26,14 @@ Generating entities or form data.
 composer require drago-ex/generator
 ```
 
-## Documentation
-
-Extension registration
+## Extension registration
 
 ```neon
 extensions:
 	generator: Drago\Generator\DI\GeneratorExtension
 ```
 
-Generator settings
+## Generator settings
 
 | Name              | Type             | Default state         | info   
 | ------------------| ---------------- | --------------------- | ----------------- |
@@ -51,7 +49,7 @@ Generator settings
 | `extendsFormData`   | `string`         | `Data`                  | extends for the form data
 | `namespaceFormData` | `string`         | `App\Data`              | namespace for form data
 
-Console commands
+## Console commands
 
 | Command               | info   
 | --------------------- | -------------- |
