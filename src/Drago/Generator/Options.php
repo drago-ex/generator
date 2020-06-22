@@ -20,22 +20,22 @@ class Options
 {
 	/** Base options ------------------------------------------------------------------------------------------------ */
 
-	/** Allow constant. */
-	public bool $constant = true;
-
 	/** Allow convert uppercase characters to lowercase (typical of Oracle). */
 	public bool $lower = false;
 
 
 	/** Options for entity generator -------------------------------------------------------------------------------- */
 
-	/** The path where the entity will be generated. */
+	/** The path where the classes will be generated. */
 	public string $path = '';
 
-	/** Suffix name. */
+	/** Allow constant. */
+	public bool $constant = true;
+
+	/** Add suffix name. */
 	public string $suffix = 'Entity';
 
-	/** Extends class. */
+	/** Add extends class. */
 	public string $extends = Entity::class;
 
 	/** Allow extension class */
@@ -44,7 +44,7 @@ class Options
 	/** Add final keyword */
 	public bool $final = true;
 
-	/** Class namespace. */
+	/** Add class namespace. */
 	public string $namespace = 'App\\Entity';
 
 	/** Allow attribute column info. */
@@ -53,12 +53,16 @@ class Options
 
 	/** Options for form data generator ----------------------------------------------------------------------------- */
 
+	/** The path where the classes will be generated. */
 	public string $pathFormData = '';
 
-	/** Suffix name. */
+	/** Allow constant. */
+	public bool $constantFormData = true;
+
+	/** Add suffix name. */
 	public string $suffixFormData = 'Data';
 
-	/** Extends class. */
+	/** Add extends class. */
 	public string $extendsFormData = ExtraArrayHash::class;
 
 	/** Allow extension class */
@@ -67,6 +71,6 @@ class Options
 	/** Add final keyword */
 	public bool $finalFormData = true;
 
-	/** Class namespace. */
+	/** Add class namespace. */
 	public string $namespaceFormData = 'App\\Data';
 }

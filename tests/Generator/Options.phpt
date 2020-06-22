@@ -13,11 +13,11 @@ require __DIR__ . '/../bootstrap.php';
 $options = new Generator\Options;
 
 // base options
-Assert::type('bool', $options->constant);
 Assert::type('bool', $options->lower);
 
 // generator entity
 Assert::type('string', $options->path);
+Assert::type('bool', $options->constant);
 Assert::type('string', $options->suffix);
 Assert::same(Entity::class, $options->extends);
 Assert::type('bool', $options->extendsOn);
@@ -27,6 +27,7 @@ Assert::type('bool', $options->attributeColumn);
 
 // generator form data
 Assert::type('string', $options->pathFormData);
+Assert::type('bool', $options->constantFormData);
 Assert::type('string', $options->suffixFormData);
 Assert::same(ExtraArrayHash::class, $options->extendsFormData);
 Assert::type('bool', $options->extendFormDataOn);

@@ -85,7 +85,7 @@ class FormDataGenerator extends Base implements IGenerator
 			$attr = $this->repository->getColumn($table, $column);
 
 			// Add constants to the entity.
-			if ($options->constant) {
+			if ($options->constantFormData) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
 				$create->addConstant($constant, $column);
 
