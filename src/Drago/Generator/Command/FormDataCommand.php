@@ -52,5 +52,6 @@ class FormDataCommand extends Command
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		$this->formDataGenerator->runGeneration($input->getArgument('table'));
+		$output->writeln('Generation was successful.');
 	}
 }
