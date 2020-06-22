@@ -23,7 +23,7 @@ class Options
 	/** Allow constant. */
 	public bool $constant = true;
 
-	/** Allow convert large characters to lowercase (typical of Oracle). */
+	/** Allow convert uppercase characters to lowercase (typical of Oracle). */
 	public bool $lower = false;
 
 
@@ -35,8 +35,14 @@ class Options
 	/** Suffix name. */
 	public string $suffix = 'Entity';
 
-	/** Parent entity class. */
+	/** Extends class. */
 	public string $extends = Entity::class;
+
+	/** Allow extension class */
+	public bool $extendsOn = true;
+
+	/** Add final keyword */
+	public bool $final = true;
 
 	/** Class namespace. */
 	public string $namespace = 'App\\Entity';
@@ -52,8 +58,14 @@ class Options
 	/** Suffix name. */
 	public string $suffixFormData = 'Data';
 
-	/** Parent entity class. */
+	/** Extends class. */
 	public string $extendsFormData = ExtraArrayHash::class;
+
+	/** Allow extension class */
+	public bool $extendFormDataOn = true;
+
+	/** Add final keyword */
+	public bool $finalFormData = true;
 
 	/** Class namespace. */
 	public string $namespaceFormData = 'App\\Data';

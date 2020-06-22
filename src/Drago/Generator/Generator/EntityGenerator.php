@@ -11,6 +11,7 @@ namespace Drago\Generator;
 
 use Drago\Utils\CaseConverter;
 use Nette\PhpGenerator\PhpFile;
+use Nette\SmartObject;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 use Throwable;
@@ -56,7 +57,17 @@ class EntityGenerator extends Base implements IGenerator
 		$create = $phpFile
 			->addNamespace($options->namespace)
 			->addClass($filename)
-			->setExtends($options->extends);
+			->addTrait(SmartObject::class);
+
+		// Add extends class.
+		if ($options->extendsOn) {
+			$create->setExtends($options->extendsFormData);
+		}
+
+		// Add final keyword
+		if ($options->final) {
+			$create->setFinal();
+		}
 
 		// Get all columns names from table.
 		foreach ($this->repository->getColumnNames($table) as $column) {
@@ -70,14 +81,12 @@ class EntityGenerator extends Base implements IGenerator
 			$this->validateColumn($table, $column);
 
 			// Add the constant table to the entity.
-			$create->addConstant('TABLE', $table)
-				->setPublic();
+			$create->addConstant('TABLE', $table);
 
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
-				$create->addConstant($constant, $column)
-					->setPublic();
+				$create->addConstant($constant, $column);
 			}
 
 			// Get column attribute information.
@@ -86,8 +95,7 @@ class EntityGenerator extends Base implements IGenerator
 			// Add attributes to the entity.
 			$property = $create->addProperty($column)
 				->setNullable($attr->isNullable())
-				->setType(Strings::lower($this->detectType($attr->getNativeType())))
-				->setPublic();
+				->setType(Strings::lower($this->detectType($attr->getNativeType())));
 
 			// Column attributes.
 			if ($options->attributeColumn) {

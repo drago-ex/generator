@@ -20,6 +20,8 @@ Assert::type('bool', $options->lower);
 Assert::type('string', $options->path);
 Assert::type('string', $options->suffix);
 Assert::same(Entity::class, $options->extends);
+Assert::type('bool', $options->extendsOn);
+Assert::type('bool', $options->final);
 Assert::type('string', $options->namespace);
 Assert::type('bool', $options->attributeColumn);
 
@@ -27,4 +29,6 @@ Assert::type('bool', $options->attributeColumn);
 Assert::type('string', $options->pathFormData);
 Assert::type('string', $options->suffixFormData);
 Assert::same(ExtraArrayHash::class, $options->extendsFormData);
+Assert::type('bool', $options->extendFormDataOn);
+Assert::type('bool', $options->finalFormData);
 Assert::type('string', $options->namespaceFormData);

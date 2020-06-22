@@ -12,6 +12,7 @@ namespace Drago\Generator;
 use Drago\Utils\CaseConverter;
 use Exception;
 use Nette\PhpGenerator\PhpFile;
+use Nette\SmartObject;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 use Throwable;
@@ -57,7 +58,17 @@ class FormDataGenerator extends Base implements IGenerator
 		$create = $phpFile
 			->addNamespace($options->namespaceFormData)
 			->addClass($filename)
-			->setExtends($options->extendsFormData);
+			->addTrait(SmartObject::class);
+
+		// Add extends class.
+		if ($options->extendFormDataOn) {
+			$create->setExtends($options->extendsFormData);
+		}
+
+		// Add final keyword
+		if ($options->finalFormData) {
+			$create->setFinal();
+		}
 
 		// Get all columns names from table.
 		foreach ($this->repository->getColumnNames($table) as $column) {
@@ -76,12 +87,10 @@ class FormDataGenerator extends Base implements IGenerator
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
-				$create->addConstant($constant, $column)
-					->setPublic();
+				$create->addConstant($constant, $column);
 
 				// Add to constant column length information
-				$create->addConstant($constant . '_LENGTH', $attr->getSize())
-					->setPublic();
+				$create->addConstant($constant . '_LENGTH', $attr->getSize());
 			}
 
 			// Add attributes to the entity.
@@ -92,9 +101,9 @@ class FormDataGenerator extends Base implements IGenerator
 
 			// Add reference to table.
 			foreach ($this->getReferencesTable($table) as $reference) {
+				$name = $this->filename($reference, $options->suffixFormData);
 				$create->addProperty($reference)
-					->setType($options->namespaceFormData . '\\' . $this->filename($reference, $options->suffixFormData))
-					->setPublic();
+					->setType($options->namespaceFormData . '\\' . $name);
 			}
 		}
 
