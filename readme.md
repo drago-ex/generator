@@ -45,7 +45,7 @@ Generator settings
 | `suffix`            | `string`         | `Entity`                | suffix entity name
 | `extends`           | `string`         | `Drago\Database\Entity` | extends for the entity
 | `namespace`         | `string`         | `App\Entity`            | namespace for entities
-| `attributeColumn`   | `bool`           | `true`                  | column information
+| `attributeColumn`   | `bool`           | `true`                  | adding column information
 | `pathFormData`      | `string`         | `empty`                 | the path where the form data will be generated
 | `suffixFormData`    | `string`         | `Data`                  | suffix form data name
 | `extendsFormData`   | `string`         | `Data`                  | extends for the form data
