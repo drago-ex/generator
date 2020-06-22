@@ -37,25 +37,25 @@ extensions:
 
 Generator settings
 
-| Name              | Type           | Default state         | info   
-| ------------------| -------------- | --------------------- | ----------------- |
-| constant          | bool           | true                  | adding a constant
-| lower             | bool           | false                 | if you have large column names, typical of Oracle
-| path              | string         | empty                 | the path where the entity will be generated
-| suffix            | string         | Entity                | suffix entity name
-| extends           | string         | Drago\Database\Entity | extends for the entity
-| namespace         | string         | App\Entity            | namespace for entities
-| attributeColumn   | bool           | true                  | column information
-| pathFormData      | string         | empty                 | the path where the form data will be generated
-| suffixFormData    | string         | Data                  | suffix form data name
-| extendsFormData   | string         | Data                  | extends for the form data
-| namespaceFormData | string         | App\Data              | namespace for form data
+| Name              | Type              | Default state         | info   
+| ------------------| ---------------- | --------------------- | ----------------- |
+| constant          | `bool`           | `true`                  | adding a constant
+| lower             | `bool`           | `false`                 | if you have large column names, typical of Oracle
+| path              | `string`         | `empty`                 | the path where the entity will be generated
+| suffix            | `string`         | `Entity`                | suffix entity name
+| extends           | `string`         | `Drago\Database\Entity` | extends for the entity
+| namespace         | `string`         | `App\Entity`            | namespace for entities
+| attributeColumn   | `bool`           | `true`                  | column information
+| pathFormData      | `string`         | `empty`                 | the path where the form data will be generated
+| suffixFormData    | `string`         | `Data`                  | suffix form data name
+| extendsFormData   | `string`         | `Data`                  | extends for the form data
+| namespaceFormData | `string`         | `App\Data`              | namespace for form data
 
 Console commands
 
-| Command             | info   
-| ------------------- | -------------- |
-| make:entity         | generates all entities
-| make:entity table   | generates one entity according to the table name
-| make:formData       | generates all form data
-| make:formData table | generates one form data according to the table name
+| Command               | info   
+| --------------------- | -------------- |
+| `make:entity`         | generates all entities
+| `make:entity table`   | generates one entity according to the table name
+| `make:formData`       | generates all form data
+| `make:formData table` | generates one form data according to the table name
