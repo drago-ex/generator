@@ -39,7 +39,7 @@ extensions:
 | --------------------| ---------------- | -----------------------------| ----------------------------------------------- |
 | `constant`          | `bool`           | `true`                       | Adding a constant.                              |
 | `lower`             | `bool`           | `false`                      | If the column names are large (typical Oracle). |
-| `path`              | `string`         | `empty`                      | TPath for generating entities.                  |
+| `path`              | `string`         | `empty`                      | Path for generating entities.                   |
 | `suffix`            | `string`         | `Entity`                     | Suffix entity name.                             |
 | `extends`           | `string`         | `Drago\Database\Entity`      | Extends for the entity.                         |
 | `namespace`         | `string`         | `App\Entity`                 | Namespace for entities.                         |
