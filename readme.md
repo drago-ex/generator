@@ -17,7 +17,7 @@ Generating entity from database.
 
 ## Requirements
 
-- PHP 7.2 or higher
+- PHP 7.4 or higher
 - composer
 
 ## Installation
