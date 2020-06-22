@@ -1,6 +1,10 @@
 services:
   - mysql
 
+language: php
+php:
+  - 7.4
+
 before_install:
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS test;'
   - mysql -u root test < tests/db.sql
@@ -16,17 +20,11 @@ jobs:
         - travis_retry composer create-project nette/code-checker temp/code-checker ^3 --no-progress
       script:
         - php temp/code-checker/code-checker --strict-types
-      language: php
-      php:
-        - 7.4
 
 
     - name: Static Analysis
       script:
         - composer run-script phpstan
-      language: php
-      php:
-        - 7.4
 
 
     - stage: Nette Tester
@@ -34,9 +32,6 @@ jobs:
         - travis_retry composer require nette/tester --dev
       script:
         - composer run-script tester
-      language: php
-      php:
-        - 7.4
 
 
     - stage: Code Coverage
@@ -45,6 +40,3 @@ jobs:
       after_script:
         - wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
         - php coveralls.phar --verbose --config tests/.coveralls.yml
-      language: php
-      php:
-        - 7.4
