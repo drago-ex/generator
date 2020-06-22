@@ -35,19 +35,37 @@ extensions:
 
 ## Generator settings
 
+Together options:
+
 | Name                | Type             | Default state                | Description
-| --------------------| ---------------- | -----------------------------| ------------------------------------- |
-| `constant`          | `bool`           | `true`                       | Adding a constant.                    |
-| `lower`             | `bool`           | `false`                      | If the column names are in uppercase. |
-| `path`              | `string`         | `empty`                      | Path for generating entities.         |
-| `suffix`            | `string`         | `Entity`                     | Suffix entity name.                   |
-| `extends`           | `string`         | `Drago\Database\Entity`      | Extends for the entity.               |
-| `namespace`         | `string`         | `App\Entity`                 | Namespace for entities.               |
-| `attributeColumn`   | `bool`           | `true`                       | Adding column information.            |
-| `pathFormData`      | `string`         | `empty`                      | Path for generating form data.        |
-| `suffixFormData`    | `string`         | `Data`                       | Suffix form data name.                |
-| `extendsFormData`   | `string`         | `Drago\Utils\ExtraArrayHash` | Extends for the form data.            |
-| `namespaceFormData` | `string`         | `App\Data`                   | Namespace for form data.              |
+| --------------------| ---------------- | -----------------------------| ------------------------------------------------- |
+| `lower`             | `bool`           | `false`                      | Allow convert uppercase characters to lowercasee. |
+
+Entity options:
+
+| Name                | Type             | Default state                | Description
+| --------------------| ---------------- | -----------------------------| --------------------------------------------- |
+| `path`              | `string`         | `empty`                      | The path where the classes will be generated. |
+| `constant`          | `bool`           | `true`                       | Allow constant.                               |
+| `suffix`            | `string`         | `Entity`                     | Add suffix name.                              |
+| `extends`           | `string`         | `Drago\Database\Entity`      | Add extends class.                            |
+| `extendsOn`         | `bool`           | `true`                       | Allow extension class.                        |
+| `final    `         | `bool`           | `true`                       | Add final keyword.                            |
+| `namespace`         | `string`         | `App\Entity`                 | Add class namespace.                          |
+| `attributeColumn`   | `bool`           | `true`                       | Allow attribute column info.                  |
+
+Form data options:
+
+| Name                | Type             | Default state                | Description
+| --------------------| ---------------- | -----------------------------| --------------------------------------------- |
+| `pathFormData`      | `string`         | `empty`                      | The path where the classes will be generated. |
+| `constantFormData`  | `bool`           | `true`                       | Allow constant.                               |
+| `suffixFormData`    | `string`         | `Entity`                     | Add suffix name.                              |
+| `extendsFormData`   | `string`         | `Drago\Database\Entity`      | Add extends class.                            |
+| `extendFormDataOn`  | `bool`           | `true`                       | Allow extension class.                        |
+| `finalFormData`     | `bool`           | `true`                       | Add final keyword.                            |
+| `namespaceFormData` | `string`         | `App\Entity`                 | Add class namespace.                          |
+| `attributeColumn`   | `bool`           | `true`                       | Allow attribute column info.                  |
 
 ## Console commands
 
