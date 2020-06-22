@@ -36,27 +36,27 @@ extensions:
 ## Generator settings
 
 | Name                | Type             | Default state           | Description   
-| --------------------| ---------------- | ------------------------| ------------------------------------------------- |
-| `constant`          | `bool`           | `true`                  | adding a constant                                 |
-| `lower`             | `bool`           | `false`                 | if you have large column names, typical of Oracle |
-| `path`              | `string`         | `empty`                 | the path where the entity will be generated       |
-| `suffix`            | `string`         | `Entity`                | suffix entity name                                |
-| `extends`           | `string`         | `Drago\Database\Entity` | extends for the entity                            |
-| `namespace`         | `string`         | `App\Entity`            | namespace for entities                            |
-| `attributeColumn`   | `bool`           | `true`                  | adding column information                         |
-| `pathFormData`      | `string`         | `empty`                 | the path where the form data will be generated    |
-| `suffixFormData`    | `string`         | `Data`                  | suffix form data name                             |
-| `extendsFormData`   | `string`         | `Data`                  | extends for the form data                         |
-| `namespaceFormData` | `string`         | `App\Data`              | namespace for form data                           |
+| --------------------| ---------------- | ------------------------| ------------------------------------------------------ |
+| `constant`          | `bool`           | `true`                  | **Adding a constant.**                                 |
+| `lower`             | `bool`           | `false`                 | **If you have large column names, typical of Oracle.** |
+| `path`              | `string`         | `empty`                 | **The path where the entity will be generated.**       |
+| `suffix`            | `string`         | `Entity`                | **Suffix entity name.**                                |
+| `extends`           | `string`         | `Drago\Database\Entity` | **Extends for the entity.**                            |
+| `namespace`         | `string`         | `App\Entity`            | **Namespace for entities.**                            |
+| `attributeColumn`   | `bool`           | `true`                  | **Adding column information.**                         |
+| `pathFormData`      | `string`         | `empty`                 | **The path where the form data will be generated.**    |
+| `suffixFormData`    | `string`         | `Data`                  | **Suffix form data name.**                             |
+| `extendsFormData`   | `string`         | `Data`                  | **Extends for the form data.**                         |
+| `namespaceFormData` | `string`         | `App\Data`              | **Namespace for form data.**                           |
 
 ## Console commands
 
 | Command               | info   
-| --------------------- | ----------------------------------------------------|
-| `make:entity`         | generates all entities                              |
-| `make:entity table`   | generates one entity according to the table name    |
-| `make:formData`       | generates all form data                             |
-| `make:formData table` | generates one form data according to the table name |
+| --------------------- | ---------------------------------------------------------|
+| `make:entity`         | **Generates all entities.**                              |
+| `make:entity table`   | **Generates one entity according to the table name.**    |
+| `make:formData`       | **Generates all form data.**                             |
+| `make:formData table` | **Generates one form data according to the table name.** |
 
 ## Prepared package for generator
 
