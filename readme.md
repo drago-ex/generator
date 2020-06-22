@@ -49,7 +49,7 @@ Entity options:
 | `constant`          | `bool`           | `true`                       | Allow constant.                               |
 | `suffix`            | `string`         | `Entity`                     | Add suffix name.                              |
 | `extends`           | `string`         | `Drago\Database\Entity`      | Add extends class.                            |
-| `extendsOn`         | `bool`           | `true`                       | Allow extension class.                        |
+| `extendsOn`         | `bool`           | `true`                       | Allow extends class.                          |
 | `final    `         | `bool`           | `true`                       | Add final keyword.                            |
 | `namespace`         | `string`         | `App\Entity`                 | Add class namespace.                          |
 | `attributeColumn`   | `bool`           | `true`                       | Allow attribute column info.                  |
@@ -62,7 +62,7 @@ Form data options:
 | `constantFormData`  | `bool`           | `true`                       | Allow constant.                               |
 | `suffixFormData`    | `string`         | `Entity`                     | Add suffix name.                              |
 | `extendsFormData`   | `string`         | `Drago\Utils\ExtraArrayHash` | Add extends class.                            |
-| `extendFormDataOn`  | `bool`           | `true`                       | Allow extension class.                        |
+| `extendFormDataOn`  | `bool`           | `true`                       | Allow extends class.                          |
 | `finalFormData`     | `bool`           | `true`                       | Add final keyword.                            |
 | `namespaceFormData` | `string`         | `App\Entity`                 | Add class namespace.                          |
 | `attributeColumn`   | `bool`           | `true`                       | Allow attribute column info.                  |
