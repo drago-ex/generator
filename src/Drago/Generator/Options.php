@@ -38,7 +38,7 @@ class Options
 	/** Add extends class. */
 	public string $extends = Entity::class;
 
-	/** Allow extension class */
+	/** Allow extends class */
 	public bool $extendsOn = true;
 
 	/** Add final keyword */
@@ -65,7 +65,7 @@ class Options
 	/** Add extends class. */
 	public string $extendsFormData = ExtraArrayHash::class;
 
-	/** Allow extension class */
+	/** Allow extends class */
 	public bool $extendFormDataOn = true;
 
 	/** Add final keyword */
