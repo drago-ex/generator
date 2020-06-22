@@ -1,7 +1,7 @@
 {
 	"name": "drago-ex/generator",
 	"type": "library",
-	"description": "Generating entity from database.",
+	"description": "Generating entities or form data.",
 	"license": ["MIT"],
 	"authors": [
 		{
