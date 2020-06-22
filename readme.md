@@ -5,9 +5,9 @@
 <h3 align="center">Drago Extension</h3>
 <p align="center">Simple packages built on Nette Framework</p>
 
-## Info
+## Drago Generator
 
-Generating entity from database.
+Generating entities or form data.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/drago-ex/generator/master/license.md)
 [![PHP version](https://badge.fury.io/ph/drago-ex%2Fgenerator.svg)](https://badge.fury.io/ph/drago-ex%2Fgenerator)
@@ -27,4 +27,34 @@ composer require drago-ex/generator
 ```
 
 ## Documentation
-https://github.com/drago-ex/generator/wiki/Documentation
+
+Extension registration
+```neon
+extensions:
+	generator: Drago\Generator\DI\GeneratorExtension
+```
+
+Generator settings
+```neon
+generator:
+	# base
+	constant: true
+	lower: false # You will only enable this setting if you have large column names, typical of Oralce.
+
+	# generator entity
+	path: %appDir%/entity
+	suffix: Entity
+	extends: Drago\Database\Entity
+	namespace: App\Entity
+	attributeColumn: true
+
+	# generator form data
+	pathFormData: %appDir%/data
+	suffixFormData: Data
+	extendsFormData: Drago\Utils\ExtraArrayHash
+	namespaceFormData: App\Data
+```
+
+Console commands
+- All Entity **```make:entity```** or specific table **```make:entity table```**
+- All Form data **```make:formData```** or specific table **```make:formData table```**
