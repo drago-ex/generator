@@ -36,27 +36,27 @@ extensions:
 ## Generator settings
 
 | Name                | Type             | Default state                | Description
-| --------------------| ---------------- | -----------------------------| ------------------------------------------------------ |
-| `constant`          | `bool`           | `true`                       | **Adding a constant.**                                 |
-| `lower`             | `bool`           | `false`                      | **If you have large column names, typical of Oracle.** |
-| `path`              | `string`         | `empty`                      | **The path where the entity will be generated.**       |
-| `suffix`            | `string`         | `Entity`                     | **Suffix entity name.**                                |
-| `extends`           | `string`         | `Drago\Database\Entity`      | **Extends for the entity.**                            |
-| `namespace`         | `string`         | `App\Entity`                 | **Namespace for entities.**                            |
-| `attributeColumn`   | `bool`           | `true`                       | **Adding column information.**                         |
-| `pathFormData`      | `string`         | `empty`                      | **The path where the form data will be generated.**    |
-| `suffixFormData`    | `string`         | `Data`                       | **Suffix form data name.**                             |
-| `extendsFormData`   | `string`         | `Drago\Utils\ExtraArrayHash` | **Extends for the form data.**                         |
-| `namespaceFormData` | `string`         | `App\Data`                   | **Namespace for form data.**                           |
+| --------------------| ---------------- | -----------------------------| -------------------------------------------------- |
+| `constant`          | `bool`           | `true`                       | Adding a constant.                                 |
+| `lower`             | `bool`           | `false`                      | If you have large column names, typical of Oracle. |
+| `path`              | `string`         | `empty`                      | The path where the entity will be generated.       |
+| `suffix`            | `string`         | `Entity`                     | Suffix entity name.                                |
+| `extends`           | `string`         | `Drago\Database\Entity`      | Extends for the entity.                            |
+| `namespace`         | `string`         | `App\Entity`                 | Namespace for entities.                            |
+| `attributeColumn`   | `bool`           | `true`                       | Adding column information.                         |
+| `pathFormData`      | `string`         | `empty`                      | The path where the form data will be generated.    |
+| `suffixFormData`    | `string`         | `Data`                       | Suffix form data name.                             |
+| `extendsFormData`   | `string`         | `Drago\Utils\ExtraArrayHash` | Extends for the form data.                         |
+| `namespaceFormData` | `string`         | `App\Data`                   | Namespace for form data.                           |
 
 ## Console commands
 
 | Command               | Description
-| --------------------- | ---------------------------------------------------------|
-| `make:entity`         | **Generates all entities.**                              |
-| `make:entity table`   | **Generates one entity according to the table name.**    |
-| `make:formData`       | **Generates all form data.**                             |
-| `make:formData table` | **Generates one form data according to the table name.** |
+| --------------------- | -----------------------------------------------------|
+| `make:entity`         | Generates all entities.                              |
+| `make:entity table`   | Generates one entity according to the table name.    |
+| `make:formData`       | Generates all form data.                             |
+| `make:formData table` | Generates one form data according to the table name. |
 
 ## Prepared package for generator
 
