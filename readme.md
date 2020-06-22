@@ -37,7 +37,7 @@ extensions:
 
 Generator settings
 
-| Name              | Type              | Default state         | info   
+| Name              | Type             | Default state         | info   
 | ------------------| ---------------- | --------------------- | ----------------- |
 | constant          | `bool`           | `true`                  | adding a constant
 | lower             | `bool`           | `false`                 | if you have large column names, typical of Oracle
