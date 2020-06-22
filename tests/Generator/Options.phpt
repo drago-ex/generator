@@ -11,7 +11,6 @@ require __DIR__ . '/../bootstrap.php';
 
 
 $options = new Generator\Options;
-$options->path = __DIR__ . '/path/to/entity';
 
 // base options
 Assert::type('bool', $options->constant);

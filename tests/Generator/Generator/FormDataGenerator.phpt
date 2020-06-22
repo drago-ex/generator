@@ -24,7 +24,7 @@ function isDirectory(string $dir): void
 
 test(function () {
 	$options = generator()->options();
-	$options->pathFormData = __DIR__ . '/../../entity';
+	$options->pathFormData = __DIR__ . '/../../data';
 	isDirectory($options->pathFormData);
 
 	$generator = generator()->createFormDataGenerator(generator()->repository()->mysql(), $options);
