@@ -57,3 +57,7 @@ extensions:
 | `make:entity table`   | generates one entity according to the table name
 | `make:formData`       | generates all form data
 | `make:formData table` | generates one form data according to the table name
+
+## Prepared package for generator
+
+[https://github.com/drago-ex/generator-cli](https://github.com/drago-ex/generator-cli)
