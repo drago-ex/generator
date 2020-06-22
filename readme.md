@@ -35,8 +35,8 @@ extensions:
 
 ## Generator settings
 
-| Name                | Type             | Default state             | description   
-| --------------------| ---------------- | ------------------------- | ----------------------------------------------- |
+| Name                | Type             | Default state           | Description   
+| --------------------| ---------------- | ------------------------| ------------------------------------------------- |
 | `constant`          | `bool`           | `true`                  | adding a constant                                 |
 | `lower`             | `bool`           | `false`                 | if you have large column names, typical of Oracle |
 | `path`              | `string`         | `empty`                 | the path where the entity will be generated       |
