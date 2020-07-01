@@ -96,7 +96,7 @@ class Base
 
         foreach ($patterns as $s => $val) {
             if (preg_match("#$s#i", $type)) {
-                return $val;
+                $item = $val;
             }
         }
         return $item ?? Type::TEXT;
