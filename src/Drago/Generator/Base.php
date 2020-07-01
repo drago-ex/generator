@@ -94,7 +94,7 @@ class Base
 			'BOOL' => Type::BOOL,
 		];
 
-		foreach ($pattern as $s => $val) {
+		foreach ($patterns as $s => $val) {
 			if (preg_match("#$s#i", $type)) {
 				$item = $val;
 			}
