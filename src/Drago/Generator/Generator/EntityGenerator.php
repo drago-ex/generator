@@ -95,7 +95,7 @@ class EntityGenerator extends Base implements IGenerator
 			// Add attributes to the entity.
 			$property = $create->addProperty($column)
 				->setNullable($attr->isNullable())
-				->setType(Strings::lower($this->detectType($attr->getNativeType())));
+				->setType($this->detectType($attr->getNativeType()));
 
 			// Column attributes.
 			if ($options->attributeColumn) {
