@@ -85,20 +85,20 @@ class Base
 	 */
 	public function detectType(string $type): string
 	{
-        static $patterns = [
-            'BYTEA|BLOB|BIN' => Type::BINARY,
-            'TEXT|CHAR|POINT|INTERVAL|STRING' => Type::TEXT,
-            'YEAR|BYTE|COUNTER|SERIAL|INT|LONG|SHORT' => Type::INTEGER,
-            'CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => Type::FLOAT,
-            'DATE|TIME' => Type::DATE,
-            'BOOL' => Type::BOOL,
-        ];
+		static $patterns = [
+			'BYTEA|BLOB|BIN' => Type::BINARY,
+			'TEXT|CHAR|POINT|INTERVAL|STRING' => Type::TEXT,
+			'YEAR|BYTE|COUNTER|SERIAL|INT|LONG|SHORT' => Type::INTEGER,
+			'CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => Type::FLOAT,
+			'DATE|TIME' => Type::DATE,
+			'BOOL' => Type::BOOL,
+		];
 
-        foreach ($patterns as $s => $val) {
-            if (preg_match("#$s#i", $type)) {
-                $item = $val;
-            }
-        }
-        return $item ?? Type::TEXT;
+		foreach ($pattern as $s => $val) {
+			if (preg_match("#$s#i", $type)) {
+				$item = $val;
+			}
+		}
+		return $item ?? Type::TEXT;
 	}
 }
