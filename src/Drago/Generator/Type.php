@@ -23,8 +23,7 @@ class Type
 		BOOL = 'bool',
 		INTEGER = 'int',
 		FLOAT = 'float',
-		DATE = '\DateTime',
-		TIME = '\DateInterval';
+		DATE = '\DateTime';
 
 
 	/**
