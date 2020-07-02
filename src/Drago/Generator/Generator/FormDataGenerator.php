@@ -9,8 +9,9 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
+use Dibi\Exception;
+use Dibi\NotSupportedException;
 use Drago\Utils\CaseConverter;
-use Exception;
 use Nette\PhpGenerator\PhpFile;
 use Nette\SmartObject;
 use Nette\Utils\FileSystem;
@@ -114,18 +115,16 @@ class FormDataGenerator extends Base implements IGenerator
 
 
 	/**
-	 * Detect table references.
+	 * Table references
+	 * @throws Exception
+	 * @throws NotSupportedException
 	 */
 	private function getReferencesTable(string $table): array
 	{
-		$references = [];
-		try {
-			foreach ($this->repository->getTable($table)->getForeignKeys() as $foreignKey) {
-				$references[] = $foreignKey->getReferences()['table'];
-			}
-		} catch (Exception $e) {
-			// Not implement.
+		$ref = [];
+		foreach ($this->repository->getForeignKeys($table) as $foreignKey) {
+			$ref[] = $foreignKey['table'];
 		}
-		return $references;
+		return $ref;
 	}
 }
