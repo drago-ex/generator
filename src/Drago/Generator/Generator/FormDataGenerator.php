@@ -41,7 +41,7 @@ class FormDataGenerator extends Base implements IGenerator
 
 
 	/**
-	 * Creating php file
+	 * Creating php file.
 	 * @throws Throwable
 	 */
 	public function createPhpFile(string $table): void
@@ -115,7 +115,7 @@ class FormDataGenerator extends Base implements IGenerator
 
 
 	/**
-	 * Table references
+	 * Table references.
 	 * @throws Exception
 	 */
 	private function getReferencesTable(string $table): array
