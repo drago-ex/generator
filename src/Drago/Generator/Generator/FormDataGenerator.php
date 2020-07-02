@@ -117,13 +117,16 @@ class FormDataGenerator extends Base implements IGenerator
 	/**
 	 * Table references
 	 * @throws Exception
-	 * @throws NotSupportedException
 	 */
 	private function getReferencesTable(string $table): array
 	{
 		$ref = [];
-		foreach ($this->repository->getForeignKeys($table) as $foreignKey) {
-			$ref[] = $foreignKey['table'];
+		try {
+			foreach ($this->repository->getForeignKeys($table) as $foreignKey) {
+				$ref[] = $foreignKey['table'];
+			}
+		} catch (NotSupportedException $e) {
+			// I don't need an announcement ...
 		}
 		return $ref;
 	}
