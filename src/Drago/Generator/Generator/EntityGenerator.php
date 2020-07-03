@@ -61,7 +61,7 @@ class EntityGenerator extends Base implements IGenerator
 
 		// Add extends class.
 		if ($options->extendsOn) {
-			$create->setExtends($options->extendsFormData);
+			$create->setExtends($options->extends);
 		}
 
 		// Add final keyword
