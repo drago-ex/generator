@@ -9,36 +9,53 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
+use Dibi\Connection;
 use Dibi\Exception;
 use Dibi\NotSupportedException;
 use Dibi\Reflection\Column;
 use Dibi\Reflection\Database;
 use Dibi\Reflection\Table;
 use Drago\Database\Connect;
+use Nette\Database\Context;
+use Nette\Database\IStructure;
+use Tracy\Debugger;
 
 
 /**
  * Get table names ant types from database.
  */
-class Repository extends Connect
+class Repository
 {
+	private Context $db;
+
+
+	public function __construct(Context $db)
+	{
+		$this->db = $db;
+	}
+
+
 	/**
 	 * Get database info.
 	 */
-	private function getDatabaseInfo(): Database
+	public function getStructure(): IStructure
 	{
-		return $this->db->getDatabaseInfo();
+		return $this->db->getStructure();
 	}
 
 
 	/**
 	 * Get table information.
-	 * @throws Exception
 	 */
-	public function getTable(string $name): Table
+	public function getTable(string $name): array
 	{
-		return $this->getDatabaseInfo()
-			->getTable($name);
+		$table = [];
+		foreach ($this->getStructure()->getTables() as $item) {
+			if ($item['name'] === $name) {
+				$table[] = $item;
+			}
+		}
+		return $table[0];
 	}
 
 
@@ -47,70 +64,38 @@ class Repository extends Connect
 	 */
 	public function getTableNames(): array
 	{
-		return $this->getDatabaseInfo()
-			->getTableNames();
+		$tables = [];
+		foreach ($this->getStructure()->getTables() as $table) {
+			$tables[] = $table['name'];
+		}
+		return $tables;
 	}
 
 
 	/**
 	 * Get all columns names from table.
-	 * @throws Exception
 	 */
 	public function getColumnNames(string $table): array
 	{
-		return $this->getTable($table)
-			->getColumnNames();
+		$columns = [];
+		foreach ($this->getStructure()->getColumns($table) as $column) {
+			$columns[] = $column['name'];
+		}
+		return $columns;
 	}
 
 
 	/**
 	 * Get all column information.
-	 * @throws Exception
 	 */
-	public function getColumn(string $table, string $column): Column
+	public function getColumn(string $table, string $column): array
 	{
-		return $this->getTable($table)
-			->getColumn($column);
-	}
-
-
-	/**
-	 * Returns metadata for all foreign keys in a table.
-	 * @throws Exception
-	 * @throws NotSupportedException
-	 */
-	public function getForeignKeys(string $table): array
-	{
-		$data = $this->db
-			->fetch('
-				SELECT ENGINE
-				FROM information_schema.TABLES
-				WHERE TABLE_SCHEMA = DATABASE()
-				AND TABLE_NAME = ?', $table);
-
-		if ($data['ENGINE'] !== 'InnoDB') {
-			throw new NotSupportedException("Foreign keys are not supported in {$data['ENGINE']} tables.");
+		$columns = [];
+		foreach ($this->getStructure()->getColumns($table) as $item) {
+			if ($item['name'] === $column) {
+				$columns[] = $item;
+			}
 		}
-
-		$res = $this->db->query('
-			SELECT rc.CONSTRAINT_NAME, kcu.REFERENCED_TABLE_NAME, GROUP_CONCAT(kcu.REFERENCED_COLUMN_NAME
-			ORDER BY kcu.ORDINAL_POSITION) AS REFERENCED_COLUMNS, GROUP_CONCAT(kcu.COLUMN_NAME
-			ORDER BY kcu.ORDINAL_POSITION) AS COLUMNS
-			FROM information_schema.REFERENTIAL_CONSTRAINTS rc
-			INNER JOIN information_schema.KEY_COLUMN_USAGE kcu
-				ON kcu.CONSTRAINT_NAME = rc.CONSTRAINT_NAME
-				AND kcu.CONSTRAINT_SCHEMA = rc.CONSTRAINT_SCHEMA
-			WHERE rc.CONSTRAINT_SCHEMA = DATABASE() AND rc.TABLE_NAME = ?
-			GROUP BY rc.CONSTRAINT_NAME', $table);
-
-		$foreignKeys = [];
-		while ($row = $res->fetch()) {
-			$keyName = $row['CONSTRAINT_NAME'];
-			$foreignKeys[$keyName]['name'] = $keyName;
-			$foreignKeys[$keyName]['local'] = explode(',', $row['COLUMNS']);
-			$foreignKeys[$keyName]['table'] = $row['REFERENCED_TABLE_NAME'];
-			$foreignKeys[$keyName]['foreign'] = explode(',', $row['REFERENCED_COLUMNS']);
-		}
-		return array_values($foreignKeys);
+		return $columns[0];
 	}
 }
