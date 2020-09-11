@@ -9,12 +9,15 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
+use App\Entity\RolesEntity;
+use Dibi\Exception;
 use Drago\Utils\CaseConverter;
 use Nette\PhpGenerator\PhpFile;
 use Nette\SmartObject;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 use Throwable;
+use Tracy\Debugger;
 
 
 /**
@@ -56,8 +59,7 @@ class EntityGenerator extends Base implements IGenerator
 		// Add filename and namespace.
 		$create = $phpFile
 			->addNamespace($options->namespace)
-			->addClass($filename)
-			->addTrait(SmartObject::class);
+			->addClass($filename);
 
 		// Add extends class.
 		if ($options->extendsOn) {
@@ -69,8 +71,16 @@ class EntityGenerator extends Base implements IGenerator
 			$create->setFinal();
 		}
 
+		// Get references.
+		$references = $this->repository->getStructure()->getBelongsToReference($table);
+
 		// Get all columns names from table.
 		foreach ($this->repository->getColumnNames($table) as $column) {
+
+			// Create class name for references.
+			if (isset($references[$column])) {
+				$name = $this->filename($references[$column], $options->suffix);
+			}
 
 			// Convert large characters to lowercase.
 			if ($options->lower) {
@@ -83,33 +93,64 @@ class EntityGenerator extends Base implements IGenerator
 			// Add the constant table to the entity.
 			$create->addConstant('TABLE', $table);
 
+			// Get column attribute information.
+			$attr = $this->repository->getColumn($table, $column);
+
+			// Add php doc property.
+			if ($options->phpDocProperty) {
+				$create->addComment('@property' . ' ' . $this->detectType($attr['nativetype']) . ' $' . $column);
+				if (isset($references[$column])) {
+					$create->addComment('@property' . ' ' . $name . ' $' . $this->normalize($column));
+				}
+			}
+
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
 				$create->addConstant($constant, $column);
+
+				// Add to constant column length information
+				if (!$attr['autoincrement'] && $attr['size'] > 0) {
+					$create->addConstant($constant . '_LENGTH', $attr['size']);
+				}
 			}
 
-			// Get column attribute information.
-			$attr = $this->repository->getColumn($table, $column);
-
 			// Add attributes to the entity.
-			$property = $create->addProperty($column)
-				->setNullable($attr->isNullable())
-				->setType($this->detectType($attr->getNativeType()));
+			if ($options->property) {
+				$property = $create->addProperty($column)
+					->setNullable($attr['nullable'])
+					->setType($this->detectType($attr['nativetype']));
 
-			// Column attributes.
-			if ($options->attributeColumn) {
-				$attribute = $this->attributes($attr);
-				$property->addComment($this->attr($attribute, Attribute::AUTO_INCREMENT)
-					. $this->attr($attribute, Attribute::SIZE)
-					. $this->attr($attribute, Attribute::DEFAULT)
-					. $this->attr($attribute, Attribute::NULLABLE)
-				);
+				// Column attributes.
+				if ($options->propertyColumnInfo) {
+					$attribute = $this->attributes($attr);
+					$colmnAttr = [
+						$this->attr($attribute, Attribute::AUTO_INCREMENT),
+						$this->attr($attribute, Attribute::SIZE),
+						$this->attr($attribute, Attribute::DEFAULT),
+						$this->attr($attribute, Attribute::NULLABLE)
+					];
+					$property->addComment(implode(', ', array_filter($colmnAttr)));
+				}
+
+				// Add reference to table.
+				if (isset($references[$column])) {
+					$create->addProperty($this->normalize($column))
+						->setType($options->namespace . '\\' . $name);
+				}
 			}
 		}
 
 		// Generate file.
 		$file = $options->path . '/' . $filename . '.php';
 		FileSystem::write($file, $phpFile->__toString());
+	}
+
+
+	private function normalize(string $input)
+	{
+		$result = [];
+		preg_match('/^(.*)(Id|_id)$/', $input, $result);
+		return $result[1];
 	}
 }
