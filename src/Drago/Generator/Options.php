@@ -29,8 +29,17 @@ class Options
 	/** The path where the classes will be generated. */
 	public string $path = '';
 
+	/** Allow php doc property. */
+	public bool $phpDocProperty = true;
+
 	/** Allow constant. */
 	public bool $constant = true;
+
+	/** Allow property. */
+	public bool $property = false;
+
+	/** Allow column info for property (only if allow property). */
+	public bool $propertyColumnInfo = true;
 
 	/** Add suffix name. */
 	public string $suffix = 'Entity';
@@ -46,31 +55,4 @@ class Options
 
 	/** Add class namespace. */
 	public string $namespace = 'App\\Entity';
-
-	/** Allow attribute column info. */
-	public bool $attributeColumn = true;
-
-
-	/** Options for form data generator ----------------------------------------------------------------------------- */
-
-	/** The path where the classes will be generated. */
-	public string $pathFormData = '';
-
-	/** Allow constant. */
-	public bool $constantFormData = true;
-
-	/** Add suffix name. */
-	public string $suffixFormData = 'Data';
-
-	/** Add extends class. */
-	public string $extendsFormData = ExtraArrayHash::class;
-
-	/** Allow extends class */
-	public bool $extendFormDataOn = true;
-
-	/** Add final keyword */
-	public bool $finalFormData = true;
-
-	/** Add class namespace. */
-	public string $namespaceFormData = 'App\\Data';
 }
