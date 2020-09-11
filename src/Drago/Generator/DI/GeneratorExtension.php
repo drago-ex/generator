@@ -46,14 +46,7 @@ class GeneratorExtension extends CompilerExtension
 			->setFactory(EntityGenerator::class)
 			->setArguments(['@generator.repository', $normalized, '@generator.inflector']);
 
-		$builder->addDefinition($this->prefix('generatorFormData'))
-			->setFactory(FormDataGenerator::class)
-			->setArguments(['@generator.repository', $normalized, '@generator.inflector']);
-
 		$builder->addDefinition($this->prefix('command'))
 			->setFactory(EntityCommand::class);
-
-		$builder->addDefinition($this->prefix('formDataCommand'))
-			->setFactory(FormDataCommand::class);
 	}
 }
