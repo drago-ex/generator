@@ -9,12 +9,6 @@ declare(strict_types = 1);
 
 namespace Drago\Generator;
 
-use Dibi\Connection;
-use Dibi\Exception;
-use Dibi\NotSupportedException;
-use Dibi\Reflection\Column;
-use Dibi\Reflection\Database;
-use Dibi\Reflection\Table;
 use Drago\Database\Connect;
 use Nette\Database\Context;
 use Nette\Database\IStructure;
