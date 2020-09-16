@@ -13,6 +13,7 @@ use Dibi\Reflection\Column;
 use Doctrine\Inflector\Inflector;
 use Exception;
 use Nette\Utils\Strings;
+use Tracy\Debugger;
 
 
 /**
@@ -59,14 +60,14 @@ class Base
 	/**
 	 * Column attributes.
 	 */
-	public function attributes(Column $attr): array
+	public function attributes(array $attr): array
 	{
 		return [
-			Attribute::AUTO_INCREMENT => $attr->isAutoIncrement(),
-			Attribute::SIZE => $attr->getSize(),
-			Attribute::DEFAULT => $attr->getDefault(),
-			Attribute::NULLABLE => $attr->isNullable(),
-			Attribute::TYPE => Strings::lower($attr->nativeType),
+			Attribute::AUTO_INCREMENT => $attr['autoincrement'],
+			Attribute::SIZE => $attr['size'],
+			Attribute::DEFAULT => $attr['default'],
+			Attribute::NULLABLE => $attr['nullable'],
+			Attribute::TYPE => Strings::lower($attr['nativetype']),
 		];
 	}
 
@@ -74,9 +75,9 @@ class Base
 	/**
 	 * Info column attribute.
 	 */
-	public function attr(array $attr, string $key): string
+	public function attr(array $attr, string $key): ?string
 	{
-		return $attr[$key] ? 'Column ' . $key . ' ' . $attr[$key] . "\n" : '';
+		return $attr[$key] ? $key . ' ' . $attr[$key] : null;
 	}
 
 
