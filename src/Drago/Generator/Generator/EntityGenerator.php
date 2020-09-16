@@ -95,10 +95,25 @@ class EntityGenerator extends Base implements IGenerator
 
 			// Get column attribute information.
 			$attr = $this->repository->getColumn($table, $column);
+			if ($attr['autoincrement']) {
+				$create->addConstant('ID', $attr['name']);
+			}
 
-			// Add php doc property.
-			if ($options->phpDocProperty) {
-				$create->addComment('@property' . ' ' . $this->detectType($attr['nativetype']) . ' $' . $column);
+			// Add property.
+			if ($options->property) {
+				$columnAttr = null;
+				if ($attr['autoincrement']) {
+					$columnAttr = ' {primary}';
+
+				} elseif($attr['default']) {
+					$columnAttr = ' {default ' . $attr['default'] . '}';
+
+				} elseif ($attr['nullable']) {
+					$columnAttr = ' {nullable}';
+				}
+
+				$property = $this->detectType($attr['nativetype']) . ' $' . $column;
+				$create->addComment('@property' . ' ' . $property . $columnAttr);
 				if (isset($references[$column])) {
 					$create->addComment('@property' . ' ' . $name . ' $' . $this->normalize($column));
 				}
@@ -114,31 +129,6 @@ class EntityGenerator extends Base implements IGenerator
 					$create->addConstant($constant . '_LENGTH', $attr['size']);
 				}
 			}
-
-			// Add attributes to the entity.
-			if ($options->property) {
-				$property = $create->addProperty($column)
-					->setNullable($attr['nullable'])
-					->setType($this->detectType($attr['nativetype']));
-
-				// Column attributes.
-				if ($options->propertyColumnInfo) {
-					$attribute = $this->attributes($attr);
-					$colmnAttr = [
-						$this->attr($attribute, Attribute::AUTO_INCREMENT),
-						$this->attr($attribute, Attribute::SIZE),
-						$this->attr($attribute, Attribute::DEFAULT),
-						$this->attr($attribute, Attribute::NULLABLE)
-					];
-					$property->addComment(implode(', ', array_filter($colmnAttr)));
-				}
-
-				// Add reference to table.
-				if (isset($references[$column])) {
-					$create->addProperty($this->normalize($column))
-						->setType($options->namespace . '\\' . $name);
-				}
-			}
 		}
 
 		// Generate file.
@@ -150,7 +140,7 @@ class EntityGenerator extends Base implements IGenerator
 	private function normalize(string $input)
 	{
 		$result = [];
-		preg_match('/^(.*)(Id|_id)$/', $input, $result);
-		return $result[1];
+		preg_match('/^(.*)(Id|_.*)$/', $input, $result);
+		return $result[1] ?? $input;
 	}
 }
