@@ -29,17 +29,11 @@ class Options
 	/** The path where the classes will be generated. */
 	public string $path = '';
 
-	/** Allow php doc property. */
-	public bool $phpDocProperty = true;
+	/** Allow property. */
+	public bool $property = true;
 
 	/** Allow constant. */
 	public bool $constant = true;
-
-	/** Allow property. */
-	public bool $property = false;
-
-	/** Allow column info for property (only if allow property). */
-	public bool $propertyColumnInfo = true;
 
 	/** Add suffix name. */
 	public string $suffix = 'Entity';
