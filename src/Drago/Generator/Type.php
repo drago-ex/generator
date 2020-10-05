@@ -23,7 +23,7 @@ class Type
 		BOOL = 'bool',
 		INTEGER = 'int',
 		FLOAT = 'float',
-		DATE = '\DateTime';
+		DATE = '\DateTimeImmutable';
 
 
 	/**
