@@ -22,7 +22,7 @@ use Throwable;
 /**
  * Generating form data.
  */
-class FormDataGenerator extends Base implements IGenerator
+class DataClassGenerator extends Base implements IGenerator
 {
 	/**
 	 * Run generate.
@@ -53,23 +53,26 @@ class FormDataGenerator extends Base implements IGenerator
 		$options = $this->options;
 
 		// Create filename and add suffix.
-		$filename = $this->filename($table, $options->suffixFormData);
+		$filename = $this->filename($table, $options->suffixDataClass);
 
 		// Add filename and namespace.
 		$create = $phpFile
-			->addNamespace($options->namespaceFormData)
+			->addNamespace($options->namespaceDataClass)
 			->addClass($filename)
 			->addTrait(SmartObject::class);
 
 		// Add extends class.
-		if ($options->extendFormDataOn) {
-			$create->setExtends($options->extendsFormData);
+		if ($options->extendDataClass) {
+			$create->setExtends($options->extendsDataClass);
 		}
 
 		// Add final keyword
-		if ($options->finalFormData) {
+		if ($options->finalDataClass) {
 			$create->setFinal();
 		}
+
+		// Get references.
+		$references = $this->getReferencesTable($table);
 
 		// Get all columns names from table.
 		foreach ($this->repository->getColumnNames($table) as $column) {
@@ -86,47 +89,42 @@ class FormDataGenerator extends Base implements IGenerator
 			$attr = $this->repository->getColumn($table, $column);
 
 			// Add constants to the entity.
-			if ($options->constantFormData) {
+			if ($options->constantDataClass) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
-				$create->addConstant($constant, $column);
+				$attr->isAutoIncrement() 
+					? $create->addConstant('PRIMARY', $attr->getName())
+					: $create->addConstant($constant, $column);
 
 				// Add to constant column length information
-				$create->addConstant($constant . '_LENGTH', $attr->getSize());
+				if ($options->constantLengthDataClass && $attr->getSize() > 0) {
+					$create->addConstant($constant . '_LENGTH', $attr->getSize());
+				}
+			}
+
+			$columnAttr = null;
+			if ($attr->isAutoIncrement()) {
+				$columnAttr = ' {primary}';
+
+			} elseif($attr->getDefault()) {
+				$columnAttr = ' {default ' . $attr->getDefault() . '}';
+
+			} elseif ($attr->isNullable()) {
+				$columnAttr = ' {nullable}';
 			}
 
 			// Add attributes to the entity.
-			$create->addProperty($column)
-				->setNullable($attr->isNullable())
-				->setType($this->detectType($attr->getNativeType()))
-				->setPublic();
+			$property = $this->detectType($attr->getNativeType()) . ' $' . $column;
+			$create->addComment('@property' . ' ' . $property . $columnAttr);
 
 			// Add reference to table.
-			foreach ($this->getReferencesTable($table) as $reference) {
-				$name = $this->filename($reference, $options->suffixFormData);
-				$create->addProperty($reference)
-					->setType($options->namespaceFormData . '\\' . $name);
+			if ($options->referencesDataClass && isset($references[$column])) {
+				$name = $this->filename($references[$column], $options->suffixDataClass);
+				$create->addComment('@property' . ' ' . $name . ' $' . Strings::firstLower($name));
 			}
 		}
 
 		// Generate file.
-		$file = $options->pathFormData . '/' . $filename . '.php';
+		$file = $options->pathDataClass . '/' . $filename . '.php';
 		FileSystem::write($file, $phpFile->__toString());
-	}
-
-
-	/**
-	 * Table references.
-	 */
-	private function getReferencesTable(string $table): array
-	{
-		$ref = [];
-		try {
-			foreach ($this->repository->getForeignKeys($table) as $foreignKey) {
-				$ref[] = $foreignKey['table'];
-			}
-		} catch (\Exception $e) {
-			// I don't need an announcement ...
-		}
-		return $ref;
 	}
 }
