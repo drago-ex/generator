@@ -20,7 +20,7 @@ use Throwable;
 
 
 /**
- * Generating form data.
+ * Generating data class.
  */
 class DataClassGenerator extends Base implements IGenerator
 {
