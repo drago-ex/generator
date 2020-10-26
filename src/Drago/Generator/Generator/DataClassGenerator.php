@@ -105,23 +105,23 @@ class DataClassGenerator extends Base implements IGenerator
 
 			$columnAttr = null;
 			if ($attr->isAutoIncrement()) {
-				$columnAttr = ' {primary}';
+				$columnAttr = '{primary}';
 
 			} elseif($attr->getDefault()) {
-				$columnAttr = ' {default ' . $attr->getDefault() . '}';
-
-			} elseif ($attr->isNullable()) {
-				$columnAttr = ' {nullable}';
+				$columnAttr = '{default ' . $attr->getDefault() . '}';
 			}
 
 			// Add attributes to the entity.
-			$property = $this->detectType($attr->getNativeType()) . ' $' . $column;
-			$create->addComment('@property' . ' ' . $property . $columnAttr);
+			$create->addProperty($column)
+				->setNullable($attr->isNullable())
+				->setType($this->detectType($attr->getNativeType()))
+				->setComment($columnAttr)
+				->setPublic();
 
 			// Add reference to table.
 			if ($options->referencesDataClass && isset($references[$column])) {
 				$name = $this->filename($references[$column], $options->suffixDataClass);
-				$create->addComment('@property' . ' ' . $name . ' $' . Strings::firstLower($name));
+				$create->addProperty('@property' . ' ' . $name . ' $' . Strings::firstLower($name));
 			}
 		}
 
