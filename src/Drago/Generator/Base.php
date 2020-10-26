@@ -101,4 +101,21 @@ class Base
 		}
 		return $item ?? Type::TEXT;
 	}
+
+
+	/**
+	 * Table references.
+	 */
+	public function getReferencesTable(string $table): array
+	{
+		$ref = [];
+		try {
+			foreach ($this->repository->getForeignKeys($table) as $foreign) {
+				$ref[$foreign['local'][0]] = $foreign['table'];
+			}
+		} catch (\Exception $e) {
+			// I don't need an announcement ...
+		}
+		return $ref;
+	}
 }
