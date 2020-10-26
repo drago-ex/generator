@@ -11,8 +11,10 @@ namespace Drago\Generator\DI;
 
 use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\NoopWordInflector;
+use Drago\Generator\Command\DataClassCommand;
 use Drago\Generator\Command\EntityCommand;
 use Drago\Generator\Command\FormDataCommand;
+use Drago\Generator\DataClassGenerator;
 use Drago\Generator\EntityGenerator;
 use Drago\Generator\FormDataGenerator;
 use Drago\Generator\Options;
@@ -46,14 +48,14 @@ class GeneratorExtension extends CompilerExtension
 			->setFactory(EntityGenerator::class)
 			->setArguments(['@generator.repository', $normalized, '@generator.inflector']);
 
-		$builder->addDefinition($this->prefix('generatorFormData'))
-			->setFactory(FormDataGenerator::class)
+		$builder->addDefinition($this->prefix('generatorDataClass'))
+			->setFactory(DataClassGenerator::class)
 			->setArguments(['@generator.repository', $normalized, '@generator.inflector']);
 
 		$builder->addDefinition($this->prefix('command'))
 			->setFactory(EntityCommand::class);
 
-		$builder->addDefinition($this->prefix('formDataCommand'))
-			->setFactory(FormDataCommand::class);
+		$builder->addDefinition($this->prefix('dataClassCommand'))
+			->setFactory(DataClassCommand::class);
 	}
 }
