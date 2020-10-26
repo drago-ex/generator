@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Drago\Generator\Command;
 
-use Drago\Generator\FormDataGenerator;
+use Drago\Generator\DataClassGenerator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,18 +18,18 @@ use Throwable;
 
 
 /**
- * Command for generate form data.
+ * Command for generate data class.
  */
-class FormDataCommand extends Command
+class DataClassCommand extends Command
 {
-	protected static $defaultName = 'make:formData';
-	private FormDataGenerator $formDataGenerator;
+	protected static $defaultName = 'make:dataClass';
+	private DataClassGenerator $dataClassGenerator;
 
 
-	public function __construct(FormDataGenerator $formDataGenerator)
+	public function __construct(DataClassGenerator $dataClassGenerator)
 	{
 		parent::__construct();
-		$this->formDataGenerator = $formDataGenerator;
+		$this->dataClassGenerator = $dataClassGenerator;
 	}
 
 
@@ -51,7 +51,7 @@ class FormDataCommand extends Command
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		$this->formDataGenerator->runGeneration($input->getArgument('table'));
+		$this->dataClassGenerator->runGeneration($input->getArgument('table'));
 		$output->writeln('Generation was successful.');
 	}
 }
