@@ -56,8 +56,7 @@ class EntityGenerator extends Base implements IGenerator
 		// Add filename and namespace.
 		$create = $phpFile
 			->addNamespace($options->namespace)
-			->addClass($filename)
-			->addTrait(SmartObject::class);
+			->addClass($filename);
 
 		// Add extends class.
 		if ($options->extendsOn) {
@@ -68,6 +67,9 @@ class EntityGenerator extends Base implements IGenerator
 		if ($options->final) {
 			$create->setFinal();
 		}
+
+		// Get references.
+		$references = $this->getReferencesTable($table);
 
 		// Get all columns names from table.
 		foreach ($this->repository->getColumnNames($table) as $column) {
@@ -80,31 +82,48 @@ class EntityGenerator extends Base implements IGenerator
 			// Check column names for parentheses.
 			$this->validateColumn($table, $column);
 
+			// Get column attribute information.
+			$attr = $this->repository->getColumn($table, $column);
+
 			// Add the constant table to the entity.
 			$create->addConstant('TABLE', $table);
+			if ($attr->isAutoIncrement()) {
+				$create->addConstant('PRIMARY', $attr->getName());
+			}
+
+			$columnAttr = null;
+			if ($attr->isAutoIncrement()) {
+				$columnAttr = ' {primary}';
+
+			} elseif($attr->getDefault()) {
+				$columnAttr = ' {default ' . $attr->getDefault() . '}';
+
+			} elseif ($attr->isNullable()) {
+				$columnAttr = ' {nullable}';
+			}
+
+			$property = $this->detectType($attr->getNativeType()) . ' $' . $column;
+			$create->addComment('@property' . ' ' . $property . $columnAttr);
 
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
-				$create->addConstant($constant, $column);
+				if (!$attr->isAutoIncrement()) {
+					$create->addConstant($constant, $column);
+				}
+
+				// Add to constant column length information
+				if ($options->constantLength) {
+					if (!$attr->isAutoIncrement() && $attr->getSize() > 0) {
+						$create->addConstant($constant . '_LENGTH', $attr->getSize());
+					}
+				}
 			}
 
-			// Get column attribute information.
-			$attr = $this->repository->getColumn($table, $column);
-
-			// Add attributes to the entity.
-			$property = $create->addProperty($column)
-				->setNullable($attr->isNullable())
-				->setType($this->detectType($attr->getNativeType()));
-
-			// Column attributes.
-			if ($options->attributeColumn) {
-				$attribute = $this->attributes($attr);
-				$property->addComment($this->attr($attribute, Attribute::AUTO_INCREMENT)
-					. $this->attr($attribute, Attribute::SIZE)
-					. $this->attr($attribute, Attribute::DEFAULT)
-					. $this->attr($attribute, Attribute::NULLABLE)
-				);
+			// Add reference to table.
+			if ($options->references && isset($references[$column])) {
+				$name = $this->filename($references[$column], $options->suffix);
+				$create->addComment('@property' . ' ' . $name . ' $' . Strings::firstLower($name));
 			}
 		}
 
