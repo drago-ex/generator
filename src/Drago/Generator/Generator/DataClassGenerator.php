@@ -62,7 +62,7 @@ class DataClassGenerator extends Base implements IGenerator
 			->addTrait(SmartObject::class);
 
 		// Add extends class.
-		if ($options->extendDataClass) {
+		if ($options->extendsOnDataClass) {
 			$create->setExtends($options->extendsDataClass);
 		}
 
@@ -96,8 +96,10 @@ class DataClassGenerator extends Base implements IGenerator
 					: $create->addConstant($constant, $column);
 
 				// Add to constant column length information
-				if ($options->constantLengthDataClass && $attr->getSize() > 0) {
-					$create->addConstant($constant . '_LENGTH', $attr->getSize());
+				if ($options->constantLengthDataClass) {
+					if (!$attr->isAutoIncrement() && $attr->getSize() > 0) {
+						$create->addConstant($constant . '_LENGTH', $attr->getSize());
+					}
 				}
 			}
 
