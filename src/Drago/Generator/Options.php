@@ -32,6 +32,12 @@ class Options
 	/** Allow constant. */
 	public bool $constant = true;
 
+	/** Allow constant column length. */
+	public bool $constantLength = true;
+
+	/** Allow table references in the property */
+	public bool $references = false;
+
 	/** Add suffix name. */
 	public string $suffix = 'Entity';
 
@@ -47,30 +53,33 @@ class Options
 	/** Add class namespace. */
 	public string $namespace = 'App\\Entity';
 
-	/** Allow attribute column info. */
-	public bool $attributeColumn = true;
-
 
 	/** Options for form data generator ----------------------------------------------------------------------------- */
 
 	/** The path where the classes will be generated. */
-	public string $pathFormData = '';
+	public string $pathDataClass = '';
 
 	/** Allow constant. */
-	public bool $constantFormData = true;
+	public bool $constantDataClass = true;
+
+	/** Allow constant column length. */
+	public bool $constantLengthDataClass = true;
+
+	/** Allow table references in the property */
+	public bool $referencesDataClass = false;
 
 	/** Add suffix name. */
-	public string $suffixFormData = 'Data';
+	public string $suffixDataClass = 'Data';
 
 	/** Add extends class. */
-	public string $extendsFormData = ExtraArrayHash::class;
+	public string $extendsDataClass = ExtraArrayHash::class;
 
 	/** Allow extends class */
-	public bool $extendFormDataOn = true;
+	public bool $extendDataClass = true;
 
 	/** Add final keyword */
-	public bool $finalFormData = true;
+	public bool $finalDataClass = true;
 
 	/** Add class namespace. */
-	public string $namespaceFormData = 'App\\Data';
+	public string $namespaceDataClass = 'App\\Data';
 }
