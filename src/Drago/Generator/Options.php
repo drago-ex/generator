@@ -54,7 +54,7 @@ class Options
 	public string $namespace = 'App\\Entity';
 
 
-	/** Options for form data generator ----------------------------------------------------------------------------- */
+	/** Options for data class generator ----------------------------------------------------------------------------- */
 
 	/** The path where the classes will be generated. */
 	public string $pathDataClass = '';
