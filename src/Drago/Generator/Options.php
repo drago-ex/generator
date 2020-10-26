@@ -75,7 +75,7 @@ class Options
 	public string $extendsDataClass = ExtraArrayHash::class;
 
 	/** Allow extends class */
-	public bool $extendDataClass = true;
+	public bool $extendsOnDataClass = true;
 
 	/** Add final keyword */
 	public bool $finalDataClass = true;
