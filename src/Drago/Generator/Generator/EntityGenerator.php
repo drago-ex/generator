@@ -87,30 +87,15 @@ class EntityGenerator extends Base implements IGenerator
 
 			// Add the constant table to the entity.
 			$create->addConstant('TABLE', $table);
-			if ($attr->isAutoIncrement()) {
-				$create->addConstant('PRIMARY', $attr->getName());
-			}
 
-			$columnAttr = null;
-			if ($attr->isAutoIncrement()) {
-				$columnAttr = ' {primary}';
-
-			} elseif($attr->getDefault()) {
-				$columnAttr = ' {default ' . $attr->getDefault() . '}';
-
-			} elseif ($attr->isNullable()) {
-				$columnAttr = ' {nullable}';
-			}
-
-			$property = $this->detectType($attr->getNativeType()) . ' $' . $column;
-			$create->addComment('@property' . ' ' . $property . $columnAttr);
+			$nullable = $attr->isNullable() ? '|null' : '';
+			$property = $this->detectType($attr->getNativeType()) . $nullable . ' $' . $column;
+			$create->addComment('@property' . ' ' . $property);
 
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
-				if (!$attr->isAutoIncrement()) {
-					$create->addConstant($constant, $column);
-				}
+				$create->addConstant($constant, $column);
 
 				// Add to constant column length information
 				if ($options->constantLength) {
