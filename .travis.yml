@@ -8,7 +8,7 @@ php:
 before_install:
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS test;'
   - mysql -u root test < tests/db.sql
-  - composer self-update
+  - composer self-update --2
 
 install:
   - composer install --no-interaction --prefer-source
