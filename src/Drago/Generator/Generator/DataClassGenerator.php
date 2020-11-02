@@ -91,9 +91,7 @@ class DataClassGenerator extends Base implements IGenerator
 			// Add constants to the entity.
 			if ($options->constantDataClass) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
-				$attr->isAutoIncrement() 
-					? $create->addConstant('PRIMARY', $attr->getName())
-					: $create->addConstant($constant, $column);
+				$create->addConstant($constant, $column);
 
 				// Add to constant column length information
 				if ($options->constantLengthDataClass) {
@@ -103,19 +101,10 @@ class DataClassGenerator extends Base implements IGenerator
 				}
 			}
 
-			$columnAttr = null;
-			if ($attr->isAutoIncrement()) {
-				$columnAttr = '{primary}';
-
-			} elseif($attr->getDefault()) {
-				$columnAttr = '{default ' . $attr->getDefault() . '}';
-			}
-
 			// Add attributes to the entity.
 			$create->addProperty($column)
 				->setNullable($attr->isNullable())
 				->setType($this->detectType($attr->getNativeType()))
-				->setComment($columnAttr)
 				->setPublic();
 
 			// Add reference to table.
