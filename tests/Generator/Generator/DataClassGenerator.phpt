@@ -24,10 +24,10 @@ function isDirectory(string $dir): void
 
 test(function () {
 	$options = generator()->options();
-	$options->pathFormData = __DIR__ . '/../../data';
-	isDirectory($options->pathFormData);
+	$options->pathDataClass = __DIR__ . '/../../data';
+	isDirectory($options->pathDataClass);
 
-	$generator = generator()->createFormDataGenerator(generator()->repository()->mysql(), $options);
+	$generator = generator()->createDataClassGenerator(generator()->repository()->mysql(), $options);
 	$generator->runGeneration('test');
 
 	Assert::exception(function () use ($generator) {

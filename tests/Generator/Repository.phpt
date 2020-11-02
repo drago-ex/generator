@@ -21,10 +21,10 @@ test(function () {
 	], repository()->mysql()->getTableNames());
 
 	Assert::equal([
-		0 => 'sampleId',
-		1 => 'sampleString',
+		0 => 'id',
+		1 => 'sample',
 	], repository()->mysql()->getColumnNames('test'));
 
-	$columnInfo = repository()->mysql()->getColumn('test', 'sampleId');
+	$columnInfo = repository()->mysql()->getColumn('test', 'id');
 	Assert::type(Column::class, $columnInfo);
 });

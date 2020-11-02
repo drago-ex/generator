@@ -21,7 +21,7 @@ class TestGeneratorExtension extends TestContainer
 			$compiler->loadConfig(Tester\FileMock::create('
 			generator:
 				path: entity
-				pathFormData: data
+				pathDataClass: data
 			services:
 				dibi.connection:
 					factory: Dibi\Connection([

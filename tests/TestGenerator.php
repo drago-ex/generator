@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\NoopWordInflector;
+use Drago\Generator\DataClassGenerator;
 use Drago\Generator\EntityGenerator;
-use Drago\Generator\FormDataGenerator;
 use Drago\Generator\Options;
 use Drago\Generator\Repository;
 
@@ -37,8 +37,8 @@ class TestGenerator
 	}
 
 
-	public function createFormDataGenerator(Repository $repository, Options $options): FormDataGenerator
+	public function createDataClassGenerator(Repository $repository, Options $options): DataClassGenerator
 	{
-		return new FormDataGenerator($repository, $options, $this->inflector());
+		return new DataClassGenerator($repository, $options, $this->inflector());
 	}
 }
