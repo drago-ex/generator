@@ -108,7 +108,7 @@ class EntityGenerator extends Base implements IGenerator
 			// Add reference to table.
 			if ($options->references && isset($references[$column])) {
 				$name = $this->filename($references[$column], $options->suffix);
-				$create->addComment('@property' . ' ' . $name . ' $' . Strings::firstLower($name));
+				$create->addComment('@property' . ' ' . $name . ' $' . $references[$column]);
 			}
 		}
 
