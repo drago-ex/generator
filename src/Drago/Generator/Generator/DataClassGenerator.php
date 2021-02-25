@@ -110,7 +110,7 @@ class DataClassGenerator extends Base implements IGenerator
 			// Add reference to table.
 			if ($options->referencesDataClass && isset($references[$column])) {
 				$name = $this->filename($references[$column], $options->suffixDataClass);
-				$create->addProperty(Strings::firstLower($name))
+				$create->addProperty($references[$column])
 					->setType($options->namespaceDataClass . '\\' . $name);
 			}
 		}
