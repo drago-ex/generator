@@ -17,7 +17,6 @@ use Nette\SmartObject;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 use Throwable;
-use Tracy\Debugger;
 
 
 /**
