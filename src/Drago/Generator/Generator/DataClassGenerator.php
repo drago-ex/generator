@@ -17,6 +17,7 @@ use Nette\SmartObject;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 use Throwable;
+use Tracy\Debugger;
 
 
 /**
@@ -110,7 +111,8 @@ class DataClassGenerator extends Base implements IGenerator
 			// Add reference to table.
 			if ($options->referencesDataClass && isset($references[$column])) {
 				$name = $this->filename($references[$column], $options->suffixDataClass);
-				$create->addProperty('@property' . ' ' . $name . ' $' . Strings::firstLower($name));
+				$create->addProperty(Strings::firstLower($name))
+					->setType($options->namespaceDataClass . '\\' . $name);
 			}
 		}
 
