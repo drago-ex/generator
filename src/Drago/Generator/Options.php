@@ -36,7 +36,7 @@ class Options
 	public bool $constantLength = true;
 
 	/** Allow table references in the property */
-	public bool $references = false;
+	public bool $references = true;
 
 	/** Add suffix name. */
 	public string $suffix = 'Entity';
@@ -66,7 +66,7 @@ class Options
 	public bool $constantLengthDataClass = true;
 
 	/** Allow table references in the property */
-	public bool $referencesDataClass = false;
+	public bool $referencesDataClass = true;
 
 	/** Add suffix name. */
 	public string $suffixDataClass = 'Data';
