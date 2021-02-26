@@ -47,33 +47,36 @@ Entity options:
 | --------------------| ---------------- | -----------------------------| --------------------------------------------- |
 | `path`              | `string`         | `empty`                      | The path where the classes will be generated. |
 | `constant`          | `bool`           | `true`                       | Allow constant.                               |
+| `constantLength`    | `bool`           | `true`                       | Allow constant column length.                 |
+| `references`        | `bool`           | `true`                       | Allow table references in the property.       |
 | `suffix`            | `string`         | `Entity`                     | Add suffix name.                              |
 | `extends`           | `string`         | `Drago\Database\Entity`      | Add extends class.                            |
 | `extendsOn`         | `bool`           | `true`                       | Allow extends class.                          |
 | `final    `         | `bool`           | `true`                       | Add final keyword.                            |
 | `namespace`         | `string`         | `App\Entity`                 | Add class namespace.                          |
-| `attributeColumn`   | `bool`           | `true`                       | Allow attribute column info.                  |
 
 Form data options:
 
-| Name                | Type             | Default state                | Description
-| --------------------| ---------------- | -----------------------------| --------------------------------------------- |
-| `pathFormData`      | `string`         | `empty`                      | The path where the classes will be generated. |
-| `constantFormData`  | `bool`           | `true`                       | Allow constant.                               |
-| `suffixFormData`    | `string`         | `Data`                       | Add suffix name.                              |
-| `extendsFormData`   | `string`         | `Drago\Utils\ExtraArrayHash` | Add extends class.                            |
-| `extendFormDataOn`  | `bool`           | `true`                       | Allow extends class.                          |
-| `finalFormData`     | `bool`           | `true`                       | Add final keyword.                            |
-| `namespaceFormData` | `string`         | `App\Data`                   | Add class namespace.                          |
+| Name                      | Type             | Default state                | Description
+| --------------------------| ---------------- | -----------------------------| --------------------------------------------- |
+| `pathDataClass`           | `string`         | `empty`                      | The path where the classes will be generated. |
+| `constantDataClass`       | `bool`           | `true`                       | Allow constant.                               |
+| `constantLengthDataClass` | `bool`           | `true`                       | Allow constant column length.                 |
+| `referencesDataClass`     | `bool`           | `true`                       | Allow table references in the property.       |
+| `suffixDataClass`         | `string`         | `Data`                       | Add suffix name.                              |
+| `extendsDataClass`        | `string`         | `Drago\Utils\ExtraArrayHash` | Add extends class.                            |
+| `extendsOnDataClass`      | `bool`           | `true`                       | Allow extends class.                          |
+| `finalDataClass`          | `bool`           | `true`                       | Add final keyword.                            |
+| `namespaceDataClass `     | `string`         | `App\Data`                   | Add class namespace.                          |
 
 ## Console commands
 
-| Command               | Description
-| --------------------- | -----------------------------------------------------|
-| `make:entity`         | Generates all entities.                              |
-| `make:entity table`   | Generates one entity according to the table name.    |
-| `make:formData`       | Generates all form data.                             |
-| `make:formData table` | Generates one form data according to the table name. |
+| Command                | Description
+| ---------------------- | -----------------------------------------------------|
+| `make:entity`          | Generates all entities.                              |
+| `make:entity table`    | Generates one entity according to the table name.    |
+| `make:dataClass`       | Generates all form data.                             |
+| `make:dataClass table` | Generates one form data according to the table name. |
 
 ## Prepared package for generator
 
