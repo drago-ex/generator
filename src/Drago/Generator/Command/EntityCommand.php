@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Drago Extension
@@ -22,14 +22,16 @@ use Throwable;
  */
 class EntityCommand extends Command
 {
+	/**
+	 * The name of the command.
+	 */
 	protected static $defaultName = 'make:entity';
-	private EntityGenerator $generatorEntity;
 
 
-	public function __construct(EntityGenerator $generatorEntity)
-	{
+	public function __construct(
+		private EntityGenerator $generatorEntity
+	) {
 		parent::__construct();
-		$this->generatorEntity = $generatorEntity;
 	}
 
 
@@ -46,12 +48,13 @@ class EntityCommand extends Command
 
 	/**
 	 * Executes the current command.
-	 * @return int|void
 	 * @throws Throwable
 	 */
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$this->generatorEntity->runGeneration($input->getArgument('table'));
 		$output->writeln('Generation was successful.');
+
+		return Command::SUCCESS;
 	}
 }

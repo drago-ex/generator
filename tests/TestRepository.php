@@ -1,9 +1,9 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-use Dibi\Exception;
 use Dibi\Connection;
+use Dibi\Exception;
 use Drago\Generator\Repository;
 
 

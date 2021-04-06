@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Drago Extension
@@ -20,16 +20,11 @@ use Nette\Utils\Strings;
  */
 class Base
 {
-	public Options $options;
-	public Inflector $inflector;
-	public Repository $repository;
-
-
-	public function __construct(Repository $repository, Options $options, Inflector $inflector)
-	{
-		$this->repository = $repository;
-		$this->options = $options;
-		$this->inflector = $inflector;
+	public function __construct(
+		public Repository $repository,
+		public Options $options,
+		public Inflector $inflector,
+	) {
 	}
 
 

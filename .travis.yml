@@ -3,7 +3,7 @@ services:
 
 language: php
 php:
-  - 7.4
+  - 8.0
 
 before_install:
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS test;'
@@ -20,6 +20,13 @@ jobs:
         - travis_retry composer create-project nette/code-checker temp/code-checker ^3 --no-progress
       script:
         - php temp/code-checker/code-checker --strict-types
+
+
+    - name: Nette Coding Standard
+      install:
+        - travis_retry composer create-project nette/coding-standard temp/coding-standard ^3 --no-progress
+      script:
+        - php temp/coding-standard/ecs check src tests --preset php71
 
 
     - name: Static Analysis

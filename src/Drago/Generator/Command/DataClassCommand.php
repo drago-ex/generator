@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Drago Extension
@@ -22,14 +22,16 @@ use Throwable;
  */
 class DataClassCommand extends Command
 {
+	/**
+	 * The name of the command.
+	 */
 	protected static $defaultName = 'make:dataClass';
-	private DataClassGenerator $dataClassGenerator;
 
 
-	public function __construct(DataClassGenerator $dataClassGenerator)
-	{
+	public function __construct(
+		private DataClassGenerator $dataClassGenerator
+	) {
 		parent::__construct();
-		$this->dataClassGenerator = $dataClassGenerator;
 	}
 
 
@@ -45,13 +47,13 @@ class DataClassCommand extends Command
 
 
 	/**
-	 * Executes the current command.
-	 * @return int|void
 	 * @throws Throwable
 	 */
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$this->dataClassGenerator->runGeneration($input->getArgument('table'));
 		$output->writeln('Generation was successful.');
+
+		return Command::SUCCESS;
 	}
 }

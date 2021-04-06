@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Drago Extension
@@ -31,6 +31,6 @@ class Type
 	 */
 	final public function __construct()
 	{
-		throw new Exception('Cannot instantiate static class ' . __CLASS__);
+		throw new Exception('Cannot instantiate static class ' . self::class);
 	}
 }

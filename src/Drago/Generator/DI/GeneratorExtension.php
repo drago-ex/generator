@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Drago Extension
@@ -13,10 +13,8 @@ use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\NoopWordInflector;
 use Drago\Generator\Command\DataClassCommand;
 use Drago\Generator\Command\EntityCommand;
-use Drago\Generator\Command\FormDataCommand;
 use Drago\Generator\DataClassGenerator;
 use Drago\Generator\EntityGenerator;
-use Drago\Generator\FormDataGenerator;
 use Drago\Generator\Options;
 use Drago\Generator\Repository;
 use Nette\DI\CompilerExtension;
