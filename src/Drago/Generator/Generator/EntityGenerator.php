@@ -87,7 +87,8 @@ class EntityGenerator extends Base implements IGenerator
 			$attr = $this->repository->getColumn($table, $column);
 
 			// Add the constant table to the entity.
-			$create->addConstant('TABLE', $table);
+			$create->addConstant('TABLE', $table)
+				->setPublic();
 
 			$nullable = $attr->isNullable() ? '|null' : '';
 			$property = $this->detectType($attr->getNativeType()) . $nullable . ' $' . $column;
@@ -96,7 +97,8 @@ class EntityGenerator extends Base implements IGenerator
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
-				$create->addConstant($constant, $column);
+				$create->addConstant($constant, $column)
+					->setPublic();
 
 				// Add to constant column length information
 				if ($options->constantLength) {
