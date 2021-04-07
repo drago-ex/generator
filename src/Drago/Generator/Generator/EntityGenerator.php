@@ -56,7 +56,8 @@ class EntityGenerator extends Base implements IGenerator
 		// Add filename and namespace.
 		$create = $phpFile
 			->addNamespace($options->namespace)
-			->addClass($filename);
+			->addClass($filename)
+			->addTrait(SmartObject::class);
 
 		// Add extends class.
 		if ($options->extendsOn) {
@@ -104,6 +105,30 @@ class EntityGenerator extends Base implements IGenerator
 					}
 				}
 			}
+
+			// Detect native type.
+			$detectType = $this->detectType($attr->getNativeType());
+
+			// Add attributes to the entity.
+			$create->addProperty($column)
+				->setNullable($attr->isNullable())
+				->setType($detectType)
+				->setPrivate();
+
+			// Add the setter method.
+			$create->addMethod('get' . $this->inflector->classify($column))
+				->addBody('return $this->?;', [$column])
+				->setProtected()
+				->setReturnType($detectType);
+
+			// Add the setter method.
+			$create->addMethod('set' . $this->inflector->classify($column))
+				->addBody('$this->? = $?;', [$column, $column])
+				->setProtected()
+				->setReturnType('void')
+				->addParameter($column)
+				->setType($detectType)
+				->setNullable($attr->isNullable());
 
 			// Add reference to table.
 			if ($options->references && isset($references[$column])) {
