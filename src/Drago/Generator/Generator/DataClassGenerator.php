@@ -91,7 +91,8 @@ class DataClassGenerator extends Base implements IGenerator
 			// Add constants to the entity.
 			if ($options->constantDataClass) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
-				$create->addConstant($constant, $column);
+				$create->addConstant($constant, $column)
+					->setPublic();
 
 				// Add to constant column length information
 				if ($options->constantLengthDataClass) {
