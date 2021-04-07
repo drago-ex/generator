@@ -90,12 +90,6 @@ class EntityGenerator extends Base implements IGenerator
 			$create->addConstant('TABLE', $table)
 				->setPublic();
 
-			/* As of PHP 7.4 it is not necessary.
-			$nullable = $attr->isNullable() ? '|null' : '';
-			$property = $this->detectType($attr->getNativeType()) . $nullable . ' $' . $column;
-			$create->addComment('@property' . ' ' . $property);
-			*/
-
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
@@ -119,31 +113,9 @@ class EntityGenerator extends Base implements IGenerator
 				->setType($detectType)
 				->setPublic();
 
-			/* As of PHP 7.4 it is not necessary.
-			// Add the setter method.
-			$create->addMethod('get' . $this->inflector->classify($column))
-				->addBody('return $this->?;', [$column])
-				->setProtected()
-				->setReturnType($detectType);
-
-			// Add the setter method.
-			$create->addMethod('set' . $this->inflector->classify($column))
-				->addBody('$this->? = $?;', [$column, $column])
-				->setProtected()
-				->setReturnType('void')
-				->addParameter($column)
-				->setType($detectType)
-				->setNullable($attr->isNullable());
-			*/
-
 			// Add reference to table.
 			if ($options->references && isset($references[$column])) {
 				$name = $this->filename($references[$column], $options->suffix);
-
-				/* As of PHP 7.4 it is not necessary.
-				$create->addComment('@property' . ' ' . $name . ' $' . $references[$column]);
-				*/
-
 				$create->addProperty($references[$column])
 					->setType($options->namespace . '\\' . $name);
 			}
