@@ -99,7 +99,8 @@ class EntityGenerator extends Base implements IGenerator
 				// Add to constant column length information
 				if ($options->constantLength) {
 					if (!$attr->isAutoIncrement() && $attr->getSize() > 0) {
-						$create->addConstant($constant . '_LENGTH', $attr->getSize());
+						$create->addConstant($constant . '_LENGTH', $attr->getSize())
+							->setPublic();
 					}
 				}
 			}
