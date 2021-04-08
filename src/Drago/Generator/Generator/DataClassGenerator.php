@@ -58,6 +58,7 @@ class DataClassGenerator extends Base implements IGenerator
 		// Add filename and namespace.
 		$create = $phpFile
 			->addNamespace($options->namespaceDataClass)
+			->addUse('Nette')
 			->addClass($filename)
 			->addTrait(SmartObject::class);
 
