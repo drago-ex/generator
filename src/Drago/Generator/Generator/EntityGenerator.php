@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Drago\Generator;
 
 use Drago\Utils\CaseConverter;
+use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;
 use Nette\SmartObject;
 use Nette\Utils\FileSystem;
@@ -56,6 +57,7 @@ class EntityGenerator extends Base implements IGenerator
 		// Add filename and namespace.
 		$create = $phpFile
 			->addNamespace($options->namespace)
+			->addUse('Nette')
 			->addClass($filename)
 			->addTrait(SmartObject::class);
 
@@ -90,11 +92,19 @@ class EntityGenerator extends Base implements IGenerator
 			$create->addConstant('TABLE', $table)
 				->setPublic();
 
+			// Add the constant primary key to the entity.
+			if ($attr->isAutoIncrement()) {
+				$create->addConstant('PRIMARY', $column)
+					->setPublic();
+			}
+
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
-				$create->addConstant($constant, $column)
-					->setPublic();
+				if (!$attr->isAutoIncrement()) {
+					$create->addConstant($constant, $column)
+						->setPublic();
+				}
 
 				// Add to constant column length information
 				if ($options->constantLength) {
