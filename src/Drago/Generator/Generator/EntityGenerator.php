@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /**
  * Drago Extension
@@ -9,13 +9,15 @@ declare(strict_types=1);
 
 namespace Drago\Generator;
 
+use App\Entity\RolesEntity;
+use Dibi\Exception;
 use Drago\Utils\CaseConverter;
-use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;
 use Nette\SmartObject;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 use Throwable;
+use Tracy\Debugger;
 
 
 /**
@@ -57,9 +59,7 @@ class EntityGenerator extends Base implements IGenerator
 		// Add filename and namespace.
 		$create = $phpFile
 			->addNamespace($options->namespace)
-			->addUse('Nette')
-			->addClass($filename)
-			->addTrait(SmartObject::class);
+			->addClass($filename);
 
 		// Add extends class.
 		if ($options->extendsOn) {
@@ -72,10 +72,15 @@ class EntityGenerator extends Base implements IGenerator
 		}
 
 		// Get references.
-		$references = $this->getReferencesTable($table);
+		$references = $this->repository->getStructure()->getBelongsToReference($table);
 
 		// Get all columns names from table.
 		foreach ($this->repository->getColumnNames($table) as $column) {
+
+			// Create class name for references.
+			if (isset($references[$column])) {
+				$name = $this->filename($references[$column], $options->suffix);
+			}
 
 			// Convert large characters to lowercase.
 			if ($options->lower) {
@@ -85,55 +90,57 @@ class EntityGenerator extends Base implements IGenerator
 			// Check column names for parentheses.
 			$this->validateColumn($table, $column);
 
+			// Add the constant table to the entity.
+			$create->addConstant('TABLE', $table);
+
 			// Get column attribute information.
 			$attr = $this->repository->getColumn($table, $column);
+			if ($attr['autoincrement']) {
+				$create->addConstant('ID', $attr['name']);
+			}
 
-			// Add the constant table to the entity.
-			$create->addConstant('TABLE', $table)
-				->setPublic();
+			// Add property.
+			if ($options->property) {
+				$columnAttr = null;
+				if ($attr['autoincrement']) {
+					$columnAttr = ' {primary}';
 
-			// Add the constant primary key to the entity.
-			if ($attr->isAutoIncrement()) {
-				$create->addConstant('PRIMARY', $column)
-					->setPublic();
+				} elseif($attr['default']) {
+					$columnAttr = ' {default ' . $attr['default'] . '}';
+
+				} elseif ($attr['nullable']) {
+					$columnAttr = ' {nullable}';
+				}
+
+				$property = $this->detectType($attr['nativetype']) . ' $' . $column;
+				$create->addComment('@property' . ' ' . $property . $columnAttr);
+				if (isset($references[$column])) {
+					$create->addComment('@property' . ' ' . $name . ' $' . $this->normalize($column));
+				}
 			}
 
 			// Add constants to the entity.
 			if ($options->constant) {
 				$constant = Strings::upper(CaseConverter::snakeCase($column));
-				if (!$attr->isAutoIncrement()) {
-					$create->addConstant($constant, $column)
-						->setPublic();
-				}
+				$create->addConstant($constant, $column);
 
 				// Add to constant column length information
-				if ($options->constantLength) {
-					if (!$attr->isAutoIncrement() && $attr->getSize() > 0) {
-						$create->addConstant($constant . '_LENGTH', $attr->getSize())
-							->setPublic();
-					}
+				if (!$attr['autoincrement'] && $attr['size'] > 0) {
+					$create->addConstant($constant . '_LENGTH', $attr['size']);
 				}
-			}
-
-			// Detect native type.
-			$detectType = $this->detectType($attr->getNativeType());
-
-			// Add attributes to the entity.
-			$create->addProperty($column)
-				->setNullable($attr->isNullable())
-				->setType($detectType)
-				->setPublic();
-
-			// Add reference to table.
-			if ($options->references && isset($references[$column])) {
-				$name = $this->filename($references[$column], $options->suffix);
-				$create->addProperty($references[$column])
-					->setType($options->namespace . '\\' . $name);
 			}
 		}
 
 		// Generate file.
 		$file = $options->path . '/' . $filename . '.php';
 		FileSystem::write($file, $phpFile->__toString());
+	}
+
+
+	private function normalize(string $input)
+	{
+		$result = [];
+		preg_match('/^(.*)(Id|_.*)$/', $input, $result);
+		return $result[1] ?? $input;
 	}
 }
