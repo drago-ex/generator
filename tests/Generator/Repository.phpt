@@ -11,6 +11,7 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 require __DIR__ . '/../TestRepository.php';
+require __DIR__ . '/../Connect.php';
 
 
 function repository(): TestRepository
