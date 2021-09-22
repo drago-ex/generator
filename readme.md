@@ -45,7 +45,7 @@ Entity options:
 
 | Name                | Type     | Default state           | Description
 | --------------------| ---------| ------------------------| ------------------------------------------------------------- |
-| `path`              | `string` | `empty string`          | The path where the classes will be generated.                 |
+| `path`              | `string` | `empty`                 | The path where the classes will be generated.                 |
 | `tableName`         | `string` | `empty`                 | Custom name for the table in constant.                        |
 | `primaryKey`        | `string` | `empty`                 | Custom name for the primary key in the table at the constant. |
 | `constant`          | `bool`   | `true`                  | Allow constant.                                               |
