@@ -20,7 +20,7 @@ class Options
 {
 	/** Base options ------------------------------------------------------------------------------------------------ */
 
-	/** Allow convert uppercase characters to lowercase for keys in the field (typical of Oracle). */
+	/** Allow convert uppercase to lowercase keys in array (typical of Oracle). */
 	public bool $lower = false;
 
 
