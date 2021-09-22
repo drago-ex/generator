@@ -120,11 +120,15 @@ class EntityGenerator extends Base implements IGenerator
 			$detectType = $this->detectType($attr->getNativeType());
 
 			// Add attributes to the entity.
-			$class->addProperty($column)
+			$create = $class->addProperty($column)
 				->setType($detectType)
 				->setNullable($attr->isNullable())
 				->setInitialized($attr->isNullable() ?? false)
 				->setPublic();
+
+			//$attr->isAutoIncrement() ? $create->addComment('Primary key') : null;
+			//$attr->getDefault() ? $create->addComment('Default ' . $attr->getDefault()) : null;
+			//$attr->getSize() > 0 ? $create->addComment('Size ' . $attr->getSize()) : null;
 
 			// Add reference to table.
 			if ($options->references && isset($references[$column])) {
