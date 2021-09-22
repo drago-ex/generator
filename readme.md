@@ -38,8 +38,8 @@ extensions:
 Together options:
 
 | Name                | Type             | Default state                | Description
-| --------------------| ---------------- | -----------------------------| ------------------------------------------------------------------------------------------ |
-| `lower`             | `bool`           | `false`                      | Allow convert uppercase characters to lowercase for keys in the field (typical of Oracle). |
+| --------------------| ---------------- | -----------------------------| ----------------------------------------------------------------------- |
+| `lower`             | `bool`           | `false`                      | Allow convert uppercase to lowercase keys in array (typical of Oracle). |
 
 Entity options:
 
