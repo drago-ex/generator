@@ -126,15 +126,27 @@ class EntityGenerator extends Base implements IGenerator
 				->setInitialized($attr->isNullable() ?? false)
 				->setPublic();
 
-			//$attr->isAutoIncrement() ? $create->addComment('Primary key') : null;
-			//$attr->getDefault() ? $create->addComment('Default ' . $attr->getDefault()) : null;
-			//$attr->getSize() > 0 ? $create->addComment('Size ' . $attr->getSize()) : null;
+            // Add basic column info.
+            if ($this->options->columnInfo) {
+                if ($attr->isAutoIncrement()) {
+                    $create->addComment('Primary key');
+                }
+
+                if ($attr->getDefault()) {
+                    $create->addComment('Default value ' . $attr->getDefault());
+                }
+
+                if ($attr->getSize() > 0) {
+                    $create->addComment('Column length ' . $attr->getSize());
+                }
+            }
 
 			// Add reference to table.
 			if ($options->references && isset($references[$column])) {
 				$filename = $this->filename($references[$column], $options->suffix);
 				$class->addProperty($references[$column])
-					->setType($options->namespace . '\\' . $filename);
+					->setType($options->namespace . '\\' . $filename)
+                    ->setComment('Table join references');
 			}
 		}
 

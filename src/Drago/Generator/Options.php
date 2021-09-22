@@ -34,6 +34,9 @@ class Options
 	/** Custom name for the primary key in the table at the constant. */
 	public null|string $primaryKey = null;
 
+    /** Allow basic column info */
+    public bool $columnInfo = false;
+
 	/** Allow constant. */
 	public bool $constant = true;
 

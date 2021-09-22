@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Drago\Generator;
 
-use Dibi\Reflection\Column;
 use Doctrine\Inflector\Inflector;
 use Exception;
 use Nette\Utils\Strings;
@@ -48,30 +47,6 @@ class Base
 			throw new Exception('Wrong column name ' . $column . ' in table ' .
 				$table . ', change name or use AS');
 		}
-	}
-
-
-	/**
-	 * Column attributes.
-	 */
-	public function attributes(Column $attr): array
-	{
-		return [
-			Attribute::AUTO_INCREMENT => $attr->isAutoIncrement(),
-			Attribute::SIZE => $attr->getSize(),
-			Attribute::DEFAULT => $attr->getDefault(),
-			Attribute::NULLABLE => $attr->isNullable(),
-			Attribute::TYPE => Strings::lower($attr->nativeType),
-		];
-	}
-
-
-	/**
-	 * Info column attribute.
-	 */
-	public function attr(array $attr, string $key): string
-	{
-		return $attr[$key] ? 'Column ' . $key . ' ' . $attr[$key] . "\n" : '';
 	}
 
 
