@@ -10,9 +10,6 @@ use Nette\Utils\FileSystem;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
-require __DIR__ . '/../../TestGenerator.php';
-require __DIR__ . '/../../Database.php';
-require __DIR__ . '/../../TestRepository.php';
 
 
 function generator(): TestGenerator

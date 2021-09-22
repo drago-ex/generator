@@ -21,6 +21,7 @@ const TEMP_DIR = __DIR__ . '/tmp';
 $boot = new Configurator;
 $boot->setTempDirectory(TEMP_DIR);
 $boot->createRobotLoader()
+	->addDirectory(__DIR__)
 	->addDirectory(__DIR__ . '/../src')
 	->register();
 
