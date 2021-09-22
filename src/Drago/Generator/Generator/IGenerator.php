@@ -15,7 +15,7 @@ namespace Drago\Generator;
  */
 interface IGenerator
 {
-	public function runGeneration(?string $table = null): void;
+	public function runGeneration(null|string $table = null): void;
 
 	public function createPhpFile(string $table): void;
 }

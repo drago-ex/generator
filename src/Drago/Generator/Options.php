@@ -20,7 +20,7 @@ class Options
 {
 	/** Base options ------------------------------------------------------------------------------------------------ */
 
-	/** Allow convert uppercase characters to lowercase (typical of Oracle). */
+	/** Allow convert uppercase characters to lowercase for keys in the field (typical of Oracle). */
 	public bool $lower = false;
 
 
@@ -28,6 +28,12 @@ class Options
 
 	/** The path where the classes will be generated. */
 	public string $path = '';
+
+	/** Custom name for the table in constant. */
+	public null|string $tableName;
+
+	/** Custom name for the primary key in the table at the constant. */
+	public null|string $primaryKey;
 
 	/** Allow constant. */
 	public bool $constant = true;

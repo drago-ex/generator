@@ -29,7 +29,7 @@ class DataClassGenerator extends Base implements IGenerator
 	 * @throws Exception
 	 * @throws Throwable
 	 */
-	public function runGeneration(?string $table = null): void
+	public function runGeneration(null|string $table = null): void
 	{
 		if ($table !== null) {
 			$this->createPhpFile($table);

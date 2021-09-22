@@ -29,7 +29,7 @@ class EntityGenerator extends Base implements IGenerator
 	 * @throws Exception
 	 * @throws Throwable
 	 */
-	public function runGeneration(?string $table = null): void
+	public function runGeneration(null|string $table = null): void
 	{
 		if ($table !== null) {
 			$this->createPhpFile($table);
@@ -88,12 +88,14 @@ class EntityGenerator extends Base implements IGenerator
 			$attr = $this->repository->getColumn($table, $column);
 
 			// Add the constant table.
-			$class->addConstant('TABLE', $table)
+			$tableName = $this->options->tableName ?? 'TABLE';
+			$class->addConstant($tableName, $table)
 				->setPublic();
 
 			// Add the constant primary key.
 			if ($attr->isAutoIncrement()) {
-				$class->addConstant('PRIMARY', $column)
+				$primaryKey = $this->options->primaryKey ?? 'PRIMARY';
+				$class->addConstant($primaryKey, $column)
 					->setPublic();
 			}
 
