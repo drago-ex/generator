@@ -28,7 +28,7 @@ class TestGeneratorExtension extends TestContainer
 						driver: mysqli
 						host: 127.0.0.1
 						username: root
-						password:
+						password: root
 						database: test
 						lazy: true
 					])
