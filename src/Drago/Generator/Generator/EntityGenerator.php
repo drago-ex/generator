@@ -120,19 +120,19 @@ class EntityGenerator extends Base implements IGenerator
 			$detectType = $this->detectType($attr->getNativeType());
 
 			// Add attributes to the entity.
-            if ($attr->isAutoIncrement()) {
-                $create = $class->addProperty($column)
-                    ->setType($detectType)
-                    ->setNullable(true)
-                    ->setPublic();
+			if ($attr->isAutoIncrement()) {
+				$create = $class->addProperty($column)
+					->setType($detectType)
+					->setNullable(true)
+					->setPublic();
 
-            } else {
-                $create = $class->addProperty($column)
-                    ->setType($detectType)
-                    ->setNullable($attr->isNullable())
-                    ->setInitialized($attr->isNullable() ?? false)
-                    ->setPublic();
-            }
+			} else {
+				$create = $class->addProperty($column)
+					->setType($detectType)
+					->setNullable($attr->isNullable())
+					->setInitialized($attr->isNullable() ?? false)
+					->setPublic();
+			}
 
             // Add basic column info.
 			if ($this->options->columnInfo) {
