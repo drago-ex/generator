@@ -8,9 +8,9 @@ use Drago\Generator\Repository;
 
 class TestRepository
 {
-	public function db(): Connect
+	public function db(): Database
 	{
-		return new Connect;
+		return new Database();
 	}
 
 

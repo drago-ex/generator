@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Dibi\Connection;
 
 
-class Connect
+class Database
 {
 	public function mysql(): Connection
 	{
@@ -13,7 +13,7 @@ class Connect
 			'driver' => 'mysqli',
 			'host' => '127.0.0.1',
 			'username' => 'root',
-			'password' => '',
+			'password' => 'root',
 			'database' => 'test',
 		];
 		return new Connection($db);
