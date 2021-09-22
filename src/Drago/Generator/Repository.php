@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Drago\Generator;
 
 use Dibi\Exception;
-use Dibi\NotSupportedException;
 use Dibi\Reflection\Column;
 use Dibi\Reflection\Database;
 use Dibi\Reflection\Table;
