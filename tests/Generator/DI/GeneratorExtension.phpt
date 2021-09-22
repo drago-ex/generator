@@ -12,14 +12,23 @@ use Nette\DI\Compiler;
 use Nette\DI\Container;
 use Nette\DI\ContainerLoader;
 use Tester\Assert;
+use Tester\TestCase;
 
 $container = require __DIR__ . '/../../bootstrap.php';
-require __DIR__ . '/../../TestContainer.php';
 
 
-class TestGeneratorExtension extends TestContainer
+class TestGeneratorExtension extends TestCase
 {
-	private function createContainer(): Container
+	protected Container $container;
+
+
+	public function __construct(Container $container)
+	{
+		$this->container = $container;
+	}
+
+
+	public function createContainer(): Container
 	{
 		$loader = new ContainerLoader($this->container->getParameters()['tempDir'], true);
 		$class = $loader->load(function (Compiler $compiler): void {
@@ -51,6 +60,4 @@ class TestGeneratorExtension extends TestContainer
 	}
 }
 
-
-$extension = new TestGeneratorExtension($container);
-$extension->run();
+(new TestGeneratorExtension($container))->run();
