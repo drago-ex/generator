@@ -10,7 +10,7 @@ class TestRepository
 {
 	public function db(): Database
 	{
-		return new Database();
+		return new Database;
 	}
 
 
