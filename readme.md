@@ -38,22 +38,24 @@ extensions:
 Together options:
 
 | Name                | Type             | Default state                | Description
-| --------------------| ---------------- | -----------------------------| ------------------------------------------------- |
-| `lower`             | `bool`           | `false`                      | Allow convert uppercase characters to lowercasee. |
+| --------------------| ---------------- | -----------------------------| ------------------------------------------------------------------------------------------ |
+| `lower`             | `bool`           | `false`                      | Allow convert uppercase characters to lowercase for keys in the field (typical of Oracle). |
 
 Entity options:
 
 | Name                | Type             | Default state                | Description
-| --------------------| ---------------- | -----------------------------| --------------------------------------------- |
-| `path`              | `string`         | `empty`                      | The path where the classes will be generated. |
-| `constant`          | `bool`           | `true`                       | Allow constant.                               |
-| `constantLength`    | `bool`           | `true`                       | Allow constant column length.                 |
-| `references`        | `bool`           | `true`                       | Allow table references in the property.       |
-| `suffix`            | `string`         | `Entity`                     | Add suffix name.                              |
-| `extends`           | `string`         | `Drago\Database\Entity`      | Add extends class.                            |
-| `extendsOn`         | `bool`           | `true`                       | Allow extends class.                          |
-| `final    `         | `bool`           | `true`                       | Add final keyword.                            |
-| `namespace`         | `string`         | `App\Entity`                 | Add class namespace.                          |
+| --------------------| ---------------- | -----------------------------| ------------------------------------------------------------- |
+| `path`              | `string`         | `empty string`               | The path where the classes will be generated.                 |
+| `tableName`         | `null|string`    | `empty`                      | Custom name for the table in constant.                        |
+| `primaryKey`        | `null|string`    | `empty`                      | Custom name for the primary key in the table at the constant. |
+| `constant`          | `bool`           | `true`                       | Allow constant.                                               |
+| `constantLength`    | `bool`           | `true`                       | Allow constant column length.                                 |
+| `references`        | `bool`           | `true`                       | Allow table references in the property.                       |
+| `suffix`            | `string`         | `Entity`                     | Add suffix name.                                              |
+| `extends`           | `string`         | `Drago\Database\Entity`      | Add extends class.                                            |
+| `extendsOn`         | `bool`           | `true`                       | Allow extends class.                                          |
+| `final    `         | `bool`           | `true`                       | Add final keyword.                                            |
+| `namespace`         | `string`         | `App\Entity`                 | Add class namespace.                                          |
 
 Form data options:
 
