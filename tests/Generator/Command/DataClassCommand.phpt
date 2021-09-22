@@ -11,6 +11,7 @@ use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
 require __DIR__ . '/../../TestGenerator.php';
+require __DIR__ . '/../../TestRepository.php';
 
 
 function generator(): TestGenerator
