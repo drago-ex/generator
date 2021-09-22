@@ -23,7 +23,6 @@ class Options
 	/** Allow convert uppercase to lowercase keys in array (typical of Oracle). */
 	public bool $lower = false;
 
-
 	/** Options for entity generator -------------------------------------------------------------------------------- */
 
 	/** The path where the classes will be generated. */
@@ -58,7 +57,6 @@ class Options
 
 	/** Add class namespace. */
 	public string $namespace = 'App\\Entity';
-
 
 	/** Options for data class generator ----------------------------------------------------------------------------- */
 
