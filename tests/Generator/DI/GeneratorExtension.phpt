@@ -10,6 +10,7 @@ use Nette\DI\ContainerLoader;
 use Tester\Assert;
 
 $container = require __DIR__ . '/../../bootstrap.php';
+$container = require __DIR__ . '/../../TestContainer.php';
 
 
 class TestGeneratorExtension extends TestContainer
