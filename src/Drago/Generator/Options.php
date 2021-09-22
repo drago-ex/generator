@@ -29,10 +29,10 @@ class Options
 	public string $path = '';
 
 	/** Custom name for the table in constant. */
-	public null|string $tableName;
+	public null|string $tableName = null;
 
 	/** Custom name for the primary key in the table at the constant. */
-	public null|string $primaryKey;
+	public null|string $primaryKey = null;
 
 	/** Allow constant. */
 	public bool $constant = true;
