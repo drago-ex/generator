@@ -1,11 +1,18 @@
 <?php
 
+/**
+ * Test: Drago\Generator\EntityGenerator
+ */
+
 declare(strict_types=1);
 
 use Nette\Utils\FileSystem;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../TestGenerator.php';
+require __DIR__ . '/../../Database.php';
+require __DIR__ . '/../../TestRepository.php';
 
 
 function generator(): TestGenerator
@@ -22,7 +29,7 @@ function isDirectory(string $dir): void
 }
 
 
-test(function () {
+test('Generate entity', function () {
 	$options = generator()->options();
 	$options->path = __DIR__ . '/../../entity';
 	isDirectory($options->path);
