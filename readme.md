@@ -48,6 +48,7 @@ Entity options:
 | `path`              | `string` | `empty`                 | The path where the classes will be generated.                 |
 | `tableName`         | `string` | `empty`                 | Custom name for the table in constant.                        |
 | `primaryKey`        | `string` | `empty`                 | Custom name for the primary key in the table at the constant. |
+| `columnInfo`        | `bool`   | `false`                 | Allow basic column info.                                      |
 | `constant`          | `bool`   | `true`                  | Allow constant.                                               |
 | `constantLength`    | `bool`   | `true`                  | Allow constant column length.                                 |
 | `references`        | `bool`   | `true`                  | Allow table references in the property.                       |
