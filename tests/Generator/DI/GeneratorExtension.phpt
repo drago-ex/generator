@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Test: Drago\Generator\DI\GeneratorExtension
+ */
+
 declare(strict_types=1);
 
 use Drago\Generator\DI\GeneratorExtension;
@@ -10,7 +14,7 @@ use Nette\DI\ContainerLoader;
 use Tester\Assert;
 
 $container = require __DIR__ . '/../../bootstrap.php';
-$container = require __DIR__ . '/../../TestContainer.php';
+require __DIR__ . '/../../TestContainer.php';
 
 
 class TestGeneratorExtension extends TestContainer
