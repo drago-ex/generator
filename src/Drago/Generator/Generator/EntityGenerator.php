@@ -135,19 +135,19 @@ class EntityGenerator extends Base implements IGenerator
             }
 
             // Add basic column info.
-            if ($this->options->columnInfo) {
-                if ($attr->isAutoIncrement()) {
-                    $create->addComment('Primary key');
-                }
+			if ($this->options->columnInfo) {
+				if ($attr->isAutoIncrement()) {
+					$create->addComment('Primary key');
+				}
 
-                if ($attr->getDefault()) {
-                    $create->addComment('Default value ' . $attr->getDefault());
-                }
+				if ($attr->getDefault()) {
+					$create->addComment('Default value ' . $attr->getDefault());
+				}
 
-                if ($attr->getSize() > 0) {
-                    $create->addComment('Column length ' . $attr->getSize());
-                }
-            }
+				if ($attr->getSize() > 0) {
+					$create->addComment('Column length ' . $attr->getSize());
+				}
+			}
 
 			// Add reference to table.
 			if ($options->references && isset($references[$column])) {
