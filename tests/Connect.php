@@ -3,14 +3,10 @@
 declare(strict_types=1);
 
 use Dibi\Connection;
-use Dibi\Exception;
 
 
 class Connect
 {
-	/**
-	 * @throws Exception
-	 */
 	public function mysql(): Connection
 	{
 		$db = [

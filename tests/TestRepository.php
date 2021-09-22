@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Dibi\Connection;
-use Dibi\Exception;
 use Drago\Generator\Repository;
 
 
@@ -21,9 +20,6 @@ class TestRepository
 	}
 
 
-	/**
-	 * @throws Exception
-	 */
 	public function mysql(): Repository
 	{
 		$db = $this->db()->mysql();
