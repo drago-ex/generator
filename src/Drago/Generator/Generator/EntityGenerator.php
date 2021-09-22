@@ -154,7 +154,7 @@ class EntityGenerator extends Base implements IGenerator
 				$filename = $this->filename($references[$column], $options->suffix);
 				$class->addProperty($references[$column])
 					->setType($options->namespace . '\\' . $filename)
-  					->setComment('Table join references');
+					->setComment('Table join references');
 			}
 		}
 
