@@ -134,7 +134,7 @@ class EntityGenerator extends Base implements IGenerator
 					->setPublic();
 			}
 
-            // Add basic column info.
+			// Add basic column info.
 			if ($this->options->columnInfo) {
 				if ($attr->isAutoIncrement()) {
 					$create->addComment('Primary key');
