@@ -41,22 +41,22 @@ class Options
 	public bool $constant = true;
 
 	/** Allow constant column length. */
-	public bool $constantLength = true;
+	public bool $constantLength = false;
 
 	/** Allow table references in the property */
-	public bool $references = true;
+	public bool $references = false;
 
 	/** Add suffix name. */
 	public string $suffix = 'Entity';
 
-	/** Add extends class. */
-	public string $extends = Entity::class;
-
 	/** Allow extends class */
 	public bool $extendsOn = true;
 
+	/** Add extends class. */
+	public string $extends = Entity::class;
+
 	/** Add final keyword */
-	public bool $final = true;
+	public bool $final = false;
 
 	/** Add class namespace. */
 	public string $namespace = 'App\\Entity';
@@ -73,19 +73,19 @@ class Options
 	public bool $constantLengthDataClass = true;
 
 	/** Allow table references in the property */
-	public bool $referencesDataClass = true;
+	public bool $referencesDataClass = false;
 
 	/** Add suffix name. */
 	public string $suffixDataClass = 'Data';
 
-	/** Add extends class. */
-	public string $extendsDataClass = ExtraArrayHash::class;
-
 	/** Allow extends class */
 	public bool $extendsOnDataClass = true;
 
+	/** Add extends class. */
+	public string $extendsDataClass = ExtraArrayHash::class;
+
 	/** Add final keyword */
-	public bool $finalDataClass = true;
+	public bool $finalDataClass = false;
 
 	/** Add class namespace. */
 	public string $namespaceDataClass = 'App\\Data';
