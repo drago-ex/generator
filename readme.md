@@ -35,7 +35,8 @@ extensions:
 
 ## Generator settings
 
-All settings of entities and data form can be found in  
+All settings of entities and data form can be found in Options.php
+
 https://github.com/drago-ex/generator/blob/master/src/Drago/Generator/Options.php#L19
 
 
