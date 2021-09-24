@@ -34,8 +34,31 @@ class TestGeneratorExtension extends TestCase
 		$class = $loader->load(function (Compiler $compiler): void {
 			$compiler->loadConfig(Tester\FileMock::create('
 			generator:
+				# generator entity
 				path: entity
+				tableName: tableName
+				primaryKey: primaryKeyName
+				columnInfo: true
+				constant: true
+				constantLength: true
+				references: true
+				suffix: Entity
+				extendsOn: true
+				extends: Drago\Database\Entity
+				final: true
+				namespace: App\Entity
+
+				# generator data class
 				pathDataClass: data
+				constantDataClass: true
+				constantLengthDataClass: true
+				referencesDataClass: true
+				suffixDataClass: Data
+				extendsOnDataClass: true
+				extendsDataClass: Drago\Utils\ExtraArrayHash
+				finalDataClass: false
+				namespaceDataClass: App\Data
+
 			services:
 				dibi.connection:
 					factory: Dibi\Connection([
