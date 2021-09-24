@@ -35,42 +35,8 @@ extensions:
 
 ## Generator settings
 
-Together options:
+All settings of entities and data form can be found in https://github.com/drago-ex/generator/blob/master/src/Drago/Generator/Options.php#L19
 
-| Name                | Type             | Default state                | Description
-| --------------------| ---------------- | -----------------------------| ----------------------------------------------------------------------- |
-| `lower`             | `bool`           | `false`                      | Allow convert uppercase to lowercase keys in array (typical of Oracle). |
-
-Entity options:
-
-| Name                | Type     | Default state           | Description
-| --------------------| ---------| ------------------------| ------------------------------------------------------------- |
-| `path`              | `string` | `empty`                 | The path where the classes will be generated.                 |
-| `tableName`         | `string` | `empty`                 | Custom name for the table in constant.                        |
-| `primaryKey`        | `string` | `empty`                 | Custom name for the primary key in the table at the constant. |
-| `columnInfo`        | `bool`   | `false`                 | Allow basic column info.                                      |
-| `constant`          | `bool`   | `true`                  | Allow constant.                                               |
-| `constantLength`    | `bool`   | `true`                  | Allow constant column length.                                 |
-| `references`        | `bool`   | `true`                  | Allow table references in the property.                       |
-| `suffix`            | `string` | `Entity`                | Add suffix name.                                              |
-| `extends`           | `string` | `Drago\Database\Entity` | Add extends class.                                            |
-| `extendsOn`         | `bool`   | `true`                  | Allow extends class.                                          |
-| `final    `         | `bool`   | `true`                  | Add final keyword.                                            |
-| `namespace`         | `string` | `App\Entity`            | Add class namespace.                                          |
-
-Form data options:
-
-| Name                      | Type             | Default state                | Description
-| --------------------------| ---------------- | -----------------------------| --------------------------------------------- |
-| `pathDataClass`           | `string`         | `empty`                      | The path where the classes will be generated. |
-| `constantDataClass`       | `bool`           | `true`                       | Allow constant.                               |
-| `constantLengthDataClass` | `bool`           | `true`                       | Allow constant column length.                 |
-| `referencesDataClass`     | `bool`           | `true`                       | Allow table references in the property.       |
-| `suffixDataClass`         | `string`         | `Data`                       | Add suffix name.                              |
-| `extendsDataClass`        | `string`         | `Drago\Utils\ExtraArrayHash` | Add extends class.                            |
-| `extendsOnDataClass`      | `bool`           | `true`                       | Allow extends class.                          |
-| `finalDataClass`          | `bool`           | `true`                       | Add final keyword.                            |
-| `namespaceDataClass `     | `string`         | `App\Data`                   | Add class namespace.                          |
 
 ## Console commands
 
