@@ -9,18 +9,25 @@ declare(strict_types=1);
 
 namespace Drago\Generator;
 
+use Dibi\Connection;
 use Dibi\Exception;
 use Dibi\Reflection\Column;
 use Dibi\Reflection\Database;
 use Dibi\Reflection\Table;
-use Drago\Database\Connect;
 
 
 /**
  * Get table names ant types from database.
  */
-class Repository extends Connect
+class Repository
 {
+	public function __construct(
+		public Connection $db
+	) {
+
+	}
+
+
 	/**
 	 * Get database info.
 	 */
