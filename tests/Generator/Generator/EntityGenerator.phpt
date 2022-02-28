@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Drago\Generator\EntityGenerator
+ * Test: Drago\Generator\Generator\EntityGenerator
  */
 
 declare(strict_types=1);

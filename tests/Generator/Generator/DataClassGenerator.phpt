@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Drago\Generator\DataClassGenerator
+ * Test: Drago\Generator\Generator\DataClassGenerator
  */
 
 declare(strict_types=1);

@@ -7,7 +7,7 @@
 declare(strict_types=1);
 
 use Drago\Generator\DI\GeneratorExtension;
-use Drago\Generator\EntityGenerator;
+use Drago\Generator\Generator\EntityGenerator;
 use Nette\DI\Compiler;
 use Nette\DI\Container;
 use Nette\DI\ContainerLoader;
