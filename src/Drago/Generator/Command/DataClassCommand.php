@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Drago\Generator\Command;
 
-use Drago\Generator\DataClassGenerator;
+use Drago\Generator\Generator\DataClassGenerator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
