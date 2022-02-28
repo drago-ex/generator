@@ -69,6 +69,7 @@ class Base
 				$item = $val;
 			}
 		}
+
 		return $item ?? Type::TEXT;
 	}
 
@@ -83,9 +84,10 @@ class Base
 			foreach ($this->repository->getForeignKeys($table) as $foreign) {
 				$ref[$foreign['local'][0]] = $foreign['table'];
 			}
-		} catch (\Exception $e) {
+		} catch (\Throwable $e) {
 			// I don't need an announcement ...
 		}
+
 		return $ref;
 	}
 }

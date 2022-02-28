@@ -22,9 +22,8 @@ use Dibi\Reflection\Table;
 class Repository
 {
 	public function __construct(
-		public Connection $db
+		public Connection $db,
 	) {
-
 	}
 
 
