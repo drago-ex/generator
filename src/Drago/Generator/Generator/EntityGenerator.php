@@ -7,9 +7,10 @@
 
 declare(strict_types=1);
 
-namespace Drago\Generator;
+namespace Drago\Generator\Generator;
 
 use Dibi\Exception;
+use Drago\Generator\Base;
 use Drago\Utils\CaseConverter;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;

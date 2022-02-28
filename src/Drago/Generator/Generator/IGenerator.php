@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Drago\Generator;
+namespace Drago\Generator\Generator;
 
 
 /**
