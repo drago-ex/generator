@@ -6,6 +6,7 @@
 
 declare(strict_types=1);
 
+use Drago\Generator\ValidateColumnException;
 use Nette\Utils\FileSystem;
 use Tester\Assert;
 
@@ -36,5 +37,5 @@ test('Generate data class', function () {
 
 	Assert::exception(function () use ($generator) {
 		$generator->runGeneration();
-	}, Exception::class, 'Wrong column name error(...) in table error, change name or use AS');
+	}, ValidateColumnException::class, 'Wrong column name error(...) in table error, change name or use AS');
 });

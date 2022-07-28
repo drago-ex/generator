@@ -12,6 +12,7 @@ namespace Drago\Generator;
 use Doctrine\Inflector\Inflector;
 use Exception;
 use Nette\Utils\Strings;
+use Throwable;
 
 
 /**
@@ -44,7 +45,7 @@ class Base
 	public function validateColumn(string $table, string $column): void
 	{
 		if (Strings::contains($column, '(')) {
-			throw new Exception('Wrong column name ' . $column . ' in table ' .
+			throw new ValidateColumnException('Wrong column name ' . $column . ' in table ' .
 				$table . ', change name or use AS');
 		}
 	}
@@ -84,7 +85,7 @@ class Base
 			foreach ($this->repository->getForeignKeys($table) as $foreign) {
 				$ref[$foreign['local'][0]] = $foreign['table'];
 			}
-		} catch (\Throwable $e) {
+		} catch (Throwable $e) {
 			// I don't need an announcement ...
 		}
 

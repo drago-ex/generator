@@ -14,7 +14,7 @@
 		"contributte/console": "^0.9",
 		"doctrine/inflector": "^1.4",
 		"drago-ex/utils": "^1.0",
-		"dibi/dibi": "^4.2",
+		"drago-ex/database": "^1.0",
 		"nette/php-generator": "^3.0"
 	},
 	"require-dev": {
