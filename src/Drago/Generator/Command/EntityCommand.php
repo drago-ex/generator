@@ -29,7 +29,7 @@ class EntityCommand extends Command
 
 
 	public function __construct(
-		private EntityGenerator $generatorEntity,
+		private readonly EntityGenerator $generatorEntity,
 	) {
 		parent::__construct();
 	}

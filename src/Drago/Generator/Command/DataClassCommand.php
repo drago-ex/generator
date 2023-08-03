@@ -29,7 +29,7 @@ class DataClassCommand extends Command
 
 
 	public function __construct(
-		private DataClassGenerator $dataClassGenerator,
+		private readonly DataClassGenerator $dataClassGenerator,
 	) {
 		parent::__construct();
 	}
