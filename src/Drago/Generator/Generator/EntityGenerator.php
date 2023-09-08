@@ -131,7 +131,7 @@ class EntityGenerator extends Base implements IGenerator
 				$create = $class->addProperty($column)
 					->setType($detectType)
 					->setNullable($attr->isNullable())
-					->setInitialized($attr->isNullable() ?? false)
+					->setInitialized($attr->isNullable())
 					->setPublic();
 			}
 

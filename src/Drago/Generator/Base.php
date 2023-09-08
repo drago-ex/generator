@@ -57,12 +57,12 @@ class Base
 	public function detectType(string $type): string
 	{
 		static $patterns = [
-			'BYTEA|BLOB|BIN' => Type::BINARY,
-			'TEXT|CHAR|POINT|INTERVAL|STRING' => Type::TEXT,
-			'YEAR|BYTE|COUNTER|SERIAL|INT|LONG|SHORT' => Type::INTEGER,
-			'CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => Type::FLOAT,
-			'DATE|TIME' => Type::DATE,
-			'BOOL' => Type::BOOL,
+			'BYTEA|BLOB|BIN' => Type::Binary,
+			'TEXT|CHAR|POINT|INTERVAL|STRING' => Type::text,
+			'YEAR|BYTE|COUNTER|SERIAL|INT|LONG|SHORT' => Type::Integer,
+			'CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => Type::Float,
+			'DATE|TIME' => Type::Date,
+			'BOOL' => Type::Bool,
 		];
 
 		foreach ($patterns as $s => $val) {
@@ -71,7 +71,7 @@ class Base
 			}
 		}
 
-		return $item ?? Type::TEXT;
+		return $item ?? Type::text;
 	}
 
 
@@ -85,7 +85,7 @@ class Base
 			foreach ($this->repository->getForeignKeys($table) as $foreign) {
 				$ref[$foreign['local'][0]] = $foreign['table'];
 			}
-		} catch (Throwable $e) {
+		} catch (Throwable) {
 			// I don't need an announcement ...
 		}
 

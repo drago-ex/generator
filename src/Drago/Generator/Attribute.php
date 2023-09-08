@@ -15,21 +15,12 @@ use Exception;
 /**
  * Column attributes.
  */
-class Attribute
+final class Attribute
 {
 	public const
-		AUTO_INCREMENT = 'autoIncrement',
-		SIZE = 'length',
-		DEFAULT = 'default',
-		NULLABLE = 'nullable',
-		TYPE = 'type';
-
-
-	/**
-	 * @throws Exception
-	 */
-	final public function __construct()
-	{
-		throw new Exception('Cannot instantiate static class ' . self::class);
-	}
+		AutoIncrement = 'autoIncrement',
+		Length = 'length',
+		Default = 'default',
+		Nullable = 'nullable',
+		Type = 'type';
 }

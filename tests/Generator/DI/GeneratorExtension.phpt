@@ -54,7 +54,6 @@ class TestGeneratorExtension extends TestCase
 				constantLengthDataClass: true
 				referencesDataClass: true
 				suffixDataClass: Data
-				extendsOnDataClass: true
 				extendsDataClass: Drago\Utils\ExtraArrayHash
 				finalDataClass: false
 				namespaceDataClass: App\Data

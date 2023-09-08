@@ -78,9 +78,6 @@ class Options
 	/** Add suffix name. */
 	public string $suffixDataClass = 'Data';
 
-	/** Allow extends class */
-	public bool $extendsOnDataClass = true;
-
 	/** Add extends class. */
 	public string $extendsDataClass = ExtraArrayHash::class;
 

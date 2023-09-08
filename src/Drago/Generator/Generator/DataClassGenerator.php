@@ -110,7 +110,7 @@ class DataClassGenerator extends Base implements IGenerator
 			$class->addProperty($column)
 				->setType($detectType)
 				->setNullable($attr->isNullable())
-				->setInitialized($attr->isNullable() ?? false)
+				->setInitialized($attr->isNullable())
 				->setPublic();
 
 			// Add reference to table.
