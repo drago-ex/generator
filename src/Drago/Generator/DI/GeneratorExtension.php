@@ -53,7 +53,7 @@ class GeneratorExtension extends CompilerExtension
 			'suffixDataClass' => Expect::string('Data'),
 			'extendsDataClass' => Expect::string(ExtraArrayHash::class),
 			'finalDataClass' => Expect::bool(false),
-			'namespaceDataClass ' => Expect::string('App\\Data'),
+			'namespaceDataClass' => Expect::string('App\\Data'),
 		]);
 	}
 
