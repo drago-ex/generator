@@ -57,6 +57,7 @@ class GeneratorExtension extends CompilerExtension
 		]);
 	}
 
+
 	public function loadConfiguration(): void
 	{
 		$builder = $this->getContainerBuilder();
