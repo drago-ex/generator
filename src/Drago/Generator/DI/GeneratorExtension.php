@@ -36,7 +36,7 @@ class GeneratorExtension extends CompilerExtension
 			'lower' => Expect::bool(false),
 			'path' => Expect::string(''),
 			'tableName' => Expect::string(),
-			'primaryKey ' => Expect::string(),
+			'primaryKey' => Expect::string(),
 			'columnInfo' => Expect::bool(false),
 			'constant' => Expect::bool(true),
 			'constantLength' => Expect::bool(false),
