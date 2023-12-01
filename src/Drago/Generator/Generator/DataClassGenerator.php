@@ -90,14 +90,14 @@ class DataClassGenerator extends Base implements IGenerator
 
 			// Add constants.
 			if ($options->constantDataClass) {
-				$constant = Strings::upper(CaseConverter::snakeCase($column));
+				$constant = Strings::firstUpper(CaseConverter::snakeCase($column));
 				$class->addConstant($constant, $column)
 					->setPublic();
 
 				// Add to constant column length information.
 				if ($options->constantLengthDataClass) {
 					if (!$attr->isAutoIncrement() && $attr->getSize() > 0) {
-						$class->addConstant($constant . '_LENGTH', $attr->getSize())
+						$class->addConstant($constant . 'Length', $attr->getSize())
 							->setPublic();
 					}
 				}
