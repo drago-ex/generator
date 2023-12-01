@@ -14,11 +14,11 @@
 		"contributte/console": "^0.9",
 		"doctrine/inflector": "^1.4",
 		"drago-ex/utils": "dev-master",
-		"drago-ex/database": "^1.0",
+		"drago-ex/database": "dev-master",
 		"nette/php-generator": "^3.0"
 	},
 	"require-dev": {
-		"nette/bootstrap": "^3.0",
+		"nette/bootstrap": "^3.2",
 		"nette/tester": "^2.5",
 		"tracy/tracy": "^2.10",
 		"phpstan/phpstan-nette": "^1.2.9"
