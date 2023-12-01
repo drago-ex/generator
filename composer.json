@@ -15,7 +15,7 @@
 		"doctrine/inflector": "^1.4",
 		"drago-ex/utils": "dev-master",
 		"drago-ex/database": "dev-master",
-		"nette/php-generator": "^3.0"
+		"nette/php-generator": "^4.0"
 	},
 	"require-dev": {
 		"nette/bootstrap": "^3.2",
