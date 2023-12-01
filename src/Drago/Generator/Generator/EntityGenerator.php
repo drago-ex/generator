@@ -89,20 +89,20 @@ class EntityGenerator extends Base implements IGenerator
 			$attr = $this->repository->getColumn($table, $column);
 
 			// Add the constant table.
-			$tableName = $this->options->tableName ?? 'TABLE';
+			$tableName = $this->options->tableName ?? 'Table';
 			$class->addConstant($tableName, $table)
 				->setPublic();
 
 			// Add the constant primary key.
 			if ($attr->isAutoIncrement()) {
-				$primaryKey = $this->options->primaryKey ?? 'PRIMARY';
+				$primaryKey = $this->options->primaryKey ?? 'Id';
 				$class->addConstant($primaryKey, $column)
 					->setPublic();
 			}
 
 			// Add other constants.
 			if ($options->constant) {
-				$constant = Strings::upper(CaseConverter::snakeCase($column));
+				$constant = Strings::firstUpper(CaseConverter::snakeCase($column));
 				if (!$attr->isAutoIncrement()) {
 					$class->addConstant($constant, $column)
 						->setPublic();
@@ -111,7 +111,7 @@ class EntityGenerator extends Base implements IGenerator
 				// Add to constant column length information
 				if ($options->constantLength) {
 					if (!$attr->isAutoIncrement() && $attr->getSize() > 0) {
-						$class->addConstant($constant . '_LENGTH', $attr->getSize())
+						$class->addConstant($constant . 'Length', $attr->getSize())
 							->setPublic();
 					}
 				}
