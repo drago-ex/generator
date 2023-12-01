@@ -74,6 +74,11 @@ class EntityGenerator extends Base implements IGenerator
 		// Get references.
 		$references = $this->getReferencesTable($table);
 
+		// Add the constant table.
+		$tableName = $this->options->tableName ?? 'Table';
+		$class->addConstant($tableName, $table)
+			->setPublic();
+
 		// Get all columns names from table.
 		foreach ($this->repository->getColumnNames($table) as $column) {
 
@@ -87,11 +92,6 @@ class EntityGenerator extends Base implements IGenerator
 
 			// Get column attribute information.
 			$attr = $this->repository->getColumn($table, $column);
-
-			// Add the constant table.
-			$tableName = $this->options->tableName ?? 'Table';
-			$class->addConstant($tableName, $table)
-				->setPublic();
 
 			// Add the constant primary key.
 			if ($attr->isAutoIncrement()) {
