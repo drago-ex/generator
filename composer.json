@@ -10,10 +10,10 @@
 		}
 	],
 	"require": {
-		"php": ">=8.1 <8.41",
+		"php": ">=8.1 <8.4",
 		"contributte/console": "^0.9",
 		"doctrine/inflector": "^1.4",
-		"drago-ex/utils": "^1.0",
+		"drago-ex/utils": "dev-master",
 		"drago-ex/database": "^1.0",
 		"nette/php-generator": "^3.0"
 	},

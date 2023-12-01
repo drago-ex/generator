@@ -35,8 +35,8 @@ class GeneratorExtension extends CompilerExtension
 		return Expect::structure([
 			'lower' => Expect::bool(false),
 			'path' => Expect::string(''),
-			'tableName' => Expect::string(),
-			'primaryKey' => Expect::string(),
+			'tableName' => Expect::string(null),
+			'primaryKey' => Expect::string(null),
 			'columnInfo' => Expect::bool(false),
 			'constant' => Expect::bool(true),
 			'constantLength' => Expect::bool(false),
