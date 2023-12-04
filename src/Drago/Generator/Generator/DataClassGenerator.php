@@ -14,7 +14,6 @@ use Drago\Generator\Base;
 use Drago\Utils\CaseConverter;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;
-use Nette\SmartObject;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 use Throwable;
@@ -67,9 +66,6 @@ class DataClassGenerator extends Base implements IGenerator
 		if ($options->extendsOn) {
 			$class->setExtends($options->extendsDataClass);
 		}
-
-		// Add Nette SmartObject.
-		$class->addTrait(SmartObject::class);
 
 		// Get references.
 		$references = $this->getReferencesTable($table);
