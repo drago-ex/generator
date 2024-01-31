@@ -11,7 +11,6 @@ namespace Drago\Generator\Generator;
 
 use Dibi\Exception;
 use Drago\Generator\Base;
-use Drago\Utils\CaseConverter;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;
 use Nette\Utils\FileSystem;
@@ -86,8 +85,9 @@ class DataClassGenerator extends Base implements IGenerator
 
 			// Add constants.
 			if ($options->constantDataClass) {
-				$constant = $this->options->constantDataPrefix
-					? $this->inflector->classify($this->options->constantDataPrefix . $column)
+				$cp = $this->options->constantDataPrefix;
+				$constant = $cp
+					? $cp . $this->inflector->classify($column)
 					: $this->inflector->classify($column);
 
 				$class->addConstant($constant, $column)

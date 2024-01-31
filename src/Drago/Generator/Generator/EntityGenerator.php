@@ -11,7 +11,6 @@ namespace Drago\Generator\Generator;
 
 use Dibi\Exception;
 use Drago\Generator\Base;
-use Drago\Utils\CaseConverter;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;
 use Nette\Utils\FileSystem;
@@ -98,8 +97,9 @@ class EntityGenerator extends Base implements IGenerator
 
 			// Add other constants.
 			if ($options->constant) {
-				$constant = $this->options->constantPrefix
-					? $this->inflector->classify($this->options->constantPrefix . $column)
+				$cp = $this->options->constantPrefix;
+				$constant = $cp
+					? $cp . $this->inflector->classify($column)
 					: $this->inflector->classify($column);
 
 				if (!$attr->isAutoIncrement()) {
