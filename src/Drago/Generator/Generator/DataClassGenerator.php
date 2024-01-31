@@ -86,7 +86,10 @@ class DataClassGenerator extends Base implements IGenerator
 
 			// Add constants.
 			if ($options->constantDataClass) {
-				$constant = Strings::firstUpper(CaseConverter::snakeCase($column));
+				$constant = $this->options->constantDataPrefix
+					? $this->inflector->classify($this->options->constantDataPrefix . $column)
+					: $this->inflector->classify($column);
+
 				$class->addConstant($constant, $column)
 					->setPublic();
 

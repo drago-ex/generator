@@ -98,7 +98,10 @@ class EntityGenerator extends Base implements IGenerator
 
 			// Add other constants.
 			if ($options->constant) {
-				$constant = Strings::firstUpper(CaseConverter::snakeCase($column));
+				$constant = $this->options->constantPrefix
+					? $this->inflector->classify($this->options->constantPrefix . $column)
+					: $this->inflector->classify($column);
+
 				if (!$attr->isAutoIncrement()) {
 					$class->addConstant($constant, $column)
 						->setPublic();
@@ -161,7 +164,6 @@ class EntityGenerator extends Base implements IGenerator
 			->setStrictTypes()
 			->addNamespace($options->namespace)
 			->addUse('Drago')
-			->addUse('Nette')
 			->add($class);
 
 		$path = $options->path . '/' . $name . '.php';

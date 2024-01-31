@@ -41,6 +41,7 @@ class TestGeneratorExtension extends TestCase
 				columnInfo: true
 				constant: true
 				constantLength: true
+				constantPrefix: Column
 				references: true
 				suffix: Entity
 				extendsOn: true
@@ -52,6 +53,7 @@ class TestGeneratorExtension extends TestCase
 				pathDataClass: data
 				constantDataClass: true
 				constantLengthDataClass: true
+				constantDataPrefix: Form
 				referencesDataClass: true
 				suffixDataClass: Data
 				extendsDataClass: Drago\Utils\ExtraArrayHash

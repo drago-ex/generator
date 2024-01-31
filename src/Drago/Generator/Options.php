@@ -29,16 +29,19 @@ class Options
 	public string $path = '';
 
 	/** Custom name for the table in constant. */
-	public null|string $tableName = null;
+	public string|null $tableName = null;
 
 	/** Custom name for the primary key in the table at the constant. */
-	public null|string $primaryKey = null;
+	public string|null $primaryKey = null;
+
+	/** Allow constant. */
+	public bool $constant = true;
 
 	/** Allow basic column info */
 	public bool $columnInfo = false;
 
-	/** Allow constant. */
-	public bool $constant = true;
+	/** Add the name before the constant. */
+	public string|null $constantPrefix = null;
 
 	/** Allow constant column length. */
 	public bool $constantLength = false;
@@ -71,6 +74,9 @@ class Options
 
 	/** Allow constant column length. */
 	public bool $constantLengthDataClass = true;
+
+	/** Add the name before the constant. */
+	public string|null $constantDataPrefix = null;
 
 	/** Allow table references in the property */
 	public bool $referencesDataClass = false;
