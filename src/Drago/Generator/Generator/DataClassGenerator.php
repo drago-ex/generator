@@ -94,7 +94,7 @@ class DataClassGenerator extends Base implements IGenerator
 					->setPublic();
 
 				// Add to constant column length information.
-				if ($options->constantLengthDataClass) {
+				if ($options->constantSizeDataClass) {
 					if (!$attr->isAutoIncrement() && $attr->getSize() > 0) {
 						$class->addConstant($constant . 'Size', $attr->getSize())
 							->setPublic();

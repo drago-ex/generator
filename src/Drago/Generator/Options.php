@@ -43,8 +43,8 @@ class Options
 	/** Add the name before the constant. */
 	public string|null $constantPrefix = null;
 
-	/** Allow constant column length. */
-	public bool $constantLength = false;
+	/** Allow constant column size. */
+	public bool $constantSize = false;
 
 	/** Allow table references in the property */
 	public bool $references = false;
@@ -72,8 +72,8 @@ class Options
 	/** Allow constant. */
 	public bool $constantDataClass = true;
 
-	/** Allow constant column length. */
-	public bool $constantLengthDataClass = true;
+	/** Allow constant column size. */
+	public bool $constantSizeDataClass = true;
 
 	/** Add the name before the constant. */
 	public string|null $constantDataPrefix = null;

@@ -44,7 +44,7 @@ class Base
 	 */
 	public function validateColumn(string $table, string $column): void
 	{
-		if (Strings::contains($column, '(')) {
+		if (str_contains($column, '(')) {
 			throw new ValidateColumnException('Wrong column name ' . $column . ' in table ' .
 				$table . ', change name or use AS');
 		}

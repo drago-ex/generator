@@ -107,8 +107,8 @@ class EntityGenerator extends Base implements IGenerator
 						->setPublic();
 				}
 
-				// Add to constant column length information
-				if ($options->constantLength) {
+				// Add to constant column size information
+				if ($options->constantSize) {
 					if (!$attr->isAutoIncrement() && $attr->getSize() > 0) {
 						$class->addConstant($constant . 'Size', $attr->getSize())
 							->setPublic();
@@ -123,7 +123,7 @@ class EntityGenerator extends Base implements IGenerator
 			if ($attr->isAutoIncrement()) {
 				$create = $class->addProperty($column)
 					->setType($detectType)
-					->setNullable(true)
+					->setNullable()
 					->setPublic();
 
 			} else {
