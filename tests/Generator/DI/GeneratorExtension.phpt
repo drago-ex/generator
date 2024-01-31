@@ -40,7 +40,7 @@ class TestGeneratorExtension extends TestCase
 				primaryKey: primaryKeyName
 				columnInfo: true
 				constant: true
-				constantLength: true
+				constantSize: true
 				constantPrefix: Column
 				references: true
 				suffix: Entity
@@ -52,7 +52,7 @@ class TestGeneratorExtension extends TestCase
 				# generator data class
 				pathDataClass: data
 				constantDataClass: true
-				constantLengthDataClass: true
+				constantSizeDataClass: true
 				constantDataPrefix: Form
 				referencesDataClass: true
 				suffixDataClass: Data
