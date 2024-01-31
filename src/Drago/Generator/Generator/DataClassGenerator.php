@@ -96,7 +96,7 @@ class DataClassGenerator extends Base implements IGenerator
 				// Add to constant column length information.
 				if ($options->constantLengthDataClass) {
 					if (!$attr->isAutoIncrement() && $attr->getSize() > 0) {
-						$class->addConstant($constant . 'Length', $attr->getSize())
+						$class->addConstant($constant . 'Size', $attr->getSize())
 							->setPublic();
 					}
 				}
@@ -126,7 +126,6 @@ class DataClassGenerator extends Base implements IGenerator
 			->setStrictTypes()
 			->addNamespace($options->namespace)
 			->addUse('Drago')
-			->addUse('Nette')
 			->add($class);
 
 		$path = $options->pathDataClass . '/' . $name . '.php';
