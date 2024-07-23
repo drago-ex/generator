@@ -23,6 +23,9 @@
 		"tracy/tracy": "^2.10",
 		"phpstan/phpstan-nette": "^1.2.9"
 	},
+	"bin": [
+		"src/Drago/Generator/bin/generator"
+	],
 	"autoload": {
 		"classmap": ["src/"]
 	},
