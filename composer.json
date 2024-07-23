@@ -24,7 +24,7 @@
 		"phpstan/phpstan-nette": "^1.2.9"
 	},
 	"bin": [
-		"src/Drago/Generator/bin/generator"
+		"bin/generator"
 	],
 	"autoload": {
 		"classmap": ["src/"]
