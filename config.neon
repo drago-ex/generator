@@ -42,9 +42,9 @@ console:
 
 # database connection
 dibi:
-	host: 127.0.0.1
-	username: root
+	host: localhost
+	username:
 	password:
-	database: test
+	database:
 	driver: mysqli
 	lazy: true
