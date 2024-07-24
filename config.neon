@@ -10,7 +10,7 @@ generator:
 	lower: false
 
 	# generator entity
-	path: %appDir%/entity
+	path: app/entity
 	tableName: 'Table'
 	primaryKey: 'PrimaryKey'
 	columnInfo: false
@@ -24,7 +24,7 @@ generator:
 	namespace: App\Entity
 
 	# generator data class
-	pathDataClass: %appDir%/data
+	pathDataClass: app/data
 	constantDataClass: true
 	constantSizeDataClass: true
 	referencesDataClass: false
