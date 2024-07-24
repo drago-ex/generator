@@ -1,1 +1,50 @@
+# nette extensions
+extensions:
+	dibi: Dibi\Bridges\Nette\DibiExtension22
+	console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
+	generator: Drago\Generator\DI\GeneratorExtension
 
+# generator
+generator:
+	# base (typical of Oracle)
+	lower: false
+
+	# generator entity
+	path: %appDir%/entity
+	tableName: 'Table'
+	primaryKey: 'PrimaryKey'
+	columnInfo: false
+	constant: true
+	constantSize: false
+	references: false
+	suffix: Entity
+	extendsOn: true
+	extends: Drago\Database\Entity
+	final: false
+	namespace: App\Entity
+
+	# generator data class
+	pathDataClass: %appDir%/data
+	constantDataClass: true
+	constantSizeDataClass: true
+	referencesDataClass: false
+	suffixDataClass: Data
+	extendsDataClass: Drago\Utils\ExtraArrayHash
+	finalDataClass: false
+	namespaceDataClass: App\Data
+
+
+# symfony console
+console:
+	name: Symfony Console
+	lazy: false
+
+
+# database connection
+dibi:
+	host: 127.0.0.1
+	username: root
+	password:
+	database: test
+	driver: mysqli
+	lazy: true
