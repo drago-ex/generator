@@ -11,8 +11,8 @@
 	],
 	"require": {
 		"php": ">=8.3 <9",
-		"contributte/console": "^0.9",
-		"doctrine/inflector": "^1.4",
+		"contributte/console": "^0.10",
+		"doctrine/inflector": "^2.0",
 		"drago-ex/utils": "^1.0",
 		"drago-ex/database": "^1.0",
 		"nette/php-generator": "^4.1"
