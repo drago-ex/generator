@@ -37,5 +37,5 @@ test('Generate data class', function () {
 
 	Assert::exception(function () use ($generator) {
 		$generator->runGeneration();
-	}, ValidateColumnException::class, 'Wrong column name error(...) in table error, change name or use AS');
+	}, ValidateColumnException::class, 'Invalid column name '$column' in table '$table'. Use 'AS' or change the name.');
 });
