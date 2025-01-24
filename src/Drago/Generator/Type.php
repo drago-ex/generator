@@ -15,11 +15,10 @@ namespace Drago\Generator;
  */
 final class Type
 {
-	public const
-		text = 'string',
-		Binary = 'resource',
-		Bool = 'bool',
-		Integer = 'int',
-		Float = 'float',
-		Date = '\DateTimeImmutable';
+	public const string Date = '\DateTimeImmutable';
+	public const string Float = 'float';
+	public const string Integer = 'int';
+	public const string Bool = 'bool';
+	public const string Binary = 'resource';
+	public const string Text = 'string';
 }

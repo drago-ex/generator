@@ -11,11 +11,21 @@ namespace Drago\Generator\Generator;
 
 
 /**
- * Names of methods for the generator.
+ * Interface defining method names for the generator.
  */
 interface IGenerator
 {
-	public function runGeneration(null|string $table = null): void;
+	/**
+	 * Executes the generation process for a given table or all tables.
+	 *
+	 * @param string|null $table The name of the table to generate the file for, or null to process all tables.
+	 */
+	public function runGeneration(?string $table = null): void;
 
+	/**
+	 * Creates a PHP file for the specified table.
+	 *
+	 * @param string $table The name of the table to generate the file for.
+	 */
 	public function createPhpFile(string $table): void;
 }

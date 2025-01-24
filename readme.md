@@ -1,6 +1,7 @@
 ## Drago Generator
 
-Generating entities and form data.
+This tool generates entities and form data for your applications. It is built on PHP 8.3 and provides a simple
+interface for creating classes and using them in your projects.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/drago-ex/generator/master/license.md)
 [![PHP version](https://badge.fury.io/ph/drago-ex%2Fgenerator.svg)](https://badge.fury.io/ph/drago-ex%2Fgenerator)
@@ -10,25 +11,21 @@ Generating entities and form data.
 [![Coverage Status](https://coveralls.io/repos/github/drago-ex/generator/badge.svg?branch=master)](https://coveralls.io/github/drago-ex/generator?branch=master)
 
 ## Requirements
-
-- PHP 8.1 or higher
+- PHP 8.3 or higher
 - composer
 
 ## Installation
-
 ```
 composer require drago-ex/generator
 ```
 
 ## Extension registration
-
 ```neon
 extensions:
 	generator: Drago\Generator\DI\GeneratorExtension
 ```
 
 ## Generator settings
-
 All settings of entities and data form can be found in Options.php
 
 https://github.com/drago-ex/generator/blob/master/src/Drago/Generator/Options.php#L19

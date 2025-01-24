@@ -26,10 +26,14 @@ use Nette\Schema\Schema;
 
 
 /**
- * Register services for generator.
+ * Compiler extension to register services for generator.
  */
 class GeneratorExtension extends CompilerExtension
 {
+	/**
+	 * Defines the configuration schema.
+	 * @return Schema
+	 */
 	public function getConfigSchema(): Schema
 	{
 		return Expect::structure([
@@ -46,7 +50,7 @@ class GeneratorExtension extends CompilerExtension
 			'extendsOn' => Expect::bool(true),
 			'extends' => Expect::string(Entity::class),
 			'final' => Expect::bool(false),
-			'namespace' => Expect::string('App\\Entity'),
+			'namespace' => Expect::string('App\Entity'),
 			'pathDataClass' => Expect::string(''),
 			'constantDataClass' => Expect::bool(true),
 			'constantDataPrefix' => Expect::string()->nullable(),
@@ -55,37 +59,51 @@ class GeneratorExtension extends CompilerExtension
 			'suffixDataClass' => Expect::string('Data'),
 			'extendsDataClass' => Expect::string(ExtraArrayHash::class),
 			'finalDataClass' => Expect::bool(false),
-			'namespaceDataClass' => Expect::string('App\\Data'),
+			'namespaceDataClass' => Expect::string('App\Data'),
 		]);
 	}
 
 
+	/**
+	 * Loads configuration and registers services.
+	 * @throws \Exception
+	 */
 	public function loadConfiguration(): void
 	{
 		$builder = $this->getContainerBuilder();
+
+		// Register repository service
 		$builder->addDefinition($this->prefix('repository'))
 			->setFactory(Repository::class);
 
+		// Register word inflector service
 		$builder->addDefinition($this->prefix('wordInflector'))
 			->setFactory(NoopWordInflector::class);
 
+		// Register inflector service with injected dependencies
 		$builder->addDefinition($this->prefix('inflector'))
 			->setFactory(Inflector::class)
 			->setArguments(['@generator.wordInflector', '@generator.wordInflector']);
 
-		$schema = new Processor;
-		$normalized = $schema->process(Expect::from(new Options), $this->config);
+		// Process configuration options
+		$schemaProcessor = new Processor();
+		$normalizedConfig = $schemaProcessor->process(Expect::from(new Options), $this->config);
+
+		// Register entity generator service
 		$builder->addDefinition($this->prefix('generator'))
 			->setFactory(EntityGenerator::class)
-			->setArguments(['@generator.repository', $normalized, '@generator.inflector']);
+			->setArguments(['@generator.repository', $normalizedConfig, '@generator.inflector']);
 
+		// Register data class generator service
 		$builder->addDefinition($this->prefix('generatorDataClass'))
 			->setFactory(DataClassGenerator::class)
-			->setArguments(['@generator.repository', $normalized, '@generator.inflector']);
+			->setArguments(['@generator.repository', $normalizedConfig, '@generator.inflector']);
 
+		// Register entity command
 		$builder->addDefinition($this->prefix('command'))
 			->setFactory(EntityCommand::class);
 
+		// Register data class command
 		$builder->addDefinition($this->prefix('dataClassCommand'))
 			->setFactory(DataClassCommand::class);
 	}

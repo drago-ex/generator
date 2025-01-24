@@ -1,22 +1,18 @@
 <?php
 
-/**
- * Drago Extension
- * Package built on Nette Framework
- */
-
 declare(strict_types=1);
 
 namespace Drago\Generator;
 
 use Doctrine\Inflector\Inflector;
-use Exception;
 use Nette\Utils\Strings;
 use Throwable;
 
 
 /**
- * Base for generating php files.
+ * Base class for PHP code generation related to database entities and data classes.
+ * Provides utility methods for generating file names, validating columns, detecting types,
+ * and handling table references, used by the generators for creating entity and data class files.
  */
 class Base
 {
@@ -29,7 +25,7 @@ class Base
 
 
 	/**
-	 * Create filename and the added suffix.
+	 * Create filename by adding the suffix.
 	 */
 	public function filename(string $name, string $suffix): string
 	{
@@ -39,44 +35,43 @@ class Base
 
 
 	/**
-	 * Check column names for parentheses.
-	 * @throws Exception
+	 * Validate column name, check for parentheses.
+	 * @throws ValidateColumnException
 	 */
 	public function validateColumn(string $table, string $column): void
 	{
 		if (str_contains($column, '(')) {
-			throw new ValidateColumnException('Wrong column name ' . $column . ' in table ' .
-				$table . ', change name or use AS');
+			throw new ValidateColumnException("Invalid column name '$column' in table '$table'. Use 'AS' or change the name.");
 		}
 	}
 
 
 	/**
-	 * Type detection.
+	 * Detect the column's native type.
 	 */
 	public function detectType(string $type): string
 	{
 		static $patterns = [
 			'BYTEA|BLOB|BIN' => Type::Binary,
-			'TEXT|CHAR|POINT|INTERVAL|STRING' => Type::text,
-			'YEAR|BYTE|COUNTER|SERIAL|INT|LONG|SHORT' => Type::Integer,
-			'CURRENCY|REAL|MONEY|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => Type::Float,
+			'TEXT|CHAR|STRING' => Type::Text,
+			'YEAR|INT|LONG' => Type::Integer,
+			'CURRENCY|MONEY' => Type::Float,
 			'DATE|TIME' => Type::Date,
 			'BOOL' => Type::Bool,
 		];
 
-		foreach ($patterns as $s => $val) {
-			if (preg_match("#$s#i", $type)) {
-				$item = $val;
+		foreach ($patterns as $pattern => $typeConstant) {
+			if (preg_match("#$pattern#i", $type)) {
+				return $typeConstant;
 			}
 		}
 
-		return $item ?? Type::text;
+		return Type::Text;
 	}
 
 
 	/**
-	 * Table references.
+	 * Get foreign key references for the table.
 	 */
 	public function getReferencesTable(string $table): array
 	{
@@ -85,10 +80,9 @@ class Base
 			foreach ($this->repository->getForeignKeys($table) as $foreign) {
 				$ref[$foreign['local'][0]] = $foreign['table'];
 			}
-		} catch (Throwable) {
-			// I don't need an announcement ...
+		} catch (Throwable $e) {
+			// Silent fail: no need to report errors
 		}
-
 		return $ref;
 	}
 }

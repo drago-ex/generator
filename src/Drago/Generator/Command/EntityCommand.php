@@ -18,16 +18,18 @@ use Throwable;
 
 
 /**
- * Command for generate entity.
+ * Command for generating an entity class from a database table.
  */
 class EntityCommand extends Command
 {
-	/**
-	 * The name of the command.
-	 */
+	/** @var string Command name */
 	protected static $defaultName = 'make:entity';
 
 
+	/**
+	 * Constructor for EntityCommand.
+	 * @param EntityGenerator $generatorEntity
+	 */
 	public function __construct(
 		private readonly EntityGenerator $generatorEntity,
 	) {
@@ -40,20 +42,24 @@ class EntityCommand extends Command
 	 */
 	protected function configure(): void
 	{
-		$this->setName(self::$defaultName)
-			->setDescription('Generating entity from database.')
-			->addArgument('table', InputArgument::OPTIONAL);
+		$this->setDescription('Generates an entity class from a database table.')
+			->addArgument('table', InputArgument::OPTIONAL, 'The name of the database table');
 	}
 
 
 	/**
-	 * Executes the current command.
+	 * Executes the command.
 	 * @throws Throwable
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->generatorEntity->runGeneration($input->getArgument('table'));
-		$output->writeln('Generation was successful.');
+		try {
+			$this->generatorEntity->runGeneration($input->getArgument('table'));
+			$output->writeln('Generation was successful.');
+		} catch (Throwable $exception) {
+			$output->writeln('<error>Error: ' . $exception->getMessage() . '</error>');
+			return Command::FAILURE;
+		}
 
 		return Command::SUCCESS;
 	}

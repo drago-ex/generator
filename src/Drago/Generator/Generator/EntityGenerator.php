@@ -19,16 +19,18 @@ use Throwable;
 
 
 /**
- * Generating entity class.
+ * Generates entity class based on database schema.
  */
 class EntityGenerator extends Base implements IGenerator
 {
 	/**
-	 * Run generate.
+	 * Runs the generation process for a specific table or all tables.
+	 *
+	 * @param string|null $table The table name to generate for, or null for all tables.
 	 * @throws Exception
 	 * @throws Throwable
 	 */
-	public function runGeneration(null|string $table = null): void
+	public function runGeneration(?string $table = null): void
 	{
 		if ($table !== null) {
 			$this->createPhpFile($table);
@@ -41,100 +43,92 @@ class EntityGenerator extends Base implements IGenerator
 
 
 	/**
-	 * Creating php file.
+	 * Creates a PHP file for a given table.
+	 *
+	 * @param string $table The table name to generate the class for.
 	 * @throws Exception
 	 * @throws Throwable
 	 */
 	public function createPhpFile(string $table): void
 	{
-		// Options for generator.
+		// Get options for the generator.
 		$options = $this->options;
 
-		// Create filename and add suffix.
+		// Create the class filename and add suffix.
 		$name = $this->filename($table, $options->suffix);
 
-		// Generating a class.
+		// Generate the class.
 		$class = new ClassType($name);
 
-		// Add final keyword
+		// Add final modifier if required.
 		if ($options->final) {
 			$class->setFinal();
 		}
 
-		// Add extends class.
+		// Add extends class if required.
 		if ($options->extendsOn) {
 			$class->setExtends($options->extends);
 		}
 
-		// Get references.
+		// Get references for the table.
 		$references = $this->getReferencesTable($table);
 
-		// Add the constant table.
+		// Add the constant for table name.
 		$tableName = $this->options->tableName ?? 'Table';
 		$class->addConstant($tableName, $table)
 			->setPublic();
 
-		// Get all columns names from table.
+		// Process each column from the table.
 		foreach ($this->repository->getColumnNames($table) as $column) {
 
-			// Convert large characters to lowercase.
+			// Convert column name to lowercase if required.
 			if ($options->lower) {
 				$column = Strings::lower($column);
 			}
 
-			// Check column names for parentheses.
+			// Validate column names.
 			$this->validateColumn($table, $column);
 
-			// Get column attribute information.
+			// Get column attributes.
 			$attr = $this->repository->getColumn($table, $column);
 
-			// Add the constant primary key.
+			// Add constant for primary key if applicable.
 			if ($attr->isAutoIncrement()) {
 				$primaryKey = $this->options->primaryKey ?? 'Id';
 				$class->addConstant($primaryKey, $column)
 					->setPublic();
 			}
 
-			// Add other constants.
+			// Add constants for other columns.
 			if ($options->constant) {
-				$cp = $this->options->constantPrefix;
-				$constant = $cp
-					? $cp . $this->inflector->classify($column)
+				$constant = $this->options->constantPrefix
+					? $this->options->constantPrefix . $this->inflector->classify($column)
 					: $this->inflector->classify($column);
 
+				// Skip auto-increment columns for constant.
 				if (!$attr->isAutoIncrement()) {
 					$class->addConstant($constant, $column)
 						->setPublic();
 				}
 
-				// Add to constant column size information
-				if ($options->constantSize) {
-					if (!$attr->isAutoIncrement() && $attr->getSize() > 0) {
-						$class->addConstant($constant . 'Size', $attr->getSize())
-							->setPublic();
-					}
+				// Add constant for column size if required.
+				if ($options->constantSize && !$attr->isAutoIncrement() && $attr->getSize() > 0) {
+					$class->addConstant($constant . 'Size', $attr->getSize())
+						->setPublic();
 				}
 			}
 
-			// Detect native type.
+			// Detect the column's native type.
 			$detectType = $this->detectType($attr->getNativeType());
 
-			// Add attributes to the entity.
-			if ($attr->isAutoIncrement()) {
-				$create = $class->addProperty($column)
-					->setType($detectType)
-					->setNullable()
-					->setPublic();
+			// Add property for the column.
+			$create = $class->addProperty($column)
+				->setType($detectType)
+				->setNullable($attr->isNullable())
+				->setInitialized($attr->isNullable())
+				->setPublic();
 
-			} else {
-				$create = $class->addProperty($column)
-					->setType($detectType)
-					->setNullable($attr->isNullable())
-					->setInitialized($attr->isNullable())
-					->setPublic();
-			}
-
-			// Add basic column info.
+			// Add column info comments.
 			if ($this->options->columnInfo) {
 				if ($attr->isAutoIncrement()) {
 					$create->addComment('Primary key');
@@ -149,7 +143,7 @@ class EntityGenerator extends Base implements IGenerator
 				}
 			}
 
-			// Add reference to table.
+			// Add reference to another table if applicable.
 			if ($options->references && isset($references[$column])) {
 				$filename = $this->filename($references[$column], $options->suffix);
 				$class->addProperty($references[$column])
@@ -158,7 +152,7 @@ class EntityGenerator extends Base implements IGenerator
 			}
 		}
 
-		// Generate PHP file.
+		// Generate the PHP file content.
 		$file = new PhpFile;
 		$file->addComment('This file was generated by Drago Generator.')
 			->setStrictTypes()
@@ -166,6 +160,7 @@ class EntityGenerator extends Base implements IGenerator
 			->addUse('Drago')
 			->add($class);
 
+		// Write the generated PHP file to the filesystem.
 		$path = $options->path . '/' . $name . '.php';
 		FileSystem::write($path, $file->__toString());
 	}

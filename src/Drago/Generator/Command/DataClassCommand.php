@@ -18,16 +18,18 @@ use Throwable;
 
 
 /**
- * Command for generate data class.
+ * Command for generating a data class from a database table.
  */
 class DataClassCommand extends Command
 {
-	/**
-	 * The name of the command.
-	 */
+	/** @var string Command name */
 	protected static $defaultName = 'make:dataClass';
 
 
+	/**
+	 * Constructor for DataClassCommand.
+	 * @param DataClassGenerator $dataClassGenerator
+	 */
 	public function __construct(
 		private readonly DataClassGenerator $dataClassGenerator,
 	) {
@@ -40,19 +42,24 @@ class DataClassCommand extends Command
 	 */
 	protected function configure(): void
 	{
-		$this->setName(self::$defaultName)
-			->setDescription('Generating entity from database.')
-			->addArgument('table', InputArgument::OPTIONAL);
+		$this->setDescription('Generates entity classes from a database table.')
+			->addArgument('table', InputArgument::OPTIONAL, 'The name of the database table');
 	}
 
 
 	/**
+	 * Executes the command.
 	 * @throws Throwable
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->dataClassGenerator->runGeneration($input->getArgument('table'));
-		$output->writeln('Generation was successful.');
+		try {
+			$this->dataClassGenerator->runGeneration($input->getArgument('table'));
+			$output->writeln('Generation was successful.');
+		} catch (Throwable $exception) {
+			$output->writeln('<error>Error: ' . $exception->getMessage() . '</error>');
+			return Command::FAILURE;
+		}
 
 		return Command::SUCCESS;
 	}

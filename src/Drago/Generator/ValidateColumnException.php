@@ -12,6 +12,10 @@ namespace Drago\Generator;
 use Exception;
 
 
+/**
+ * Custom exception for validating columns.
+ */
 class ValidateColumnException extends Exception
 {
+	// Custom exception class for validation
 }
