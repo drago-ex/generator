@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Drago\Generator\Command;
 
 use Drago\Generator\Generator\EntityGenerator;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,12 +21,9 @@ use Throwable;
 /**
  * Command for generating an entity class from a database table.
  */
+#[AsCommand(name: 'app:entity')]
 class EntityCommand extends Command
 {
-	/** @var string Command name */
-	protected static $defaultName = 'make:entity';
-
-
 	/**
 	 * Constructor for EntityCommand.
 	 * @param EntityGenerator $generatorEntity
