@@ -37,7 +37,7 @@ generator:
 # symfony console
 console:
 	name: Symfony Console
-	lazy: false
+	version: '1.0'
 
 
 # database connection
