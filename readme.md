@@ -35,10 +35,10 @@ https://github.com/drago-ex/generator/blob/master/src/Drago/Generator/Options.ph
 
 | Command                | Description
 | ---------------------- | -----------------------------------------------------|
-| `make:entity`          | Generates all entities.                              |
-| `make:entity table`    | Generates one entity according to the table name.    |
-| `make:dataClass`       | Generates all form data.                             |
-| `make:dataClass table` | Generates one form data according to the table name. |
+| `app:entity`          | Generates all entities.                              |
+| `app:entity table`    | Generates one entity according to the table name.    |
+| `app:dataClass`       | Generates all form data.                             |
+| `app:dataClass table` | Generates one form data according to the table name. |
 
 ## Prepared package for generator
 
