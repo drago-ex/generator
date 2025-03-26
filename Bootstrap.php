@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Symfony\Component\Console\Application;
+
 
 class Bootstrap
 {
@@ -12,5 +14,17 @@ class Bootstrap
 		$app->setTempDirectory(__DIR__ . '/');
 		$app->addConfig(__DIR__ . '/config.neon');
 		return $app;
+	}
+
+
+	/**
+	 * @throws Exception
+	 */
+	public static function console(): Application
+	{
+		return self::boot()
+			->createContainer()
+			->getByType(Application::class)
+			->run();
 	}
 }

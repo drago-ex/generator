@@ -93,11 +93,13 @@ class DataClassGenerator extends Base implements IGenerator
 					: $this->inflector->classify($column);
 
 				$class->addConstant($constant, $column)
+					->setType('string')
 					->setPublic();
 
 				// Add constant for column size if required.
 				if ($options->constantSizeDataClass && !$attr->isAutoIncrement() && $attr->getSize() > 0) {
 					$class->addConstant($constant . 'Size', $attr->getSize())
+						->setType('integer')
 						->setPublic();
 				}
 			}

@@ -29,8 +29,6 @@ readonly class Repository
 
 	/**
 	 * Get database information.
-	 *
-	 * @return Database
 	 */
 	private function getDatabaseInfo(): Database
 	{
@@ -41,8 +39,6 @@ readonly class Repository
 	/**
 	 * Get table information by name.
 	 *
-	 * @param string $name
-	 * @return Table
 	 * @throws Exception
 	 */
 	public function getTable(string $name): Table
@@ -54,7 +50,6 @@ readonly class Repository
 	/**
 	 * Get all table names in the database.
 	 *
-	 * @return string[]
 	 */
 	public function getTableNames(): array
 	{
@@ -65,8 +60,6 @@ readonly class Repository
 	/**
 	 * Get all column names from a specific table.
 	 *
-	 * @param string $table
-	 * @return string[]
 	 * @throws Exception
 	 */
 	public function getColumnNames(string $table): array
@@ -78,9 +71,6 @@ readonly class Repository
 	/**
 	 * Get column information by table and column name.
 	 *
-	 * @param string $table
-	 * @param string $column
-	 * @return Column
 	 * @throws Exception
 	 */
 	public function getColumn(string $table, string $column): Column
@@ -91,9 +81,6 @@ readonly class Repository
 
 	/**
 	 * Get foreign key metadata for a table.
-	 *
-	 * @param string $table
-	 * @return array
 	 */
 	public function getForeignKeys(string $table): array
 	{

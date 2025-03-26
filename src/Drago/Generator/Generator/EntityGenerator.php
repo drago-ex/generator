@@ -96,6 +96,7 @@ class EntityGenerator extends Base implements IGenerator
 			if ($attr->isAutoIncrement()) {
 				$primaryKey = $this->options->primaryKey ?? 'Id';
 				$class->addConstant($primaryKey, $column)
+					->setType('string')
 					->setPublic();
 			}
 
@@ -108,12 +109,14 @@ class EntityGenerator extends Base implements IGenerator
 				// Skip auto-increment columns for constant.
 				if (!$attr->isAutoIncrement()) {
 					$class->addConstant($constant, $column)
+						->setType('string')
 						->setPublic();
 				}
 
 				// Add constant for column size if required.
 				if ($options->constantSize && !$attr->isAutoIncrement() && $attr->getSize() > 0) {
 					$class->addConstant($constant . 'Size', $attr->getSize())
+						->setType('string')
 						->setPublic();
 				}
 			}

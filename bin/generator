@@ -13,7 +13,4 @@ if (
 	exit(1);
 }
 
-exit(Bootstrap::boot()
-	->createContainer()
-	->getByType(Application::class)
-	->run());
+exit(Bootstrap::console());
