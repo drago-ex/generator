@@ -49,7 +49,6 @@ readonly class Repository
 
 	/**
 	 * Get all table names in the database.
-	 *
 	 */
 	public function getTableNames(): array
 	{
@@ -59,7 +58,6 @@ readonly class Repository
 
 	/**
 	 * Get all column names from a specific table.
-	 *
 	 * @throws Exception
 	 */
 	public function getColumnNames(string $table): array
