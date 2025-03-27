@@ -76,6 +76,7 @@ class EntityGenerator extends Base implements IGenerator
 		// Add the constant for table name.
 		$tableName = $this->options->tableName ?? 'Table';
 		$class->addConstant($tableName, $table)
+			->setType('string')
 			->setPublic();
 
 		// Process each column from the table.
