@@ -20,7 +20,7 @@ class Bootstrap
 	/**
 	 * @throws Exception
 	 */
-	public static function console(): Application
+	public static function console(): int
 	{
 		return self::boot()
 			->createContainer()
