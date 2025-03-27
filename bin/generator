@@ -1,7 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-require __DIR__ . '/../Bootstrap.php';
+use bin\Console;
+
+require __DIR__ . '/Console.php';
 
 if (
 	!(is_file($file = __DIR__ . '/../vendor/autoload.php') && include $file) &&
@@ -11,4 +13,4 @@ if (
 	exit(1);
 }
 
-exit(Bootstrap::console());
+exit(Console::console());

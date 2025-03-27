@@ -2,14 +2,18 @@
 
 declare(strict_types=1);
 
+namespace bin;
+
+use Exception;
+use Nette\Bootstrap\Configurator;
 use Symfony\Component\Console\Application;
 
 
-class Bootstrap
+class Console
 {
-	public static function boot(): Nette\Bootstrap\Configurator
+	public static function boot(): Configurator
 	{
-		$app = new Nette\Bootstrap\Configurator();
+		$app = new Configurator();
 		$app->setDebugMode(true);
 		$app->setTempDirectory(__DIR__ . '/');
 		$app->addConfig(__DIR__ . '/config.neon');
