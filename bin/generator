@@ -1,8 +1,6 @@
 #!/usr/bin/env php
 <?php
 
-use Contributte\Console\Application;
-
 require __DIR__ . '/../Bootstrap.php';
 
 if (
