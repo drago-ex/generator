@@ -16,7 +16,7 @@ interface for creating classes and using them in your projects.
 
 ## Installation
 ```
-composer require drago-ex/generator
+composer require-dev drago-ex/generator
 ```
 
 ## Extension registration
