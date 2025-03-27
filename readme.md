@@ -19,12 +19,6 @@ interface for creating classes and using them in your projects.
 composer require drago-ex/generator
 ```
 
-## Extension registration
-```neon
-extensions:
-	generator: Drago\Generator\DI\GeneratorExtension
-```
-
 ## Generator settings
 All settings of entities and data form can be found in Options.php
 
