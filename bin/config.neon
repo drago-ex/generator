@@ -16,6 +16,7 @@ generator:
 	columnInfo: false
 	constant: true
 	constantSize: false
+	constantPrefix: 'Column'
 	references: false
 	suffix: Entity
 	extendsOn: true
@@ -27,6 +28,7 @@ generator:
 	pathDataClass: %appDir%/DataClass
 	constantDataClass: true
 	constantSizeDataClass: true
+	constantDataPrefix: 'Form'
 	referencesDataClass: false
 	suffixDataClass: Data
 	extendsDataClass: Drago\Utils\ExtraArrayHash
