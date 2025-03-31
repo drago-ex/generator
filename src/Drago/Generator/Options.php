@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Drago\Generator;
 
-use Drago\Database\Entity;
-use Drago\Utils\ExtraArrayHash;
+use Dibi\Row;
+use Nette\Utils\ArrayHash;
 
 
 /**
@@ -92,7 +92,7 @@ class Options
 	 * Add extends class.
 	 * @var string
 	 */
-	public string $extends = Entity::class;
+	public string $extends = Row::class;
 
 	/**
 	 * Add final keyword.
@@ -148,7 +148,7 @@ class Options
 	 * Add extends class in data class.
 	 * @var string
 	 */
-	public string $extendsDataClass = ExtraArrayHash::class;
+	public string $extendsDataClass = ArrayHash::class;
 
 	/**
 	 * Add final keyword in data class.
