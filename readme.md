@@ -19,13 +19,6 @@ interface for creating classes and using them in your projects.
 composer require drago-ex/generator
 ```
 
-## Tip
-
-If you are using dibi in your project, you can use the package https://github.com/drago-ex/database and in the configuration file set the already created classes for entities.
-```neon
-extends: Drago\Database\Entity
-```
-
 ## Generator settings
 All settings of entities and data form can be found in Options.php
 
