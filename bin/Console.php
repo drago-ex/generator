@@ -16,7 +16,7 @@ class Console
 		$app = new Configurator();
 		$app->setDebugMode(true);
 		$app->setTempDirectory(__DIR__ . '/');
-		$app->addConfig(__DIR__ . '/config.neon');
+		$app->addConfig(__DIR__ . '/generator.neon');
 		return $app;
 	}
 
