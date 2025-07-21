@@ -86,7 +86,7 @@ class GeneratorExtension extends CompilerExtension
 			->setArguments(['@generator.wordInflector', '@generator.wordInflector']);
 
 		// Process configuration options
-		$schemaProcessor = new Processor();
+		$schemaProcessor = new Processor;
 		$normalizedConfig = $schemaProcessor->process(Expect::from(new Options), $this->config);
 
 		// Register entity generator service
