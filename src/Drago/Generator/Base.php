@@ -58,9 +58,9 @@ class Base
 	{
 		static $patterns = [
 			'BYTEA|BLOB|BIN' => Type::Binary,
-			'TEXT|CHAR|STRING' => Type::Text,
-			'YEAR|INT|LONG' => Type::Integer,
-			'CURRENCY|MONEY' => Type::Float,
+			'TEXT|CHAR|STRING|POINT|INTERVAL' => Type::Text,
+			'YEAR|INT|LONG|SHORT|COUNTER|SERIAL|BYTE' => Type::Integer,
+			'CURRENCY|MONEY|REAL|FLOAT|DOUBLE|DECIMAL|NUMERIC|NUMBER' => Type::Float,
 			'DATE|TIME' => Type::Date,
 			'BOOL' => Type::Bool,
 		];
