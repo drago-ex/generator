@@ -1,6 +1,5 @@
 # nette extensions
 extensions:
-	dibi: Dibi\Bridges\Nette\DibiExtension22
 	console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
 	generator: Drago\Generator\DI\GeneratorExtension
 
@@ -40,13 +39,3 @@ generator:
 console:
 	name: Symfony Console
 	version: '1.0'
-
-
-# database connection
-dibi:
-	host: localhost
-	username:
-	password:
-	database:
-	driver: mysqli
-	lazy: true
