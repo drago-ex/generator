@@ -53,7 +53,7 @@ class DataClassCommand extends Command
 	{
 		try {
 			$this->dataClassGenerator->runGeneration($input->getArgument('table'));
-			$output->writeln('Generation was successful.');
+			$output->writeln('✅ Generation was successful.');
 		} catch (Throwable $exception) {
 			$output->writeln('<error>Error: ' . $exception->getMessage() . '</error>');
 			return Command::FAILURE;
