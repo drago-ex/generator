@@ -11,11 +11,11 @@ Drago Generator is built on Nette, Dibi, and Symfony Console, and allows you to 
 [![Coverage Status](https://coveralls.io/repos/github/drago-ex/generator/badge.svg?branch=master)](https://coveralls.io/github/drago-ex/generator?branch=master)
 
 ## Requirements
-PHP >= 8.3
-Nette Framework
-Symfony Console
-Dibi
-Composer
+- PHP >= 8.3
+- Nette Framework
+- Symfony Console
+- Dibi
+- Composer
 
 ## Installation
 ```
@@ -100,7 +100,7 @@ php vendor/bin/generator app:dataClass orders
 ## Generator settings
 All settings of entities and data form can be found in Options.php
 
-Notes
+## Notes
 - Designed for Nette Framework projects.
 - CLI binary expects a project with app/Bootstrap.php.
 - For non-Nette projects, a custom bootstrap is required.
