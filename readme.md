@@ -57,7 +57,7 @@ generator:
 	suffixDataClass: Data
 	extendsDataClass: Drago\Utils\ExtraArrayHash
 	finalDataClass: false
-	namespaceDataClass: App\Data
+	namespaceDataClass: App\DataClass
 
 # symfony console
 console:
