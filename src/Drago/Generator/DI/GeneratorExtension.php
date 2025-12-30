@@ -85,10 +85,10 @@ final class GeneratorExtension extends CompilerExtension
 			]);
 
 		// Normalize config
-		$processor = new Processor();
+		$processor = new Processor;
 		$options = $processor->process(
 			Expect::from(new Options),
-			$this->config
+			$this->config,
 		);
 
 		// Entity generator
