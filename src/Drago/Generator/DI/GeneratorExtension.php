@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Drago Extension
- * Package built on Nette Framework
- */
-
 declare(strict_types=1);
 
 namespace Drago\Generator\DI;
@@ -20,20 +15,24 @@ use Drago\Generator\Options;
 use Drago\Generator\Repository;
 use Drago\Utils\ExtraArrayHash;
 use Nette\DI\CompilerExtension;
+use Nette\DI\Definitions\ServiceDefinition;
 use Nette\Schema\Expect;
 use Nette\Schema\Processor;
 use Nette\Schema\Schema;
+use Symfony\Component\Console\Command\Command;
 
 
-/**
- * Compiler extension to register services for generator.
- */
-class GeneratorExtension extends CompilerExtension
+final class GeneratorExtension extends CompilerExtension
 {
-	/**
-	 * Defines the configuration schema.
-	 * @return Schema
-	 */
+	private bool $consoleMode;
+
+
+	public function __construct(bool $consoleMode = false)
+	{
+		$this->consoleMode = $consoleMode;
+	}
+
+
 	public function getConfigSchema(): Schema
 	{
 		return Expect::structure([
@@ -51,6 +50,8 @@ class GeneratorExtension extends CompilerExtension
 			'extends' => Expect::string(Entity::class),
 			'final' => Expect::bool(false),
 			'namespace' => Expect::string('App\Entity'),
+
+			// Data class
 			'pathDataClass' => Expect::string(''),
 			'constantDataClass' => Expect::bool(true),
 			'constantDataPrefix' => Expect::string()->nullable(),
@@ -64,47 +65,71 @@ class GeneratorExtension extends CompilerExtension
 	}
 
 
-	/**
-	 * Loads configuration and registers services.
-	 * @throws \Exception
-	 */
 	public function loadConfiguration(): void
 	{
 		$builder = $this->getContainerBuilder();
 
-		// Register repository service
+		// Repository
 		$builder->addDefinition($this->prefix('repository'))
 			->setFactory(Repository::class);
 
-		// Register word inflector service
+		// Word inflector
 		$builder->addDefinition($this->prefix('wordInflector'))
 			->setFactory(NoopWordInflector::class);
 
-		// Register inflector service with injected dependencies
+		// Inflector
 		$builder->addDefinition($this->prefix('inflector'))
-			->setFactory(Inflector::class)
-			->setArguments(['@generator.wordInflector', '@generator.wordInflector']);
+			->setFactory(Inflector::class, [
+				'@' . $this->prefix('wordInflector'),
+				'@' . $this->prefix('wordInflector'),
+			]);
 
-		// Process configuration options
-		$schemaProcessor = new Processor;
-		$normalizedConfig = $schemaProcessor->process(Expect::from(new Options), $this->config);
+		// Normalize config
+		$processor = new Processor();
+		$options = $processor->process(
+			Expect::from(new Options),
+			$this->config
+		);
 
-		// Register entity generator service
-		$builder->addDefinition($this->prefix('generator'))
-			->setFactory(EntityGenerator::class)
-			->setArguments(['@generator.repository', $normalizedConfig, '@generator.inflector']);
+		// Entity generator
+		$builder->addDefinition($this->prefix('entityGenerator'))
+			->setFactory(EntityGenerator::class, [
+				'@' . $this->prefix('repository'),
+				$options,
+				'@' . $this->prefix('inflector'),
+			]);
 
-		// Register data class generator service
-		$builder->addDefinition($this->prefix('generatorDataClass'))
-			->setFactory(DataClassGenerator::class)
-			->setArguments(['@generator.repository', $normalizedConfig, '@generator.inflector']);
+		// Data class generator
+		$builder->addDefinition($this->prefix('dataClassGenerator'))
+			->setFactory(DataClassGenerator::class, [
+				'@' . $this->prefix('repository'),
+				$options,
+				'@' . $this->prefix('inflector'),
+			]);
 
-		// Register entity command
-		$builder->addDefinition($this->prefix('command'))
-			->setFactory(EntityCommand::class);
+		// CLI commands
+		if ($this->consoleMode) {
+			$builder->addDefinition($this->prefix('entityCommand'))
+				->setFactory(EntityCommand::class);
 
-		// Register data class command
-		$builder->addDefinition($this->prefix('dataClassCommand'))
-			->setFactory(DataClassCommand::class);
+			$builder->addDefinition($this->prefix('dataClassCommand'))
+				->setFactory(DataClassCommand::class);
+		}
+	}
+
+
+	public function beforeCompile(): void
+	{
+		if (!$this->consoleMode) {
+			return;
+		}
+
+		$builder = $this->getContainerBuilder();
+		$commands = $builder->findByType(Command::class);
+
+		foreach ($commands as $serviceName => $serviceDef) {
+			assert($serviceDef instanceof ServiceDefinition);
+			$serviceDef->addTag('console.command');
+		}
 	}
 }

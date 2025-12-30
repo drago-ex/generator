@@ -14,7 +14,7 @@
 		"contributte/console": "^0.10",
 		"doctrine/inflector": "^2.0",
 		"drago-ex/utils": "^1.0",
-		"dibi/dibi": "^5.0",
+	  	"drago-ex/database": "^2.0",
 		"nette/php-generator": "^4.1"
 	},
 	"require-dev": {
@@ -23,6 +23,9 @@
 		"tracy/tracy": "^2.10",
 		"phpstan/phpstan-nette": "^1.2.9"
 	},
+	"bin": [
+		"bin/generator"
+	],
 	"autoload": {
 		"classmap": ["src/"]
 	},
