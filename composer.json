@@ -1,7 +1,7 @@
 {
 	"name": "drago-ex/generator",
 	"type": "library",
-	"description": "A tool for generating PHP entities and form data classes, built on PHP 8.3 and Nette Framework.",
+	"description": "A lightweight CLI tool for generating PHP entity and data class files from your database schema.",
 	"license": ["MIT"],
 	"authors": [
 		{
