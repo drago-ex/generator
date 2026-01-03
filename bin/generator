@@ -24,7 +24,7 @@ if (!is_file($bootstrapFile)) {
 require $bootstrapFile;
 
 // Bootstrapping console application
-$bootstrap = new \App\Bootstrap();
+$bootstrap = new \App\Bootstrap;
 $container = $bootstrap->bootConsoleApplication();
 
 /** @var Application $app */
