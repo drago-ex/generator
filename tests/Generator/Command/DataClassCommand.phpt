@@ -8,18 +8,34 @@ declare(strict_types=1);
 
 use Drago\Generator\Command\DataClassCommand;
 use Tester\Assert;
+use Tester\TestCase;
 
 require __DIR__ . '/../../bootstrap.php';
 
 
-function generator(): TestGenerator
+class DataClassCommandTest extends TestCase
 {
-	return new TestGenerator;
+	private function generator(): TestGenerator
+	{
+		return new TestGenerator;
+	}
+
+
+	public function testDataClassCommand(): void
+	{
+		$generator = $this->generator()->createDataClassGenerator(
+			$this->generator()->repository()->mysql(),
+			$this->generator()->options(),
+		);
+
+		$generatorCommand = new DataClassCommand($generator);
+
+		Assert::type(
+			DataClassCommand::class,
+			$generatorCommand,
+		);
+	}
 }
 
 
-test('Data class command', function () {
-	$generator = generator()->createDataClassGenerator(generator()->repository()->mysql(), generator()->options());
-	$generatorCommand = new DataClassCommand($generator);
-	Assert::type(DataClassCommand::class, $generatorCommand);
-});
+(new DataClassCommandTest)->run();
