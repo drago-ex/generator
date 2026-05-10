@@ -1,14 +1,12 @@
-## Drago Generator
-A lightweight CLI tool for generating PHP entity and data class files from your database schema.
+﻿# Drago Generator
 
+A lightweight CLI tool for generating PHP entity and data class files from your database schema.
 Drago Generator is built on Nette, Dibi, and Symfony Console, and allows you to create ready-to-use PHP classes for your tables with configurable constants, references, suffixes, and namespaces.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/drago-ex/generator/master/license)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/drago-ex/generator/blob/master/license)
 [![PHP version](https://badge.fury.io/ph/drago-ex%2Fgenerator.svg)](https://badge.fury.io/ph/drago-ex%2Fgenerator)
 [![Tests](https://github.com/drago-ex/generator/actions/workflows/tests.yml/badge.svg)](https://github.com/drago-ex/generator/actions/workflows/tests.yml)
 [![Coding Style](https://github.com/drago-ex/generator/actions/workflows/coding-style.yml/badge.svg)](https://github.com/drago-ex/generator/actions/workflows/coding-style.yml)
-[![CodeFactor](https://www.codefactor.io/repository/github/drago-ex/generator/badge)](https://www.codefactor.io/repository/github/drago-ex/generator)
-[![Coverage Status](https://coveralls.io/repos/github/drago-ex/generator/badge.svg?branch=master)](https://coveralls.io/github/drago-ex/generator?branch=master)
 
 ## Requirements
 - PHP >= 8.3
@@ -20,6 +18,30 @@ Drago Generator is built on Nette, Dibi, and Symfony Console, and allows you to 
 ## Installation
 ```
 composer require drago-ex/generator --dev
+```
+
+## Examples
+Run generation commands using the Composer-installed binary:
+```bash
+# Generate entity classes
+php vendor/bin/generator app:entity <table>
+
+# Generate data classes
+php vendor/bin/generator app:dataClass <table>
+```
+
+```bash
+# Generate all entities
+php vendor/bin/generator app:entity
+
+# Generate entity for a specific table
+php vendor/bin/generator app:entity users
+
+# Generate all data classes
+php vendor/bin/generator app:dataClass
+
+# Generate data class for a specific table
+php vendor/bin/generator app:dataClass orders
 ```
 
 ## Register Generator Extension in Nette
@@ -63,31 +85,6 @@ generator:
 console:
 	name: Symfony Console
 	version: '1.0'
-```
-
-## Usage
-Run generation commands using the Composer-installed binary:
-```bash
-# Generate entity classes
-php vendor/bin/generator app:entity <table>
-
-# Generate data classes
-php vendor/bin/generator app:dataClass <table>
-```
-
-## Examples
-```bash
-# Generate all entities
-php vendor/bin/generator app:entity
-
-# Generate entity for a specific table
-php vendor/bin/generator app:entity users
-
-# Generate all data classes
-php vendor/bin/generator app:dataClass
-
-# Generate data class for a specific table
-php vendor/bin/generator app:dataClass orders
 ```
 
 ## Features
