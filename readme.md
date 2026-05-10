@@ -1,4 +1,4 @@
-﻿# Drago Generator
+# Drago Generator
 
 A lightweight CLI tool for generating PHP entity and data class files from your database schema.
 Drago Generator is built on Nette, Dibi, and Symfony Console, and allows you to create ready-to-use PHP classes for your tables with configurable constants, references, suffixes, and namespaces.
