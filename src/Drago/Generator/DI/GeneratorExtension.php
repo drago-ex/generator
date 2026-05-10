@@ -13,14 +13,12 @@ use Tester\TestCase;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-Tester\Environment::setup();
-
 
 class TestGeneratorExtension extends TestCase
 {
 	public function createContainer(): Container
 	{
-		$tempDir = sys_get_temp_dir() . '/drago-generator-test';
+		$tempDir = __DIR__ . '/tmp';
 
 		if (!is_dir($tempDir)) {
 			mkdir($tempDir, 0777, true);
