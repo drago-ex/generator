@@ -20,7 +20,6 @@ readonly class Repository
 	}
 
 
-	/** Get database information. */
 	private function getDatabaseInfo(): Database
 	{
 		return $this->db->getDatabaseInfo();

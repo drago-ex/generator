@@ -64,6 +64,7 @@ final class GeneratorExtension extends CompilerExtension
 	}
 
 
+	/** Register services to the container. */
 	public function loadConfiguration(): void
 	{
 		$builder = $this->getContainerBuilder();
@@ -110,6 +111,7 @@ final class GeneratorExtension extends CompilerExtension
 	}
 
 
+	/** Adjustments before compilation. */
 	public function beforeCompile(): void
 	{
 		if (!$this->consoleMode) {

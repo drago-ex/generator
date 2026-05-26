@@ -9,11 +9,7 @@ use Nette\Utils\Strings;
 use Throwable;
 
 
-/**
- * Base class for PHP code generation related to database entities and data classes.
- * Provides utility methods for generating file names, validating columns, detecting types,
- * and handling table references, used by the generators for creating entity and data class files.
- */
+/** Base class for PHP code generation related to database entities and data classes. */
 class Base
 {
 	public function __construct(

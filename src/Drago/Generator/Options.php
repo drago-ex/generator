@@ -11,12 +11,8 @@ use Nette\Utils\ArrayHash;
 /** Options for generating PHP files. */
 class Options
 {
-	/** Base options ------------------------------------------------------------------------------------------------ */
-
 	/** Allow converting uppercase to lowercase keys in arrays (typical of Oracle). */
 	public bool $lower = false;
-
-	/** Options for entity generator -------------------------------------------------------------------------------- */
 
 	/** The path where the classes will be generated. */
 	public string $path = '';
@@ -56,8 +52,6 @@ class Options
 
 	/** Add class namespace. */
 	public string $namespace = 'App\Entity';
-
-	/** Options for data class generator ----------------------------------------------------------------------------- */
 
 	/** The path where the classes will be generated. */
 	public string $pathDataClass = '';

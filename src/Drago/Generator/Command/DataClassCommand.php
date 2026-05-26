@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
 
-/**  Command for generating a data class from a database table. */
+/** Command for generating a data class from a database table. */
 #[AsCommand(name: 'app:dataClass')]
 class DataClassCommand extends Command
 {

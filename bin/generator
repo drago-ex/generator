@@ -7,7 +7,6 @@ use Contributte\Console\Application;
 
 $root = getcwd();
 
-// Composer autoload
 $autoload = $root . '/vendor/autoload.php';
 if (!is_file($autoload)) {
 	fwrite(STDERR, "Composer autoload not found. Run composer install.\n");
@@ -15,7 +14,6 @@ if (!is_file($autoload)) {
 }
 require $autoload;
 
-// Project bootstrap
 $bootstrapFile = $root . '/app/Bootstrap.php';
 if (!is_file($bootstrapFile)) {
 	fwrite(STDERR, "Project Bootstrap not found at app/Bootstrap.php.\n");
@@ -23,7 +21,6 @@ if (!is_file($bootstrapFile)) {
 }
 require $bootstrapFile;
 
-// Bootstrapping console application
 $bootstrap = new \App\Bootstrap;
 $container = $bootstrap->bootConsoleApplication();
 
