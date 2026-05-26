@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Drago Extension
- * Package built on Nette Framework
- */
-
 declare(strict_types=1);
 
 namespace Drago\Generator;
@@ -29,9 +24,7 @@ class Base
 	}
 
 
-	/**
-	 * Create filename by adding the suffix.
-	 */
+	/** Create filename by adding the suffix. */
 	public function filename(string $name, string $suffix): string
 	{
 		$filename = $this->inflector->classify(Strings::lower($name));
@@ -51,9 +44,7 @@ class Base
 	}
 
 
-	/**
-	 * Detect the column's native type.
-	 */
+	/** Detect the column's native type. */
 	public function detectType(string $type): string
 	{
 		static $patterns = [
@@ -77,13 +68,17 @@ class Base
 
 	/**
 	 * Get foreign key references for the table.
+	 * @return array<string, string>
 	 */
 	public function getReferencesTable(string $table): array
 	{
 		$ref = [];
 		try {
 			foreach ($this->repository->getForeignKeys($table) as $foreign) {
-				$ref[$foreign['local'][0]] = $foreign['table'];
+				if (!isset($foreign['local'], $foreign['table'])) {
+					continue;
+				}
+				$ref[$foreign['local'][0]] = (string) $foreign['table'];
 			}
 		} catch (Throwable $e) {
 			// Silent fail: no need to report errors

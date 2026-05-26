@@ -22,6 +22,7 @@ use Nette\Schema\Schema;
 use Symfony\Component\Console\Command\Command;
 
 
+/** DI extension for registering database schema generators. */
 final class GeneratorExtension extends CompilerExtension
 {
 	private bool $consoleMode;
@@ -50,8 +51,6 @@ final class GeneratorExtension extends CompilerExtension
 			'extends' => Expect::string(Entity::class),
 			'final' => Expect::bool(false),
 			'namespace' => Expect::string('App\Entity'),
-
-			// Data class
 			'pathDataClass' => Expect::string(''),
 			'constantDataClass' => Expect::bool(true),
 			'constantDataPrefix' => Expect::string()->nullable(),
@@ -68,30 +67,24 @@ final class GeneratorExtension extends CompilerExtension
 	public function loadConfiguration(): void
 	{
 		$builder = $this->getContainerBuilder();
-
-		// Repository
 		$builder->addDefinition($this->prefix('repository'))
 			->setFactory(Repository::class);
 
-		// Word inflector
 		$builder->addDefinition($this->prefix('wordInflector'))
 			->setFactory(NoopWordInflector::class);
 
-		// Inflector
 		$builder->addDefinition($this->prefix('inflector'))
 			->setFactory(Inflector::class, [
 				'@' . $this->prefix('wordInflector'),
 				'@' . $this->prefix('wordInflector'),
 			]);
 
-		// Normalize config
 		$processor = new Processor;
 		$options = $processor->process(
 			Expect::from(new Options),
 			$this->config,
 		);
 
-		// Entity generator
 		$builder->addDefinition($this->prefix('entityGenerator'))
 			->setFactory(EntityGenerator::class, [
 				'@' . $this->prefix('repository'),
@@ -99,7 +92,6 @@ final class GeneratorExtension extends CompilerExtension
 				'@' . $this->prefix('inflector'),
 			]);
 
-		// Data class generator
 		$builder->addDefinition($this->prefix('dataClassGenerator'))
 			->setFactory(DataClassGenerator::class, [
 				'@' . $this->prefix('repository'),

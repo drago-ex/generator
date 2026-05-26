@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Drago Extension
- * Package built on Nette Framework
- */
-
 declare(strict_types=1);
 
 namespace Drago\Generator\Generator;
@@ -18,15 +13,11 @@ use Nette\Utils\Strings;
 use Throwable;
 
 
-/**
- * Generates data class based on database schema.
- */
+/**  Generates data class based on database schema. */
 class DataClassGenerator extends Base implements IGenerator
 {
 	/**
 	 * Runs the generation process for a specific table or all tables.
-	 *
-	 * @param string|null $table The table name to generate for, or null for all tables.
 	 * @throws Exception
 	 * @throws Throwable
 	 */
@@ -44,8 +35,6 @@ class DataClassGenerator extends Base implements IGenerator
 
 	/**
 	 * Creates a PHP file for a given table.
-	 *
-	 * @param string $table The table name to generate the class for.
 	 * @throws Exception
 	 * @throws Throwable
 	 */

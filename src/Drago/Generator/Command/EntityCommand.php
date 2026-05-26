@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Drago Extension
- * Package built on Nette Framework
- */
-
 declare(strict_types=1);
 
 namespace Drago\Generator\Command;
@@ -18,16 +13,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
 
-/**
- * Command for generating an entity class from a database table.
- */
+/** Command for generating an entity class from a database table. */
 #[AsCommand(name: 'app:entity')]
 class EntityCommand extends Command
 {
-	/**
-	 * Constructor for EntityCommand.
-	 * @param EntityGenerator $generatorEntity
-	 */
 	public function __construct(
 		private readonly EntityGenerator $generatorEntity,
 	) {
@@ -35,9 +24,7 @@ class EntityCommand extends Command
 	}
 
 
-	/**
-	 * Configures the current command.
-	 */
+	/** Configures the current command. */
 	protected function configure(): void
 	{
 		$this->setDescription('Generates an entity class from a database table.')

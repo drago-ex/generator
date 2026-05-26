@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Drago Extension
- * Package built on Nette Framework
- */
-
 declare(strict_types=1);
 
 namespace Drago\Generator;
@@ -13,152 +8,81 @@ use Dibi\Row;
 use Nette\Utils\ArrayHash;
 
 
-/**
- * Options for generating PHP files.
- */
+/** Options for generating PHP files. */
 class Options
 {
 	/** Base options ------------------------------------------------------------------------------------------------ */
 
-	/**
-	 * Allow converting uppercase to lowercase keys in arrays (typical of Oracle).
-	 * @var bool
-	 */
+	/** Allow converting uppercase to lowercase keys in arrays (typical of Oracle). */
 	public bool $lower = false;
 
 	/** Options for entity generator -------------------------------------------------------------------------------- */
 
-	/**
-	 * The path where the classes will be generated.
-	 * @var string
-	 */
+	/** The path where the classes will be generated. */
 	public string $path = '';
 
-	/**
-	 * Custom name for the table in constant.
-	 * @var string|null
-	 */
+	/** Custom name for the table in constant. */
 	public ?string $tableName = null;
 
-	/**
-	 * Custom name for the primary key in the table at the constant.
-	 * @var string|null
-	 */
+	/** Custom name for the primary key in the table at the constant. */
 	public ?string $primaryKey = null;
 
-	/**
-	 * Allow constant.
-	 * @var bool
-	 */
+	/** Allow constant. */
 	public bool $constant = true;
 
-	/**
-	 * Allow basic column info.
-	 * @var bool
-	 */
+	/** Allow basic column info. */
 	public bool $columnInfo = false;
 
-	/**
-	 * Add the name before the constant.
-	 * @var string|null
-	 */
+	/** Add the name before the constant. */
 	public ?string $constantPrefix = null;
 
-	/**
-	 * Allow constant column size.
-	 * @var bool
-	 */
+	/** Allow constant column size. */
 	public bool $constantSize = false;
 
-	/**
-	 * Allow table references in the property.
-	 * @var bool
-	 */
+	/** Allow table references in the property. */
 	public bool $references = false;
 
-	/**
-	 * Add suffix name.
-	 * @var string
-	 */
+	/** Add suffix name. */
 	public string $suffix = 'Entity';
 
-	/**
-	 * Allow extending a class.
-	 * @var bool
-	 */
+	/** Allow extending a class. */
 	public bool $extendsOn = true;
 
-	/**
-	 * Add extends class.
-	 * @var string
-	 */
+	/** Add extends class. */
 	public string $extends = Row::class;
 
-	/**
-	 * Add final keyword.
-	 * @var bool
-	 */
+	/** Add final keyword. */
 	public bool $final = false;
 
-	/**
-	 * Add class namespace.
-	 * @var string
-	 */
+	/** Add class namespace. */
 	public string $namespace = 'App\Entity';
 
 	/** Options for data class generator ----------------------------------------------------------------------------- */
 
-	/**
-	 * The path where the classes will be generated.
-	 * @var string
-	 */
+	/** The path where the classes will be generated. */
 	public string $pathDataClass = '';
 
-	/**
-	 * Allow constant in data class.
-	 * @var bool
-	 */
+	/** Allow constant in data class. */
 	public bool $constantDataClass = true;
 
-	/**
-	 * Allow constant column size in data class.
-	 * @var bool
-	 */
+	/** Allow constant column size in data class. */
 	public bool $constantSizeDataClass = true;
 
-	/**
-	 * Add the name before the constant in data class.
-	 * @var string|null
-	 */
+	/** Add the name before the constant in data class. */
 	public ?string $constantDataPrefix = null;
 
-	/**
-	 * Allow table references in the property in data class.
-	 * @var bool
-	 */
+	/** Allow table references in the property in data class. */
 	public bool $referencesDataClass = false;
 
-	/**
-	 * Add suffix name in data class.
-	 * @var string
-	 */
+	/** Add suffix name in data class. */
 	public string $suffixDataClass = 'Data';
 
-	/**
-	 * Add extends class in data class.
-	 * @var string
-	 */
+	/** Add extends class in data class. */
 	public string $extendsDataClass = ArrayHash::class;
 
-	/**
-	 * Add final keyword in data class.
-	 * @var bool
-	 */
+	/** Add final keyword in data class. */
 	public bool $finalDataClass = false;
 
-	/**
-	 * Add class namespace in data class.
-	 * @var string
-	 */
+	/** Add class namespace in data class. */
 	public string $namespaceDataClass = 'App\Data';
 }

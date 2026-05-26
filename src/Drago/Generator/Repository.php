@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Drago Extension
- * Package built on Nette Framework
- */
-
 declare(strict_types=1);
 
 namespace Drago\Generator;
@@ -16,9 +11,7 @@ use Dibi\Reflection\Database;
 use Dibi\Reflection\Table;
 
 
-/**
- * Repository class for interacting with database metadata.
- */
+/** Repository class for interacting with database metadata. */
 readonly class Repository
 {
 	public function __construct(
@@ -27,9 +20,7 @@ readonly class Repository
 	}
 
 
-	/**
-	 * Get database information.
-	 */
+	/** Get database information. */
 	private function getDatabaseInfo(): Database
 	{
 		return $this->db->getDatabaseInfo();
@@ -38,7 +29,6 @@ readonly class Repository
 
 	/**
 	 * Get table information by name.
-	 *
 	 * @throws Exception
 	 */
 	public function getTable(string $name): Table
@@ -49,6 +39,7 @@ readonly class Repository
 
 	/**
 	 * Get all table names in the database.
+	 * @return array<int, string>
 	 */
 	public function getTableNames(): array
 	{
@@ -58,7 +49,7 @@ readonly class Repository
 
 	/**
 	 * Get all column names from a specific table.
-	 *
+	 * @return array<int, string>
 	 * @throws Exception
 	 */
 	public function getColumnNames(string $table): array
@@ -69,7 +60,6 @@ readonly class Repository
 
 	/**
 	 * Get column information by table and column name.
-	 *
 	 * @throws Exception
 	 */
 	public function getColumn(string $table, string $column): Column
@@ -80,6 +70,15 @@ readonly class Repository
 
 	/**
 	 * Get foreign key metadata for a table.
+	 * @return list<array{
+	 *     name: mixed,
+	 *     table: mixed,
+	 *     column?: mixed,
+	 *     local?: array<string>,
+	 *     foreign?: array<string>|null,
+	 *     onDelete?: string,
+	 *     onUpdate?: string
+	 * }>
 	 */
 	public function getForeignKeys(string $table): array
 	{
