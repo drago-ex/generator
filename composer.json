@@ -13,8 +13,8 @@
 		"php": ">=8.3 <9",
 		"contributte/console": "^0.10",
 		"doctrine/inflector": "^2.0",
-		"drago-ex/utils": "^1.0",
-		"drago-ex/database": "^2.0",
+		"drago-ex/utils": "^2.0",
+		"drago-ex/database": "^3.0",
 		"nette/php-generator": "^4.1"
 	},
 	"require-dev": {
