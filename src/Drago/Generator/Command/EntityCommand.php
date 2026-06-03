@@ -40,9 +40,9 @@ class EntityCommand extends Command
 	{
 		try {
 			$this->generatorEntity->runGeneration($input->getArgument('table'));
-			$output->writeln('✅ Generation was successful.');
+			$output->writeln('<info>OK Generation was successful.</info>');
 		} catch (Throwable $exception) {
-			$output->writeln('❌ <error>Error: ' . $exception->getMessage() . '</error>');
+			$output->writeln('<error>ERROR: ' . $exception->getMessage() . '</error>');
 			return Command::FAILURE;
 		}
 
