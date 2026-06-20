@@ -13,7 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
 
-/** Command for generating a data class from a database table. */
 #[AsCommand(name: 'app:dataClass')]
 class DataClassCommand extends Command
 {
@@ -24,7 +23,6 @@ class DataClassCommand extends Command
 	}
 
 
-	/** Configures the current command. */
 	protected function configure(): void
 	{
 		$this->setDescription('Generates entity classes from a database table.')

@@ -23,24 +23,24 @@ composer require drago-ex/generator --dev
 ## Examples
 Run generation commands using the Composer-installed binary:
 ```bash
-# Generate entity classes
+### Generate entity classes
 php vendor/bin/generator app:entity <table>
 
-# Generate data classes
+### Generate data classes
 php vendor/bin/generator app:dataClass <table>
 ```
 
 ```bash
-# Generate all entities
+### Generate all entities
 php vendor/bin/generator app:entity
 
-# Generate entity for a specific table
+### Generate entity for a specific table
 php vendor/bin/generator app:entity users
 
-# Generate all data classes
+### Generate all data classes
 php vendor/bin/generator app:dataClass
 
-# Generate data class for a specific table
+### Generate data class for a specific table
 php vendor/bin/generator app:dataClass orders
 ```
 
@@ -50,7 +50,7 @@ extensions:
     generator: Drago\Generator\DI\GeneratorExtension(%consoleMode%)
     console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
 
-# generator
+### Generator
 generator:
 	# base (typical of Oracle)
 	lower: false
@@ -81,7 +81,7 @@ generator:
 	finalDataClass: false
 	namespaceDataClass: App\DataClass
 
-# symfony console
+### Symfony Console
 console:
 	name: Symfony Console
 	version: '1.0'

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drago\Generator;
 
 
-/** Data types. */
 final class Type
 {
 	public const string Date = '\DateTimeImmutable';

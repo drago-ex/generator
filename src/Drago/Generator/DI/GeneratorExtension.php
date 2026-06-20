@@ -22,7 +22,6 @@ use Nette\Schema\Schema;
 use Symfony\Component\Console\Command\Command;
 
 
-/** DI extension for registering database schema generators. */
 final class GeneratorExtension extends CompilerExtension
 {
 	private bool $consoleMode;
@@ -64,7 +63,6 @@ final class GeneratorExtension extends CompilerExtension
 	}
 
 
-	/** Register services to the container. */
 	public function loadConfiguration(): void
 	{
 		$builder = $this->getContainerBuilder();
@@ -111,7 +109,6 @@ final class GeneratorExtension extends CompilerExtension
 	}
 
 
-	/** Adjustments before compilation. */
 	public function beforeCompile(): void
 	{
 		if (!$this->consoleMode) {

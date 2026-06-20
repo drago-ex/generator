@@ -9,7 +9,6 @@ use Nette\Utils\Strings;
 use Throwable;
 
 
-/** Base class for PHP code generation related to database entities and data classes. */
 class Base
 {
 	public function __construct(
@@ -20,7 +19,6 @@ class Base
 	}
 
 
-	/** Create filename by adding the suffix. */
 	public function filename(string $name, string $suffix): string
 	{
 		$filename = $this->inflector->classify(Strings::lower($name));
@@ -29,7 +27,7 @@ class Base
 
 
 	/**
-	 * Validate column name, check for parentheses.
+	 * Validates a column name and checks for parentheses.
 	 * @throws ValidateColumnException
 	 */
 	public function validateColumn(string $table, string $column): void
@@ -40,7 +38,6 @@ class Base
 	}
 
 
-	/** Detect the column's native type. */
 	public function detectType(string $type): string
 	{
 		static $patterns = [
@@ -63,7 +60,7 @@ class Base
 
 
 	/**
-	 * Get foreign key references for the table.
+	 * Returns foreign key references for the table.
 	 * @return array<string, string>
 	 */
 	public function getReferencesTable(string $table): array

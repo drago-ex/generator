@@ -13,7 +13,6 @@ use Nette\Utils\Strings;
 use Throwable;
 
 
-/** Generates entity class based on database schema. */
 class EntityGenerator extends Base implements IGenerator
 {
 	/**

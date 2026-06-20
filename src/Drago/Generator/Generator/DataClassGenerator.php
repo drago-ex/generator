@@ -13,7 +13,6 @@ use Nette\Utils\Strings;
 use Throwable;
 
 
-/** Generates data class based on database schema. */
 class DataClassGenerator extends Base implements IGenerator
 {
 	/**

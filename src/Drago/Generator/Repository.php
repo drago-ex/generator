@@ -11,7 +11,6 @@ use Dibi\Reflection\Database;
 use Dibi\Reflection\Table;
 
 
-/** Repository class for interacting with database metadata. */
 readonly class Repository
 {
 	public function __construct(
@@ -27,7 +26,7 @@ readonly class Repository
 
 
 	/**
-	 * Get table information by name.
+	 * Returns table information by name.
 	 * @throws Exception
 	 */
 	public function getTable(string $name): Table
@@ -37,7 +36,7 @@ readonly class Repository
 
 
 	/**
-	 * Get all table names in the database.
+	 * Returns all table names in the database.
 	 * @return array<int, string>
 	 */
 	public function getTableNames(): array
@@ -47,7 +46,7 @@ readonly class Repository
 
 
 	/**
-	 * Get all column names from a specific table.
+	 * Returns all column names from a specific table.
 	 * @return array<int, string>
 	 * @throws Exception
 	 */
@@ -58,7 +57,7 @@ readonly class Repository
 
 
 	/**
-	 * Get column information by table and column name.
+	 * Returns column information by table and column name.
 	 * @throws Exception
 	 */
 	public function getColumn(string $table, string $column): Column
@@ -68,7 +67,7 @@ readonly class Repository
 
 
 	/**
-	 * Get foreign key metadata for a table.
+	 * Returns foreign key metadata for a table.
 	 * @return list<array{
 	 *     name: mixed,
 	 *     table: mixed,
