@@ -9,6 +9,7 @@ Drago Generator is built on Nette, Dibi, and Symfony Console, and allows you to 
 [![Coding Style](https://github.com/drago-ex/generator/actions/workflows/coding-style.yml/badge.svg)](https://github.com/drago-ex/generator/actions/workflows/coding-style.yml)
 
 ## Requirements
+
 - PHP >= 8.3
 - Nette Framework
 - Symfony Console
@@ -16,11 +17,13 @@ Drago Generator is built on Nette, Dibi, and Symfony Console, and allows you to 
 - Composer
 
 ## Installation
+
 ```
 composer require drago-ex/generator --dev
 ```
 
 ## Examples
+
 Run generation commands using the Composer-installed binary:
 ```bash
 # Generate entity classes
@@ -45,6 +48,7 @@ php vendor/bin/generator app:dataClass orders
 ```
 
 ## Register Generator Extension in Nette
+
 ```neon
 extensions:
     generator: Drago\Generator\DI\GeneratorExtension(%consoleMode%)
@@ -88,6 +92,7 @@ console:
 ```
 
 ## Features
+
 - Generate entity and data classes from database tables
 - Configurable constants and column size constants
 - Support for foreign key references
@@ -95,9 +100,11 @@ console:
 - Symfony Console integration for a clean CLI
 
 ## Generator settings
+
 All settings of entities and data form can be found in Options.php
 
 ## Notes
+
 - Designed for Nette Framework projects.
 - CLI binary expects a project with app/Bootstrap.php.
 - For non-Nette projects, a custom bootstrap is required.
