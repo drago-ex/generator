@@ -19,12 +19,6 @@ readonly class Repository
 	}
 
 
-	private function getDatabaseInfo(): Database
-	{
-		return $this->db->getDatabaseInfo();
-	}
-
-
 	/**
 	 * Returns table information by name.
 	 * @throws Exception
@@ -81,5 +75,11 @@ readonly class Repository
 	public function getForeignKeys(string $table): array
 	{
 		return $this->db->getDriver()->getReflector()->getForeignKeys($table);
+	}
+
+
+	private function getDatabaseInfo(): Database
+	{
+		return $this->db->getDatabaseInfo();
 	}
 }
