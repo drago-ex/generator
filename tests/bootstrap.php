@@ -25,4 +25,6 @@ $boot->createRobotLoader()
 	->addDirectory(__DIR__ . '/../src')
 	->register();
 
+require __DIR__ . '/DatabaseTestCase.php';
+
 return $boot->createContainer();

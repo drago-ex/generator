@@ -11,10 +11,10 @@ class Database
 	{
 		$db = [
 			'driver' => 'mysqli',
-			'host' => '127.0.0.1',
-			'username' => 'root',
-			'password' => 'root',
-			'database' => 'test',
+			'host' => getenv('GENERATOR_DB_HOST'),
+			'username' => getenv('GENERATOR_DB_USER') ?: 'root',
+			'password' => getenv('GENERATOR_DB_PASSWORD') ?: 'root',
+			'database' => getenv('GENERATOR_DB_NAME') ?: 'test',
 		];
 		return new Connection($db);
 	}

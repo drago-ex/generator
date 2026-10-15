@@ -2,6 +2,7 @@
 
 /**
  * Test: Drago\Generator\Generator\DataClassGenerator
+ * @testCase
  */
 
 declare(strict_types=1);
@@ -9,12 +10,11 @@ declare(strict_types=1);
 use Drago\Generator\ValidateColumnException;
 use Nette\Utils\FileSystem;
 use Tester\Assert;
-use Tester\TestCase;
 
 require __DIR__ . '/../../bootstrap.php';
 
 
-class DataClassGeneratorTest extends TestCase
+class DataClassGeneratorTest extends DatabaseTestCase
 {
 	private function generator(): TestGenerator
 	{

@@ -10,7 +10,7 @@ Drago Generator is built on Nette, Dibi, and Symfony Console, and allows you to 
 
 ## Requirements
 
-- PHP >= 8.3
+- PHP >= 8.3, < 9
 - Nette Framework
 - Symfony Console
 - Dibi

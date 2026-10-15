@@ -2,18 +2,18 @@
 
 /**
  * Test: Drago\Generator\Command\EntityCommand
+ * @testCase
  */
 
 declare(strict_types=1);
 
 use Drago\Generator\Command\EntityCommand;
 use Tester\Assert;
-use Tester\TestCase;
 
 require __DIR__ . '/../../bootstrap.php';
 
 
-class EntityCommandTest extends TestCase
+class EntityCommandTest extends DatabaseTestCase
 {
 	private function generator(): TestGenerator
 	{

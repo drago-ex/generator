@@ -2,7 +2,7 @@
 	"name": "drago-ex/generator",
 	"description": "A lightweight CLI tool for generating PHP entity and data class files from your database schema.",
 	"type": "library",
-	"license": ["MIT"],
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Zdeněk Papučík",
@@ -24,12 +24,16 @@
 		"phpstan/phpstan-nette": "^2"
 	},
 	"autoload": {
-		"classmap": ["src/"],
+		"classmap": [
+			"src/"
+		],
 		"psr-4": {
 			"Drago\\": "src"
 		}
 	},
-	"bin": ["bin/generator"],
+	"bin": [
+		"bin/generator"
+	],
 	"scripts": {
 		"phpstan": "phpstan analyse",
 		"tester": "tester tests -s"

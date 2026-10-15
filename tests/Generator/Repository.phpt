@@ -2,18 +2,18 @@
 
 /**
  * Test: Drago\Generator\Repository
+ * @testCase
  */
 
 declare(strict_types=1);
 
 use Dibi\Reflection\Column;
 use Tester\Assert;
-use Tester\TestCase;
 
 require __DIR__ . '/../bootstrap.php';
 
 
-class RepositoryTest extends TestCase
+class RepositoryTest extends DatabaseTestCase
 {
 	private function repository(): TestRepository
 	{
