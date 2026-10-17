@@ -8,8 +8,8 @@
 declare(strict_types=1);
 
 use Drago\Generator\ValidateColumnException;
-use Nette\Utils\FileSystem;
 use Tester\Assert;
+use Tester\Helpers;
 
 require __DIR__ . '/../../bootstrap.php';
 
@@ -22,20 +22,11 @@ class EntityGeneratorTest extends DatabaseTestCase
 	}
 
 
-	private function isDirectory(string $dir): void
-	{
-		if (!is_dir($dir)) {
-			FileSystem::createDir($dir);
-		}
-	}
-
-
 	public function testGenerateEntity(): void
 	{
 		$options = $this->generator()->options();
-		$options->path = __DIR__ . '/../../entity';
-
-		$this->isDirectory($options->path);
+		$options->path = TempDir . '/entity';
+		Helpers::purge($options->path);
 
 		$generator = $this->generator()->createEntityGenerator(
 			$this->generator()->repository()->mysql(),
@@ -43,11 +34,26 @@ class EntityGeneratorTest extends DatabaseTestCase
 		);
 
 		$generator->runGeneration('test');
+		$generator->runGeneration('media');
+
+		Assert::matchFile(__DIR__ . '/../expected/TestEntity.php.expected', file_get_contents($options->path . '/TestEntity.php'));
+		Assert::matchFile(__DIR__ . '/../expected/MediaEntity.php.expected', file_get_contents($options->path . '/MediaEntity.php'));
+	}
+
+
+	public function testInvalidColumnNameIsRejected(): void
+	{
+		$options = $this->generator()->options();
+		$options->path = TempDir . '/entity-error';
+		Helpers::purge($options->path);
+
+		$generator = $this->generator()->createEntityGenerator(
+			$this->generator()->repository()->mysql(),
+			$options,
+		);
 
 		Assert::exception(
-			function () use ($generator): void {
-				$generator->runGeneration();
-			},
+			fn() => $generator->runGeneration('error'),
 			ValidateColumnException::class,
 			"Invalid column name 'error(...)' in table 'error'. Use 'AS' or change the name.",
 		);

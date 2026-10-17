@@ -25,7 +25,8 @@ class RepositoryTest extends DatabaseTestCase
 	{
 		Assert::equal([
 			0 => 'error',
-			1 => 'test',
+			1 => 'media',
+			2 => 'test',
 		], $this->repository()->mysql()->getTableNames());
 	}
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drago\Generator;
 
-use Dibi\Row;
-use Nette\Utils\ArrayHash;
+use Drago\Database\Entity;
+use Drago\Utils\ExtraArrayHash;
 
 
 class Options
@@ -33,7 +33,7 @@ class Options
 
 	public bool $extendsOn = true;
 
-	public string $extends = Row::class;
+	public string $extends = Entity::class;
 
 	public bool $final = false;
 
@@ -51,7 +51,7 @@ class Options
 
 	public string $suffixDataClass = 'Data';
 
-	public string $extendsDataClass = ArrayHash::class;
+	public string $extendsDataClass = ExtraArrayHash::class;
 
 	public bool $finalDataClass = false;
 

@@ -5,6 +5,12 @@ on: [push, pull_request]
 env:
   php-extensions: iconv, json, mbstring, xml, gd, intl, tokenizer, mysqli
   php-tools: "composer:v2"
+  # The database tests are skipped unless GENERATOR_DB_HOST is set.
+  GENERATOR_DB_HOST: 127.0.0.1
+  GENERATOR_DB_PORT: 3306
+  GENERATOR_DB_NAME: test
+  GENERATOR_DB_USER: root
+  GENERATOR_DB_PASSWORD: root
 
 jobs:
   tests:

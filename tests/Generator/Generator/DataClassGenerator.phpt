@@ -8,8 +8,8 @@
 declare(strict_types=1);
 
 use Drago\Generator\ValidateColumnException;
-use Nette\Utils\FileSystem;
 use Tester\Assert;
+use Tester\Helpers;
 
 require __DIR__ . '/../../bootstrap.php';
 
@@ -22,20 +22,11 @@ class DataClassGeneratorTest extends DatabaseTestCase
 	}
 
 
-	private function isDirectory(string $dir): void
-	{
-		if (!is_dir($dir)) {
-			FileSystem::createDir($dir);
-		}
-	}
-
-
 	public function testGenerateDataClass(): void
 	{
 		$options = $this->generator()->options();
-		$options->pathDataClass = __DIR__ . '/../../data';
-
-		$this->isDirectory($options->pathDataClass);
+		$options->pathDataClass = TempDir . '/data';
+		Helpers::purge($options->pathDataClass);
 
 		$generator = $this->generator()->createDataClassGenerator(
 			$this->generator()->repository()->mysql(),
@@ -43,11 +34,26 @@ class DataClassGeneratorTest extends DatabaseTestCase
 		);
 
 		$generator->runGeneration('test');
+		$generator->runGeneration('media');
+
+		Assert::matchFile(__DIR__ . '/../expected/TestData.php.expected', file_get_contents($options->pathDataClass . '/TestData.php'));
+		Assert::matchFile(__DIR__ . '/../expected/MediaData.php.expected', file_get_contents($options->pathDataClass . '/MediaData.php'));
+	}
+
+
+	public function testInvalidColumnNameIsRejected(): void
+	{
+		$options = $this->generator()->options();
+		$options->pathDataClass = TempDir . '/data-error';
+		Helpers::purge($options->pathDataClass);
+
+		$generator = $this->generator()->createDataClassGenerator(
+			$this->generator()->repository()->mysql(),
+			$options,
+		);
 
 		Assert::exception(
-			function () use ($generator): void {
-				$generator->runGeneration();
-			},
+			fn() => $generator->runGeneration('error'),
 			ValidateColumnException::class,
 			"Invalid column name 'error(...)' in table 'error'. Use 'AS' or change the name.",
 		);
