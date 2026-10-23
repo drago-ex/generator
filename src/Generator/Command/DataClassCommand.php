@@ -25,7 +25,7 @@ class DataClassCommand extends Command
 
 	protected function configure(): void
 	{
-		$this->setDescription('Generates entity classes from a database table.')
+		$this->setDescription('Generates data classes from a database table.')
 			->addArgument('table', InputArgument::OPTIONAL, 'The name of the database table');
 	}
 

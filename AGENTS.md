@@ -7,7 +7,7 @@ Use this file as package-specific guidance when working in this repository. Keep
 - **Type**: library
 - **Purpose**: A lightweight CLI tool for generating PHP entity and data class files from your database schema.
 - **PHP**: >=8.3 <9
-- **Runtime dependencies**: contributte/console (^0.10), doctrine/inflector (^2.0), drago-ex/utils (^2.0), drago-ex/database (^3.0), nette/php-generator (^4.1)
+- **Runtime dependencies**: contributte/console (^0.10), doctrine/inflector (^2.0), drago-ex/utils (^2.0), drago-ex/database (^3.0 || ^4.0), nette/php-generator (^4.1)
 - **License**: MIT
 
 ## Repository Layout
@@ -19,7 +19,9 @@ Use this file as package-specific guidance when working in this repository. Keep
 
 ## Key Parts
 - `Generator\EntityGenerator` and `DataClassGenerator` write classes from table reflection; `Base::detectType()` maps native types (binary columns become `string`).
-- Defaults live in two places that must stay in sync: `Options` and the schema in `DI\GeneratorExtension`.
+- `Options` is the only place of the defaults: the config schema of `DI\GeneratorExtension` is `Expect::from(new Options)` and the processed `Options` object goes to both generators (tested in `tests/Generator/DI`).
+- The commands are registered only in console mode and found by contributte/console by type, named by `#[AsCommand]`; do not tag them `console.command` (a tag without a name does nothing, and tagging every `Command` in the container touched other packages too).
+- Foreign keys are read only with `references` / `referencesDataClass`; drivers without foreign key reflection (`Dibi\NotSupportedException`) generate no references.
 - Database tests need `GENERATOR_DB_HOST` (optionally `_PORT`, `_USER`, `_PASSWORD`, `_NAME`) and `tests/db.sql`; generated output is compared with `tests/Generator/expected/*.expected`, which must be updated when the output changes on purpose.
 - `bin/generator` requires `App\Bootstrap::bootConsoleApplication()` in the consuming project.
 

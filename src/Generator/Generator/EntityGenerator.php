@@ -51,7 +51,7 @@ class EntityGenerator extends Base implements IGenerator
 			$class->setExtends($options->extends);
 		}
 
-		$references = $this->getReferencesTable($table);
+		$references = $options->references ? $this->getReferencesTable($table) : [];
 
 		$tableName = $this->options->tableName ?? 'Table';
 		$class->addConstant($tableName, $table)
@@ -104,7 +104,7 @@ class EntityGenerator extends Base implements IGenerator
 					$create->addComment('Primary key');
 				}
 
-				if ($attr->getDefault()) {
+				if ($attr->getDefault() !== null) {
 					$create->addComment('Default value ' . $attr->getDefault());
 				}
 

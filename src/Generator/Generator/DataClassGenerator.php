@@ -51,7 +51,7 @@ class DataClassGenerator extends Base implements IGenerator
 			$class->setExtends($options->extendsDataClass);
 		}
 
-		$references = $this->getReferencesTable($table);
+		$references = $options->referencesDataClass ? $this->getReferencesTable($table) : [];
 
 		foreach ($this->repository->getColumnNames($table) as $column) {
 			if ($options->lower) {

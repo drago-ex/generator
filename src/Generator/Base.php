@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drago\Generator;
 
 use Doctrine\Inflector\Inflector;
+use Dibi\NotSupportedException;
 use Nette\Utils\Strings;
-use Throwable;
 
 
 class Base
@@ -73,8 +73,8 @@ class Base
 				}
 				$ref[$foreign['local'][0]] = (string) $foreign['table'];
 			}
-		} catch (Throwable $e) {
-			// Silent fail: no need to report errors
+		} catch (NotSupportedException) {
+			// the driver cannot read foreign keys, the classes are generated without references
 		}
 		return $ref;
 	}
