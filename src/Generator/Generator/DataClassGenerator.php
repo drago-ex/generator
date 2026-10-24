@@ -77,11 +77,13 @@ class DataClassGenerator extends Base implements IGenerator
 				}
 			}
 
+			// a new record (e.g. from an add form) has no auto-increment value yet
+			$nullable = $attr->isNullable() || $attr->isAutoIncrement();
 			$detectType = $this->detectType($attr->getNativeType());
 			$class->addProperty($column)
 				->setType($detectType)
-				->setNullable($attr->isNullable())
-				->setInitialized($attr->isNullable())
+				->setNullable($nullable)
+				->setInitialized($nullable)
 				->setPublic();
 
 			if ($options->referencesDataClass && isset($references[$column])) {
