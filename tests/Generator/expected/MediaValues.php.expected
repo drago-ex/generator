@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace App\Data;
+namespace App\Values;
 
-class MediaData extends \Drago\Utils\ExtraArrayHash
+class MediaValues extends \Drago\Utils\ExtraArrayHash
 {
 	public const string Id = 'id';
 	public const string Content = 'content';

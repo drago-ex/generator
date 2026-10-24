@@ -36,8 +36,8 @@ class DataClassGeneratorTest extends DatabaseTestCase
 		$generator->runGeneration('test');
 		$generator->runGeneration('media');
 
-		Assert::matchFile(__DIR__ . '/../expected/TestData.php.expected', file_get_contents($options->pathDataClass . '/TestData.php'));
-		Assert::matchFile(__DIR__ . '/../expected/MediaData.php.expected', file_get_contents($options->pathDataClass . '/MediaData.php'));
+		Assert::matchFile(__DIR__ . '/../expected/TestValues.php.expected', file_get_contents($options->pathDataClass . '/TestValues.php'));
+		Assert::matchFile(__DIR__ . '/../expected/MediaValues.php.expected', file_get_contents($options->pathDataClass . '/MediaValues.php'));
 	}
 
 

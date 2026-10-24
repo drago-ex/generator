@@ -18,7 +18,7 @@ Use this file as package-specific guidance when working in this repository. Keep
 - `composer.json`: package metadata, dependency constraints, autoloading, and available Composer scripts.
 
 ## Key Parts
-- `Generator\EntityGenerator` and `DataClassGenerator` write classes from table reflection; `Base::detectType()` maps native types (binary columns become `string`; `tinyint(1)` stays `int`, because Dibi returns it as an integer). Data classes serve form values, so the auto-increment column is `?int $id = null` there (an add form has no id); entities keep it non-null.
+- `Generator\EntityGenerator` and `DataClassGenerator` write classes from table reflection; `Base::detectType()` maps native types (binary columns become `string`; `tinyint(1)` stays `int`, because Dibi returns it as an integer). Data classes serve form values, so they are named `*Values` in `App\Values` by default (like the hand-written form value classes of the drago-ex packages, e.g. `ArticleValues`) and the auto-increment column is `?int $id = null` there (an add form has no id); entities keep it non-null.
 - `Options` is the only place of the defaults: the config schema of `DI\GeneratorExtension` is `Expect::from(new Options)` and the processed `Options` object goes to both generators (tested in `tests/Generator/DI`).
 - The commands are registered only in console mode and found by contributte/console by type, named by `#[AsCommand]`; do not tag them `console.command` (a tag without a name does nothing, and tagging every `Command` in the container touched other packages too).
 - Foreign keys are read only with `references` / `referencesDataClass`; drivers without foreign key reflection (`Dibi\NotSupportedException`) generate no references.

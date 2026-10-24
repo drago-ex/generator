@@ -60,7 +60,7 @@ test('Binary columns are generated as strings, which Dibi returns for them', fun
 test('Class file names are built from table names', function () {
 	$base = createBase();
 	Assert::same('UsersRolesEntity', $base->filename('users_roles', 'Entity'));
-	Assert::same('OrdersData', $base->filename('ORDERS', 'Data'));
+	Assert::same('OrdersValues', $base->filename('ORDERS', 'Values'));
 });
 
 

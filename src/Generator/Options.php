@@ -49,11 +49,12 @@ class Options
 
 	public bool $referencesDataClass = false;
 
-	public string $suffixDataClass = 'Data';
+	/** Data classes hold form values, so they are named like the *Values classes of the drago-ex packages. */
+	public string $suffixDataClass = 'Values';
 
 	public string $extendsDataClass = ExtraArrayHash::class;
 
 	public bool $finalDataClass = false;
 
-	public string $namespaceDataClass = 'App\Data';
+	public string $namespaceDataClass = 'App\Values';
 }

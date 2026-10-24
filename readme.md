@@ -58,7 +58,7 @@ extensions:
 
 generator:
 	path: %appDir%/Entity
-	pathDataClass: %appDir%/Data
+	pathDataClass: %appDir%/Values
 
 console:
 	name: Symfony Console
@@ -86,14 +86,17 @@ The generator also needs a `Dibi\Connection` service in the container.
 | `columnInfo` | `false` | Adds comments with the primary key, default value and size. |
 | `references` | `false` | Adds properties for foreign key references. |
 | `pathDataClass` | `` | Directory for data classes. |
-| `namespaceDataClass` | `App\Data` | Namespace of data classes. |
-| `suffixDataClass` | `Data` | Suffix of data class names. |
+| `namespaceDataClass` | `App\Values` | Namespace of data classes. |
+| `suffixDataClass` | `Values` | Suffix of data class names. |
 | `extendsDataClass` | `Drago\Utils\ExtraArrayHash` | Parent class of data classes. |
 | `finalDataClass` | `false` | Generates final data classes. |
 | `constantDataClass` | `true` | Generates a constant for every column. |
 | `constantDataPrefix` | none | Prefix of column constants in data classes. |
 | `constantSizeDataClass` | `true` | Generates `<Column>Size` constants. |
 | `referencesDataClass` | `false` | Adds properties for foreign key references. |
+
+A data class holds the values of a form (`$form->getValues(OrdersValues::class)`), so its default name ends with
+`Values`, like the form value classes of the drago-ex packages (e.g. `ArticleValues`).
 
 The `drago-ex/database` package uses `PrimaryKey` as the name of the primary key constant in its examples.
 Set `primaryKey: PrimaryKey` to generate the same name.

@@ -58,7 +58,7 @@ extensions:
 
 generator:
 	path: %appDir%/Entity
-	pathDataClass: %appDir%/Data
+	pathDataClass: %appDir%/Values
 
 console:
 	name: Symfony Console
@@ -86,14 +86,17 @@ Generátor potřebuje v kontejneru také službu `Dibi\Connection`.
 | `columnInfo` | `false` | Přidá komentáře s primárním klíčem, výchozí hodnotou a velikostí. |
 | `references` | `false` | Přidá vlastnosti pro reference cizích klíčů. |
 | `pathDataClass` | `` | Adresář pro datové třídy. |
-| `namespaceDataClass` | `App\Data` | Jmenný prostor datových tříd. |
-| `suffixDataClass` | `Data` | Přípona názvů datových tříd. |
+| `namespaceDataClass` | `App\Values` | Jmenný prostor datových tříd. |
+| `suffixDataClass` | `Values` | Přípona názvů datových tříd. |
 | `extendsDataClass` | `Drago\Utils\ExtraArrayHash` | Rodičovská třída datových tříd. |
 | `finalDataClass` | `false` | Generuje finální datové třídy. |
 | `constantDataClass` | `true` | Generuje konstantu pro každý sloupec. |
 | `constantDataPrefix` | žádná | Předpona konstant sloupců v datových třídách. |
 | `constantSizeDataClass` | `true` | Generuje konstanty `<Column>Size`. |
 | `referencesDataClass` | `false` | Přidá vlastnosti pro reference cizích klíčů. |
+
+Datová třída drží hodnoty formuláře (`$form->getValues(OrdersValues::class)`), proto výchozí název končí na
+`Values`, stejně jako třídy hodnot formulářů v balíčcích drago-ex (např. `ArticleValues`).
 
 Balíček `drago-ex/database` ve svých příkladech používá pro konstantu primárního klíče název `PrimaryKey`.
 Pro stejný název nastavte `primaryKey: PrimaryKey`.
