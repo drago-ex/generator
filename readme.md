@@ -84,7 +84,7 @@ The generator also needs a `Dibi\Connection` service in the container.
 | `constantPrefix` | none | Prefix of column constants. |
 | `constantSize` | `false` | Generates `<Column>Size` constants with column sizes. |
 | `columnInfo` | `false` | Adds comments with the primary key, default value and size. |
-| `references` | `false` | Adds properties for foreign key references. |
+| `references` | `false` | Adds properties for foreign key references, named after the table (after the key column without `_id` when the table is referenced more than once). |
 | `pathDataClass` | `` | Directory for data classes. |
 | `namespaceDataClass` | `App\Values` | Namespace of data classes. |
 | `suffixDataClass` | `Values` | Suffix of data class names. |
@@ -93,7 +93,7 @@ The generator also needs a `Dibi\Connection` service in the container.
 | `constantDataClass` | `true` | Generates a constant for every column. |
 | `constantDataPrefix` | none | Prefix of column constants in data classes. |
 | `constantSizeDataClass` | `true` | Generates `<Column>Size` constants. |
-| `referencesDataClass` | `false` | Adds properties for foreign key references. |
+| `referencesDataClass` | `false` | Adds properties for foreign key references, named like in entities; nullable for a nullable key. |
 
 A data class holds the values of a form (`$form->getValues(OrdersValues::class)`), so its default name ends with
 `Values`, like the form value classes of the drago-ex packages (e.g. `ArticleValues`).

@@ -84,7 +84,7 @@ Generátor potřebuje v kontejneru také službu `Dibi\Connection`.
 | `constantPrefix` | žádná | Předpona konstant sloupců. |
 | `constantSize` | `false` | Generuje konstanty `<Column>Size` s velikostmi sloupců. |
 | `columnInfo` | `false` | Přidá komentáře s primárním klíčem, výchozí hodnotou a velikostí. |
-| `references` | `false` | Přidá vlastnosti pro reference cizích klíčů. |
+| `references` | `false` | Přidá vlastnosti pro reference cizích klíčů, pojmenované podle tabulky (podle sloupce klíče bez `_id`, když se na tabulku odkazuje víckrát). |
 | `pathDataClass` | `` | Adresář pro datové třídy. |
 | `namespaceDataClass` | `App\Values` | Jmenný prostor datových tříd. |
 | `suffixDataClass` | `Values` | Přípona názvů datových tříd. |
@@ -93,7 +93,7 @@ Generátor potřebuje v kontejneru také službu `Dibi\Connection`.
 | `constantDataClass` | `true` | Generuje konstantu pro každý sloupec. |
 | `constantDataPrefix` | žádná | Předpona konstant sloupců v datových třídách. |
 | `constantSizeDataClass` | `true` | Generuje konstanty `<Column>Size`. |
-| `referencesDataClass` | `false` | Přidá vlastnosti pro reference cizích klíčů. |
+| `referencesDataClass` | `false` | Přidá vlastnosti pro reference cizích klíčů, pojmenované jako v entitách; u klíče, který může být NULL, jsou nullable. |
 
 Datová třída drží hodnoty formuláře (`$form->getValues(OrdersValues::class)`), proto výchozí název končí na
 `Values`, stejně jako třídy hodnot formulářů v balíčcích drago-ex (např. `ArticleValues`).

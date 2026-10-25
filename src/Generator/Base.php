@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drago\Generator;
 
 use Doctrine\Inflector\Inflector;
+use Dibi\NotImplementedException;
 use Dibi\NotSupportedException;
 use Nette\Utils\Strings;
 
@@ -73,9 +74,38 @@ class Base
 				}
 				$ref[$foreign['local'][0]] = (string) $foreign['table'];
 			}
-		} catch (NotSupportedException) {
-			// the driver cannot read foreign keys, the classes are generated without references
+		} catch (NotSupportedException | NotImplementedException) {
+			// the driver cannot read foreign keys (Oracle, SQL Server and ODBC throw NotImplementedException),
+			// the classes are generated without references
 		}
 		return $ref;
+	}
+
+
+	/**
+	 * Names of the reference properties by the foreign key column: the referenced table, or the column without
+	 * "_id" when the table is referenced more than once or is also the name of a column, so no two properties
+	 * share a name (two keys to users, e.g. created_by_id and updated_by_id, give created_by and updated_by).
+	 * @param array<string, string> $references referenced table by the foreign key column
+	 * @param list<string> $columns
+	 * @return array<string, string>
+	 */
+	public static function getReferenceNames(array $references, array $columns): array
+	{
+		$counts = array_count_values($references);
+		$names = [];
+		foreach ($references as $column => $table) {
+			$name = $table;
+			if ($counts[$table] > 1 || in_array($name, $columns, true) || in_array($name, $names, true)) {
+				$name = (string) preg_replace('~_id$~', '', $column);
+				if ($name === $column || in_array($name, $columns, true) || in_array($name, $names, true)) {
+					$name = $column . '_' . $table;
+				}
+			}
+
+			$names[$column] = $name;
+		}
+
+		return $names;
 	}
 }

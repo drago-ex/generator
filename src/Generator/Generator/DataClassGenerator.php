@@ -52,6 +52,7 @@ class DataClassGenerator extends Base implements IGenerator
 		}
 
 		$references = $options->referencesDataClass ? $this->getReferencesTable($table) : [];
+		$referenceNames = self::getReferenceNames($references, array_values($this->repository->getColumnNames($table)));
 
 		foreach ($this->repository->getColumnNames($table) as $column) {
 			if ($options->lower) {
@@ -88,8 +89,11 @@ class DataClassGenerator extends Base implements IGenerator
 
 			if ($options->referencesDataClass && isset($references[$column])) {
 				$filename = $this->filename($references[$column], $options->suffixDataClass);
-				$class->addProperty($references[$column])
-					->setType($options->namespaceDataClass . '\\' . $filename);
+				// a nullable foreign key may have no referenced record
+				$class->addProperty($referenceNames[$column])
+					->setType($options->namespaceDataClass . '\\' . $filename)
+					->setNullable($attr->isNullable())
+					->setInitialized($attr->isNullable());
 			}
 		}
 

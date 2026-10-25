@@ -52,6 +52,7 @@ class EntityGenerator extends Base implements IGenerator
 		}
 
 		$references = $options->references ? $this->getReferencesTable($table) : [];
+		$referenceNames = self::getReferenceNames($references, array_values($this->repository->getColumnNames($table)));
 
 		$tableName = $this->options->tableName ?? 'Table';
 		$class->addConstant($tableName, $table)
@@ -115,7 +116,7 @@ class EntityGenerator extends Base implements IGenerator
 
 			if ($options->references && isset($references[$column])) {
 				$filename = $this->filename($references[$column], $options->suffix);
-				$class->addProperty($references[$column])
+				$class->addProperty($referenceNames[$column])
 					->setType($options->namespace . '\\' . $filename)
 					->setComment('Table join references');
 			}
