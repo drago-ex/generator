@@ -28,24 +28,24 @@ composer require drago-ex/generator --dev
 
 Generování spouštějte spustitelným souborem nainstalovaným Composerem:
 ```bash
-# Vygeneruje třídy entit
+# Generate entity classes
 php vendor/bin/generator app:entity <table>
 
-# Vygeneruje datové třídy
+# Generate data classes
 php vendor/bin/generator app:dataClass <table>
 ```
 
 ```bash
-# Vygeneruje všechny entity
+# Generate all entities
 php vendor/bin/generator app:entity
 
-# Vygeneruje entitu pro konkrétní tabulku
+# Generate entity for a specific table
 php vendor/bin/generator app:entity users
 
-# Vygeneruje všechny datové třídy
+# Generate all data classes
 php vendor/bin/generator app:dataClass
 
-# Vygeneruje datovou třídu pro konkrétní tabulku
+# Generate data class for a specific table
 php vendor/bin/generator app:dataClass orders
 ```
 
