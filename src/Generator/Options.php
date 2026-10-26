@@ -15,9 +15,11 @@ class Options
 
 	public string $path = '';
 
-	public ?string $tableName = null;
+	/** Name of the constant holding the table name. */
+	public string $tableName = 'Table';
 
-	public ?string $primaryKey = null;
+	/** Name of the constant holding the auto-increment column. */
+	public string $primaryKey = 'Id';
 
 	public bool $constant = true;
 

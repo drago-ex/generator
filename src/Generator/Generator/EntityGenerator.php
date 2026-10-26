@@ -54,8 +54,7 @@ class EntityGenerator extends Base implements IGenerator
 		$references = $options->references ? $this->getReferencesTable($table) : [];
 		$referenceNames = self::getReferenceNames($references, array_values($this->repository->getColumnNames($table)));
 
-		$tableName = $this->options->tableName ?? 'Table';
-		$class->addConstant($tableName, $table)
+		$class->addConstant($this->options->tableName, $table)
 			->setType('string')
 			->setPublic();
 
@@ -69,8 +68,7 @@ class EntityGenerator extends Base implements IGenerator
 			$attr = $this->repository->getColumn($table, $column);
 
 			if ($attr->isAutoIncrement()) {
-				$primaryKey = $this->options->primaryKey ?? 'Id';
-				$class->addConstant($primaryKey, $column)
+				$class->addConstant($this->options->primaryKey, $column)
 					->setType('string')
 					->setPublic();
 			}
