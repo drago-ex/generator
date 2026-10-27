@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drago\Generator;
 
-use Doctrine\Inflector\Inflector;
 use Dibi\NotImplementedException;
 use Dibi\NotSupportedException;
+use Doctrine\Inflector\Inflector;
 use Nette\Utils\Strings;
 
 
