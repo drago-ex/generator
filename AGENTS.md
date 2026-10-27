@@ -7,7 +7,7 @@ Use this file as package-specific guidance when working in this repository. Keep
 - **Type**: library
 - **Purpose**: A lightweight CLI tool for generating PHP entity and data class files from your database schema.
 - **PHP**: >=8.3 <9
-- **Runtime dependencies**: contributte/console (^0.10), doctrine/inflector (^2.0), drago-ex/utils (^2.0), drago-ex/database (^3.0 || ^4.0), nette/php-generator (^4.1)
+- **Runtime dependencies**: contributte/console (^0.10), doctrine/inflector (^2.0), drago-ex/utils (^2.0), drago-ex/database (^4.0), nette/php-generator (^4.1)
 - **License**: MIT
 
 ## Repository Layout
