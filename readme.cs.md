@@ -1,7 +1,5 @@
 # Drago Generator
 
-[English](readme.md) | Čeština
-
 Malý nástroj pro příkazovou řádku, který z databázového schématu generuje PHP třídy entit a datové třídy.
 Drago Generator je postavený na Nette, Dibi a Symfony Console a vytváří pro vaše tabulky hotové PHP třídy s nastavitelnými konstantami, referencemi, příponami a jmennými prostory.
 
