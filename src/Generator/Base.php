@@ -5,6 +5,7 @@ namespace Drago\Generator;
 use Dibi\NotImplementedException;
 use Dibi\NotSupportedException;
 use Doctrine\Inflector\Inflector;
+use Drago\Utils\CaseConverter;
 use Nette\Utils\Strings;
 
 
@@ -22,6 +23,13 @@ class Base
 	{
 		$filename = $this->inflector->classify(Strings::lower($name));
 		return $filename . $suffix;
+	}
+
+
+	/** Name of the property of a column (or of a reference), in camelCase unless the option turns it off. */
+	public function propertyName(string $column): string
+	{
+		return $this->options->camelCase ? CaseConverter::camelCase($column) : $column;
 	}
 
 

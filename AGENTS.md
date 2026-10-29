@@ -7,7 +7,7 @@ Use this file as package-specific guidance when working in this repository. Keep
 - **Type**: library
 - **Purpose**: A lightweight CLI tool for generating PHP entity and data class files from your database schema.
 - **PHP**: >=8.3 <9
-- **Runtime dependencies**: contributte/console (^0.10), doctrine/inflector (^2.0), drago-ex/utils (^2.0), drago-ex/database (^4.0), nette/php-generator (^4.1)
+- **Runtime dependencies**: contributte/console (^0.10), doctrine/inflector (^2.0), drago-ex/utils (^2.1), drago-ex/database (^4.0), nette/php-generator (^4.1)
 - **License**: MIT
 
 ## Repository Layout
@@ -20,6 +20,7 @@ Use this file as package-specific guidance when working in this repository. Keep
 ## Key Parts
 - `Generator\EntityGenerator` and `DataClassGenerator` write classes from table reflection; `Base::detectType()` maps native types (binary columns become `string`; `tinyint(1)` stays `int`, because Dibi returns it as an integer). Data classes serve form values, so they are named `*Values` in `App\Values` by default (like the hand-written form value classes of the drago-ex packages, e.g. `ArticleValues`) and the auto-increment column is `?int $id = null` there (an add form has no id); entities keep it non-null.
 - `Options` is the only place of the defaults: the config schema of `DI\GeneratorExtension` is `Expect::from(new Options)` and the processed `Options` object goes to both generators (tested in `tests/Generator/DI`).
+- `camelCase` (default `true`, `Base::propertyName()` via `CaseConverter::camelCase()` of drago-ex/utils) names properties and reference properties in camelCase; drago-ex/database maps columns to them. Entity column constants keep the column names (SQL); data class constants name the form controls, so they hold the property names. With `false` everything is named as the columns, which drago-ex/database also accepts.
 - The commands are registered only in console mode and found by contributte/console by type, named by `#[AsCommand]`; do not tag them `console.command` (a tag without a name does nothing, and tagging every `Command` in the container touched other packages too).
 - Foreign keys are read only with `references` / `referencesDataClass`; drivers without foreign key reflection (`Dibi\NotSupportedException`, and `NotImplementedException` of Oracle, SQL Server and ODBC) generate no references. Reference properties are named by `Base::getReferenceNames()`: the table, or the key column without `_id` when the table is referenced more than once or is a column name (two keys to one table broke the generation with a duplicate property). A data class reference of a nullable key is nullable.
 - Database tests need `GENERATOR_DB_HOST` (optionally `_PORT`, `_USER`, `_PASSWORD`, `_NAME`) and `tests/db.sql`; generated output is compared with `tests/Generator/expected/*.expected`, which must be updated when the output changes on purpose.

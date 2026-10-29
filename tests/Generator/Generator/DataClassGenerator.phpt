@@ -42,6 +42,27 @@ class DataClassGeneratorTest extends DatabaseTestCase
 	}
 
 
+	public function testGenerateDataClassWithColumnNames(): void
+	{
+		$options = $this->generator()->options();
+		$options->pathDataClass = TempDir . '/data-snake';
+		$options->camelCase = false;
+		Helpers::purge($options->pathDataClass);
+
+		$generator = $this->generator()->createDataClassGenerator(
+			$this->generator()->repository()->mysql(),
+			$options,
+		);
+
+		$generator->runGeneration('media');
+
+		Assert::matchFile(
+			__DIR__ . '/../expected/MediaValuesSnake.php.expected',
+			file_get_contents($options->pathDataClass . '/MediaValues.php'),
+		);
+	}
+
+
 	public function testInvalidColumnNameIsRejected(): void
 	{
 		$options = $this->generator()->options();

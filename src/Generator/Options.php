@@ -11,6 +11,9 @@ class Options
 	/** Allow converting uppercase to lowercase keys in arrays (typical of Oracle). */
 	public bool $lower = false;
 
+	/** Names properties in camelCase (column created_at gives $createdAt); false names them as the columns. */
+	public bool $camelCase = true;
+
 	public string $path = '';
 
 	/** Name of the constant holding the table name. */

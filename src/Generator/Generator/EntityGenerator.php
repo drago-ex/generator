@@ -89,7 +89,7 @@ class EntityGenerator extends Base implements IGenerator
 			}
 
 			$detectType = $this->detectType($attr->getNativeType());
-			$create = $class->addProperty($column)
+			$create = $class->addProperty($this->propertyName($column))
 				->setType($detectType)
 				->setNullable($attr->isNullable())
 				->setInitialized($attr->isNullable())
@@ -111,7 +111,7 @@ class EntityGenerator extends Base implements IGenerator
 
 			if ($options->references && isset($references[$column])) {
 				$filename = $this->filename($references[$column], $options->suffix);
-				$class->addProperty($referenceNames[$column])
+				$class->addProperty($this->propertyName($referenceNames[$column]))
 					->setType($options->namespace . '\\' . $filename)
 					->setComment('Table join references');
 			}

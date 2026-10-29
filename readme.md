@@ -70,6 +70,7 @@ The generator also needs a `Dibi\Connection` service in the container.
 | Option | Default | Description |
 |---|---|---|
 | `lower` | `false` | Converts column names to lowercase (typical for Oracle). |
+| `camelCase` | `true` | Names properties in camelCase (column `created_at` gives `$createdAt`); `false` names them as the columns. |
 | `path` | `` | Directory for entity classes. |
 | `namespace` | `App\Entity` | Namespace of entity classes. |
 | `suffix` | `Entity` | Suffix of entity class names. |
@@ -94,7 +95,10 @@ The generator also needs a `Dibi\Connection` service in the container.
 | `referencesDataClass` | `false` | Adds properties for foreign key references, named like in entities; nullable for a nullable key. |
 
 A data class holds the values of a form (`$form->getValues(OrdersValues::class)`), so its default name ends with
-`Values`, like the form value classes of the drago-ex packages (e.g. `ArticleValues`).
+`Values`, like the form value classes of the drago-ex packages (e.g. `ArticleValues`). Its constants name the form
+controls, so with `camelCase` they hold the property names (`CreatedAt = 'createdAt'`), while the constants of an
+entity hold the column names for queries (`CreatedAt = 'created_at'`); drago-ex/database saves the values into the
+columns.
 
 The `drago-ex/database` package uses `PrimaryKey` as the name of the primary key constant in its examples.
 Set `primaryKey: PrimaryKey` to generate the same name.

@@ -39,6 +39,24 @@ class EntityGeneratorTest extends DatabaseTestCase
 	}
 
 
+	public function testGenerateEntityWithColumnNames(): void
+	{
+		$options = $this->generator()->options();
+		$options->path = TempDir . '/entity-snake';
+		$options->camelCase = false;
+		Helpers::purge($options->path);
+
+		$generator = $this->generator()->createEntityGenerator(
+			$this->generator()->repository()->mysql(),
+			$options,
+		);
+
+		$generator->runGeneration('media');
+
+		Assert::matchFile(__DIR__ . '/../expected/MediaEntitySnake.php.expected', file_get_contents($options->path . '/MediaEntity.php'));
+	}
+
+
 	public function testInvalidColumnNameIsRejected(): void
 	{
 		$options = $this->generator()->options();

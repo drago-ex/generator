@@ -59,13 +59,15 @@ class DataClassGenerator extends Base implements IGenerator
 
 			$this->validateColumn($table, $column);
 			$attr = $this->repository->getColumn($table, $column);
+			$property = $this->propertyName($column);
 
 			if ($options->constantDataClass) {
 				$constant = $options->constantDataPrefix
 					? $options->constantDataPrefix . $this->inflector->classify($column)
 					: $this->inflector->classify($column);
 
-				$class->addConstant($constant, $column)
+				// the constant names the form control, which is the property
+				$class->addConstant($constant, $property)
 					->setType('string')
 					->setPublic();
 
@@ -79,7 +81,7 @@ class DataClassGenerator extends Base implements IGenerator
 			// a new record (e.g. from an add form) has no auto-increment value yet
 			$nullable = $attr->isNullable() || $attr->isAutoIncrement();
 			$detectType = $this->detectType($attr->getNativeType());
-			$class->addProperty($column)
+			$class->addProperty($property)
 				->setType($detectType)
 				->setNullable($nullable)
 				->setInitialized($nullable)
@@ -88,7 +90,7 @@ class DataClassGenerator extends Base implements IGenerator
 			if ($options->referencesDataClass && isset($references[$column])) {
 				$filename = $this->filename($references[$column], $options->suffixDataClass);
 				// a nullable foreign key may have no referenced record
-				$class->addProperty($referenceNames[$column])
+				$class->addProperty($this->propertyName($referenceNames[$column]))
 					->setType($options->namespaceDataClass . '\\' . $filename)
 					->setNullable($attr->isNullable())
 					->setInitialized($attr->isNullable());

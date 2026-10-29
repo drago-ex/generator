@@ -19,5 +19,5 @@ class MediaEntity extends \Drago\Database\Entity
 	public int $id;
 	public string $content;
 	public ?float $price = null;
-	public ?\DateTimeImmutable $created_at = null;
+	public ?\DateTimeImmutable $createdAt = null;
 }

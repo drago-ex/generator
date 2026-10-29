@@ -70,6 +70,7 @@ Generátor potřebuje v kontejneru také službu `Dibi\Connection`.
 | Volba | Výchozí | Popis |
 |---|---|---|
 | `lower` | `false` | Převede názvy sloupců na malá písmena (typické pro Oracle). |
+| `camelCase` | `true` | Pojmenuje vlastnosti v camelCase (ze sloupce `created_at` vznikne `$createdAt`); `false` je pojmenuje jako sloupce. |
 | `path` | `` | Adresář pro třídy entit. |
 | `namespace` | `App\Entity` | Jmenný prostor tříd entit. |
 | `suffix` | `Entity` | Přípona názvů tříd entit. |
@@ -94,7 +95,9 @@ Generátor potřebuje v kontejneru také službu `Dibi\Connection`.
 | `referencesDataClass` | `false` | Přidá vlastnosti pro reference cizích klíčů, pojmenované jako v entitách; u klíče, který může být NULL, jsou nullable. |
 
 Datová třída drží hodnoty formuláře (`$form->getValues(OrdersValues::class)`), proto výchozí název končí na
-`Values`, stejně jako třídy hodnot formulářů v balíčcích drago-ex (např. `ArticleValues`).
+`Values`, stejně jako třídy hodnot formulářů v balíčcích drago-ex (např. `ArticleValues`). Její konstanty pojmenovávají
+prvky formuláře, proto s `camelCase` obsahují názvy vlastností (`CreatedAt = 'createdAt'`), kdežto konstanty entity
+obsahují názvy sloupců pro dotazy (`CreatedAt = 'created_at'`); drago-ex/database hodnoty uloží do sloupců.
 
 Balíček `drago-ex/database` ve svých příkladech používá pro konstantu primárního klíče název `PrimaryKey`.
 Pro stejný název nastavte `primaryKey: PrimaryKey`.
