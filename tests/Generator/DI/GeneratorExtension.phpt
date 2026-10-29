@@ -1,10 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Test: Drago\Generator\DI\GeneratorExtension
  */
-
-declare(strict_types=1);
 
 use Contributte\Console\Application;
 use Contributte\Console\DI\ConsoleExtension;
@@ -26,7 +24,7 @@ class TestGeneratorExtension extends TestCase
 	private function createContainer(string $config, bool $consoleMode = false): Container
 	{
 		$tempDir = __DIR__ . '/temp';
-		@mkdir($tempDir);
+		@mkdir($tempDir); // @ directory may already exist
 
 		$loader = new ContainerLoader($tempDir, true);
 

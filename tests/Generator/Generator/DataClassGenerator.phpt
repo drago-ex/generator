@@ -1,11 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Test: Drago\Generator\Generator\DataClassGenerator
  * @testCase
  */
-
-declare(strict_types=1);
 
 use Drago\Generator\ValidateColumnException;
 use Tester\Assert;
@@ -37,7 +35,10 @@ class DataClassGeneratorTest extends DatabaseTestCase
 		$generator->runGeneration('media');
 
 		Assert::matchFile(__DIR__ . '/../expected/TestValues.php.expected', file_get_contents($options->pathDataClass . '/TestValues.php'));
-		Assert::matchFile(__DIR__ . '/../expected/MediaValues.php.expected', file_get_contents($options->pathDataClass . '/MediaValues.php'));
+		Assert::matchFile(
+			__DIR__ . '/../expected/MediaValues.php.expected',
+			file_get_contents($options->pathDataClass . '/MediaValues.php'),
+		);
 	}
 
 

@@ -1,11 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Test: Drago\Generator\Repository
  * @testCase
  */
-
-declare(strict_types=1);
 
 use Dibi\Reflection\Column;
 use Tester\Assert;

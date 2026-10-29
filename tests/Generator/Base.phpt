@@ -1,10 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Test: Drago\Generator\Base
  */
-
-declare(strict_types=1);
 
 use Dibi\Connection;
 use Doctrine\Inflector\Inflector;

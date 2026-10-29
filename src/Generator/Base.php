@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Drago\Generator;
 
@@ -74,7 +72,7 @@ class Base
 				}
 				$ref[$foreign['local'][0]] = (string) $foreign['table'];
 			}
-		} catch (NotSupportedException | NotImplementedException) {
+		} catch (NotSupportedException|NotImplementedException) {
 			// the driver cannot read foreign keys (Oracle, SQL Server and ODBC throw NotImplementedException),
 			// the classes are generated without references
 		}

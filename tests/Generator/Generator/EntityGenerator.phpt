@@ -1,11 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Test: Drago\Generator\Generator\EntityGenerator
  * @testCase
  */
-
-declare(strict_types=1);
 
 use Drago\Generator\ValidateColumnException;
 use Tester\Assert;

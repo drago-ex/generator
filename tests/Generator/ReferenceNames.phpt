@@ -1,10 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Test: names of the reference properties
  */
-
-declare(strict_types=1);
 
 use Drago\Generator\Base;
 use Tester\Assert;

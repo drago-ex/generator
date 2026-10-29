@@ -1,11 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Test: Drago\Generator\Command\DataClassCommand
  * @testCase
  */
-
-declare(strict_types=1);
 
 use Drago\Generator\Command\DataClassCommand;
 use Tester\Assert;

@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Drago\Generator\Generator;
 
@@ -59,7 +57,6 @@ class EntityGenerator extends Base implements IGenerator
 			->setPublic();
 
 		foreach ($this->repository->getColumnNames($table) as $column) {
-
 			if ($options->lower) {
 				$column = Strings::lower($column);
 			}
