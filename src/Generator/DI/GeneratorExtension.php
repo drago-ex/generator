@@ -15,9 +15,7 @@ use Nette\Schema\Expect;
 use Nette\Schema\Schema;
 
 
-/**
- * @property-read Options $config
- */
+/** @property-read Options $config */
 final class GeneratorExtension extends CompilerExtension
 {
 	public function __construct(
