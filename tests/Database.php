@@ -1,10 +1,12 @@
 <?php declare(strict_types=1);
 
 use Dibi\Connection;
+use Dibi\Exception;
 
 
 class Database
 {
+	/** @throws Exception */
 	public function mysql(): Connection
 	{
 		$db = [
