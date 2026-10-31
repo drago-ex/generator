@@ -88,3 +88,13 @@ test('Default options match the defaults of the DI extension', function () {
 	Assert::same(Entity::class, $options->extends);
 	Assert::same(ExtraArrayHash::class, $options->extendsDataClass);
 });
+
+
+test('A column keeps its name when its camelCase name would not come back to it', function () {
+	$base = createBase();
+
+	Assert::same('sampleNote', $base->propertyName('sample_note'));
+	Assert::same('sampleNote', $base->propertyName('SAMPLE_NOTE'));
+	Assert::same('address_2', $base->propertyName('address_2'));
+	Assert::same('user__name', $base->propertyName('user__name'));
+});

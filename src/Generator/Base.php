@@ -26,10 +26,18 @@ class Base
 	}
 
 
-	/** Name of the property of a column (or of a reference), in camelCase unless the option turns it off. */
+	/**
+	 * Name of the property of a column (or of a reference), in camelCase unless the option turns it off.
+	 * A column that would not come back from its camelCase name (address_2 → address2) keeps its name.
+	 */
 	public function propertyName(string $column): string
 	{
-		return $this->options->camelCase ? CaseConverter::camelCase($column) : $column;
+		if (!$this->options->camelCase) {
+			return $column;
+		}
+
+		$property = CaseConverter::camelCase($column);
+		return strcasecmp(CaseConverter::snakeCase($property), $column) === 0 ? $property : $column;
 	}
 
 

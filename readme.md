@@ -70,7 +70,7 @@ The generator also needs a `Dibi\Connection` service in the container.
 | Option | Default | Description |
 |---|---|---|
 | `lower` | `false` | Converts column names to lowercase (typical for Oracle). |
-| `camelCase` | `true` | Names properties in camelCase (column `created_at` gives `$createdAt`); `false` names them as the columns. |
+| `camelCase` | `true` | Names properties in camelCase (column `created_at` gives `$createdAt`; a column that would not come back from it, such as `address_2`, keeps its name); `false` names them as the columns. |
 | `path` | `` | Directory for entity classes. |
 | `namespace` | `App\Entity` | Namespace of entity classes. |
 | `suffix` | `Entity` | Suffix of entity class names. |

@@ -70,7 +70,7 @@ Generátor potřebuje v kontejneru také službu `Dibi\Connection`.
 | Volba | Výchozí | Popis |
 |---|---|---|
 | `lower` | `false` | Převede názvy sloupců na malá písmena (typické pro Oracle). |
-| `camelCase` | `true` | Pojmenuje vlastnosti v camelCase (ze sloupce `created_at` vznikne `$createdAt`); `false` je pojmenuje jako sloupce. |
+| `camelCase` | `true` | Pojmenuje vlastnosti v camelCase (ze sloupce `created_at` vznikne `$createdAt`; sloupec, který by se z něj nevrátil, například `address_2`, si název ponechá); `false` je pojmenuje jako sloupce. |
 | `path` | `` | Adresář pro třídy entit. |
 | `namespace` | `App\Entity` | Jmenný prostor tříd entit. |
 | `suffix` | `Entity` | Přípona názvů tříd entit. |
