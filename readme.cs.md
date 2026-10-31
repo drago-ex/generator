@@ -103,7 +103,8 @@ Balíček `drago-ex/database` ve svých příkladech používá pro konstantu pr
 Pro stejný název nastavte `primaryKey: PrimaryKey`.
 
 Typy sloupců se převádějí na `int`, `float`, `bool`, `string` a `\DateTimeImmutable`. Binární sloupce
-(BLOB, BINARY) se generují jako `string`, což pro ně vrací Dibi. Názvy sloupců se závorkami
+(BLOB, BINARY) se generují jako `string`, což pro ně vrací Dibi, a `TINYINT(1)` (MySQL BOOLEAN)
+jako `bool`, který převádí drago-ex/database. Názvy sloupců se závorkami
 (například z pohledu) se odmítnou; použijte alias.
 
 ## Funkce

@@ -104,7 +104,8 @@ The `drago-ex/database` package uses `PrimaryKey` as the name of the primary key
 Set `primaryKey: PrimaryKey` to generate the same name.
 
 Column types are mapped to `int`, `float`, `bool`, `string` and `\DateTimeImmutable`. Binary columns
-(BLOB, BINARY) are generated as `string`, which is what Dibi returns for them. Column names containing
+(BLOB, BINARY) are generated as `string`, which is what Dibi returns for them, and `TINYINT(1)` (MySQL
+BOOLEAN) as `bool`, which drago-ex/database converts. Column names containing
 parentheses (for example from a view) are rejected; use an alias.
 
 ## Features

@@ -45,8 +45,13 @@ class Base
 	}
 
 
-	public function detectType(string $type): string
+	/** Returns the property type of a column; MySQL BOOLEAN is TINYINT(1), so a TINYINT of size 1 is a bool. */
+	public function detectType(string $type, ?int $size = null): string
 	{
+		if ($size === 1 && strcasecmp($type, 'TINYINT') === 0) {
+			return Type::Bool;
+		}
+
 		static $patterns = [
 			'BYTEA|BLOB|BIN' => Type::Binary,
 			'TEXT|CHAR|STRING|POINT|INTERVAL' => Type::Text,

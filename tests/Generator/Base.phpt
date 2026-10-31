@@ -50,6 +50,15 @@ test('Native column types are mapped to PHP property types', function () {
 });
 
 
+test('TINYINT(1), which is MySQL BOOLEAN, is a bool', function () {
+	$base = createBase();
+
+	Assert::same(Type::Bool, $base->detectType('TINYINT', 1));
+	Assert::same(Type::Integer, $base->detectType('TINYINT', 4));
+	Assert::same(Type::Integer, $base->detectType('INT', 1));
+});
+
+
 test('Binary columns are generated as strings, which Dibi returns for them', function () {
 	Assert::same('string', Type::Binary);
 });

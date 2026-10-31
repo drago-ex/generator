@@ -4,6 +4,7 @@ namespace Drago\Generator\Generator;
 
 use Dibi\Exception;
 use Drago\Generator\Base;
+use Drago\Generator\Type;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;
 use Nette\Utils\FileSystem;
@@ -63,6 +64,7 @@ class EntityGenerator extends Base implements IGenerator
 
 			$this->validateColumn($table, $column);
 			$attr = $this->repository->getColumn($table, $column);
+			$detectType = $this->detectType($attr->getNativeType(), $attr->getSize());
 
 			if ($attr->isAutoIncrement()) {
 				$class->addConstant($this->options->primaryKey, $column)
@@ -81,14 +83,13 @@ class EntityGenerator extends Base implements IGenerator
 						->setPublic();
 				}
 
-				if ($options->constantSize && !$attr->isAutoIncrement() && $attr->getSize() > 0) {
+				if ($options->constantSize && !$attr->isAutoIncrement() && $attr->getSize() > 0 && $detectType !== Type::Bool) {
 					$class->addConstant($constant . 'Size', $attr->getSize())
 						->setType('int')
 						->setPublic();
 				}
 			}
 
-			$detectType = $this->detectType($attr->getNativeType());
 			$create = $class->addProperty($this->propertyName($column))
 				->setType($detectType)
 				->setNullable($attr->isNullable())

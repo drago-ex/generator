@@ -4,6 +4,7 @@ namespace Drago\Generator\Generator;
 
 use Dibi\Exception;
 use Drago\Generator\Base;
+use Drago\Generator\Type;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;
 use Nette\Utils\FileSystem;
@@ -60,6 +61,7 @@ class DataClassGenerator extends Base implements IGenerator
 			$this->validateColumn($table, $column);
 			$attr = $this->repository->getColumn($table, $column);
 			$property = $this->propertyName($column);
+			$detectType = $this->detectType($attr->getNativeType(), $attr->getSize());
 
 			if ($options->constantDataClass) {
 				$constant = $options->constantDataPrefix
@@ -71,7 +73,12 @@ class DataClassGenerator extends Base implements IGenerator
 					->setType('string')
 					->setPublic();
 
-				if ($options->constantSizeDataClass && !$attr->isAutoIncrement() && $attr->getSize() > 0) {
+				if (
+					$options->constantSizeDataClass
+					&& !$attr->isAutoIncrement()
+					&& $attr->getSize() > 0
+					&& $detectType !== Type::Bool
+				) {
 					$class->addConstant($constant . 'Size', $attr->getSize())
 						->setType('int')
 						->setPublic();
@@ -80,7 +87,6 @@ class DataClassGenerator extends Base implements IGenerator
 
 			// a new record (e.g. from an add form) has no auto-increment value yet
 			$nullable = $attr->isNullable() || $attr->isAutoIncrement();
-			$detectType = $this->detectType($attr->getNativeType());
 			$class->addProperty($property)
 				->setType($detectType)
 				->setNullable($nullable)
