@@ -1,7 +1,7 @@
 # Drago Generator
 
-A lightweight CLI tool for generating PHP entity and data class files from your database schema.
-Drago Generator is built on Nette, Dibi, and Symfony Console, and allows you to create ready-to-use PHP classes for your tables with configurable constants, references, suffixes, and namespaces.
+Generates PHP entity classes (for drago-ex/database) and data classes (form values) from the tables of a
+database, from the command line.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/drago-ex/generator/blob/main/license)
 [![PHP version](https://badge.fury.io/ph/drago-ex%2Fgenerator.svg)](https://badge.fury.io/ph/drago-ex%2Fgenerator)
@@ -22,31 +22,6 @@ Drago Generator is built on Nette, Dibi, and Symfony Console, and allows you to 
 composer require drago-ex/generator --dev
 ```
 
-## Examples
-
-Run generation commands using the Composer-installed binary:
-```bash
-# Generate entity classes
-php vendor/bin/generator app:entity <table>
-
-# Generate data classes
-php vendor/bin/generator app:dataClass <table>
-```
-
-```bash
-# Generate all entities
-php vendor/bin/generator app:entity
-
-# Generate entity for a specific table
-php vendor/bin/generator app:entity users
-
-# Generate all data classes
-php vendor/bin/generator app:dataClass
-
-# Generate data class for a specific table
-php vendor/bin/generator app:dataClass orders
-```
-
 ## Register Generator Extension in Nette
 
 ```neon
@@ -64,6 +39,22 @@ console:
 ```
 
 The generator also needs a `Dibi\Connection` service in the container.
+
+## Usage
+
+```bash
+# Generate all entities
+php vendor/bin/generator app:entity
+
+# Generate entity for a specific table
+php vendor/bin/generator app:entity users
+
+# Generate all data classes
+php vendor/bin/generator app:dataClass
+
+# Generate data class for a specific table
+php vendor/bin/generator app:dataClass orders
+```
 
 ## Options
 
@@ -108,27 +99,10 @@ Column types are mapped to `int`, `float`, `bool`, `string` and `\DateTimeImmuta
 BOOLEAN) as `bool`, which drago-ex/database converts. Column names containing
 parentheses (for example from a view) are rejected; use an alias.
 
-## Features
-
-- Generate entity and data classes from database tables
-- Configurable constants and column size constants
-- Support for foreign key references
-- Set custom suffixes, namespaces, and final classes
-- Symfony Console integration for a clean CLI
-
-## CLI requirements
+## Projects with Another Structure
 
 `vendor/bin/generator` runs from the project root. It loads `app/Bootstrap.php` and calls
 `App\Bootstrap::bootConsoleApplication()`, which must return the DI container with the generator and
 console extensions registered. For projects with a different structure, write your own small script
 that creates the container and runs `Contributte\Console\Application`.
 
-## Running the tests
-
-Database tests run against MySQL. Import `tests/db.sql` and set the connection:
-
-```bash
-GENERATOR_DB_HOST=127.0.0.1 GENERATOR_DB_PORT=3306 GENERATOR_DB_USER=root GENERATOR_DB_PASSWORD=root GENERATOR_DB_NAME=test composer tester
-```
-
-Without `GENERATOR_DB_HOST` the database tests are skipped.
